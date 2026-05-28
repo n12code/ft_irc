@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 09:23:47 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 10:50:02 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 EventLoop::EventLoop() {}
 EventLoop::~EventLoop() {}
 
-void EventLoop::initLoop()
+void    EventLoop::initLoop()
 {
     this->_epfd = epoll_create1(0);
     if (this->_epfd == -1)
         throw std::runtime_error(std::string("Error: epoll instance creation failed: ") + strerror(errno));
 }
 
-void EventLoop::registerHandler(const int fd, EventHandler* handler)
+void    EventLoop::registerHandler(const int fd, EventHandler* handler)
 {
     this->_handlers[fd] = handler;
     this->_ev.events = EPOLLIN;
@@ -35,7 +35,7 @@ void EventLoop::registerHandler(const int fd, EventHandler* handler)
         throw std::runtime_error(std::string("Error: epoll interest list registration failed: ") + strerror(errno));
 }
 
-void EventLoop::serverRoutine()
+void    EventLoop::serverRoutine()
 {
     for (;;) {
         int nfds = epoll_wait(this->_epfd, this->_events, 1024, -1);
@@ -52,4 +52,9 @@ void EventLoop::serverRoutine()
             }
         }
     }    
+}
+
+int     EventLoop::getEpfd() 
+{
+    return (this->_epfd);
 }

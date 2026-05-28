@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:24:10 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 09:02:35 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 10:52:36 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ class ServerHandler : public EventHandler
         ServerHandler(EventLoop& loop);
         ~ServerHandler();
 
-        void onError(const int fd);
-        void onReadable(const int fd);
+        void    onReadable(const int fd);
+        void    onError(int fd);
+        void    closeSocket(int& fd);
 };
 
 #endif

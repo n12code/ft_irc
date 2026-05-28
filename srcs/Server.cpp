@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 09:23:40 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 10:44:40 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void Server::setSocket()
 {
     int opt = 1;
     
-    this->_socketFd = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);
+    this->_socketFd = ::socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);
     if (this->_socketFd == -1)
         throw std::runtime_error(std::string("Error: socket creation failed: ") + strerror(errno));
     
@@ -54,7 +54,7 @@ void Server::setSocket()
 void    Server::run()
 {
     ServerHandler*   serverHandler = new ServerHandler(this->_loop);
-
+    
     this->_loop.initLoop();
     this->_loop.registerHandler(this->_socketFd, serverHandler);
     this->_loop.serverRoutine();

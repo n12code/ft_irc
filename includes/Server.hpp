@@ -6,15 +6,16 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:41:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 09:02:28 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 10:47:30 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_HPP
 # define SERVER_HPP
 
-# include <sys/epoll.h>
 # include "EventLoop.hpp"
+# include <sys/epoll.h>
+# include <string>
 
 class Server
 {
