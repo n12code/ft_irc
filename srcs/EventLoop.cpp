@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 07:54:06 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 09:23:47 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 EventLoop::EventLoop() {}
 EventLoop::~EventLoop() {}
 
-void EventLoop::InitLoop()
+void EventLoop::initLoop()
 {
     this->_epfd = epoll_create1(0);
     if (this->_epfd == -1)

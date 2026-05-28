@@ -6,19 +6,28 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/26 09:51:31 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 09:13:04 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Server.hpp"
 #include <iostream>
 #include <exception>
+#include <sstream>
 
-int main()
+int main(int argc, char *argv[])
 {
     try {
-        Server server;
-        server.serverRoutine();
+        if (argc != 3)
+            throw std::invalid_argument("Error: Please precise the port number and then the password");
+        
+        std::istringstream   ss(argv[1]);
+        unsigned short port;
+        if (!(ss >> port) || !ss.eof())
+            throw std::invalid_argument("Error: Please precise a valid port number");
+            
+        Server server(port, argv[2]);
+        server.run();
     }
     catch (const std::exception &e) {
         std::cout << e.what() << std::endl;

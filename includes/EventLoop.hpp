@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:20:01 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 07:47:54 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 09:23:52 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class EventLoop
         EventLoop();
         ~EventLoop();
 
-        void InitLoop();
+        void initLoop();
         void registerHandler(const int fd, EventHandler* handler);
         void serverRoutine();
 };

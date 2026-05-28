@@ -6,15 +6,14 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/27 11:29:41 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 09:03:39 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ServerHandler.hpp"
 
-ServerHandler::ServerHandler()
-{
-}
+ServerHandler::ServerHandler(EventLoop &loop) :
+    _loop(loop) {}
 
 ServerHandler::~ServerHandler()
 {

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:41:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 07:31:19 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/28 09:02:28 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 class Server
 {
     private:
-        int         _socketFd;
-        int         _port;
+        int             _socketFd;
+        unsigned short  _port;
+        std::string     _pswd;
         
-
-        EventLoop   _loop;
+        EventLoop       _loop;
         
     public:
-        Server();
+        Server(const unsigned short, const std::string pswd);
         ~Server();
         
         void    run();
