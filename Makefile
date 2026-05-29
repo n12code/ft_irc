@@ -8,7 +8,7 @@ SRCS_DIR 		:= srcs/
 INCS_DIR 		:= includes/
 OBJS_DIR		:= .objs/
 
-FILES 			:= Server EventLoop ClientHandler ServerHandler main
+FILES 			:= Server EventLoop EventHandler ClientHandler ServerHandler main
 
 HEADERS 		:= Server EventLoop EventHandler ClientHandler ServerHandler
 

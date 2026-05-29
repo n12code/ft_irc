@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:20:01 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 10:50:39 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/29 08:19:21 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <sys/epoll.h>
 # include <map>
-# include <EventHandler.hpp>
+
+class EventHandler;
 
 class EventLoop
 {

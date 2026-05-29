@@ -6,14 +6,16 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 10:50:02 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/05/29 08:18:54 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "EventLoop.hpp"
+#include "EventHandler.hpp"
 #include <stdexcept>
 #include <cerrno>
 #include <cstring>
+#include <iostream>
 
 
 EventLoop::EventLoop() {}
