@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/29 07:26:54 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/01 10:55:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@
 
 Server::Server(const unsigned short port, const std::string pswd) :
     _port(port),
-    _pswd(pswd) {
+    _pswd(pswd)
+{
     setSocket();
-    
 }
-Server::~Server() {
-    
-}
+
+Server::~Server() {}
 
 void Server::setSocket()
 {
@@ -53,7 +52,7 @@ void Server::setSocket()
 
 void    Server::run()
 {
-    ServerHandler*   serverHandler = new ServerHandler(this->_loop);
+    ServerHandler*   serverHandler = new ServerHandler(this->_loop, this->_clients);
     
     this->_loop.initLoop();
     this->_loop.registerHandler(this->_socketFd, serverHandler);

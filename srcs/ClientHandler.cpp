@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/29 08:11:54 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/01 10:52:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 #include <cstring>
 #include <sys/epoll.h>
 
-ClientHandler::ClientHandler(EventLoop &loop) : EventHandler(loop) {}
+ClientHandler::ClientHandler(EventLoop &loop, ClientManager &clients) :
+    EventHandler(loop, clients) {}
 
 ClientHandler::~ClientHandler() {}
 

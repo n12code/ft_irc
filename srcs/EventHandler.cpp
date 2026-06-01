@@ -6,19 +6,22 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 07:58:40 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/29 08:09:44 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/01 10:48:56 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "EventHandler.hpp"
+#include "EventLoop.hpp"
+#include "ClientManager.hpp"
 #include <unistd.h>
 #include <cstring>
 #include <cerrno>
 #include <iostream>
 #include <sys/epoll.h>
 
-EventHandler::EventHandler(EventLoop& loop) :
-    _loop(loop) {}
+EventHandler::EventHandler(EventLoop& loop, ClientManager& clients) :
+    _loop(loop),
+    _clients(clients) {}
 
 EventHandler::~EventHandler() {}
 
