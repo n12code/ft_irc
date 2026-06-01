@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 10:52:35 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/01 11:19:15 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void ClientHandler::onError(int fd)
 {
     EventHandler::onError(fd);
     //remove from channels
-    //remove from clients
+    this->_clients.removeClient(fd);
 }
 
 void ClientHandler::onReadable(const int fd)
 {
+    //TO IMPLEMENT NEXT
     (void)fd;
 }
