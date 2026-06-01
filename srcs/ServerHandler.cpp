@@ -6,13 +6,14 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 10:54:20 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/01 11:06:59 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ServerHandler.hpp"
 #include "ClientHandler.hpp"
 #include "ClientManager.hpp"
+#include "Client.hpp"
 #include <iostream>
 #include <unistd.h>
 #include <stdexcept>
@@ -53,5 +54,5 @@ void    ServerHandler::onReadable(const int fd)
         throw std::runtime_error(std::string("Error: accept failed: ") + strerror(errno));
     }
     this->_loop.registerHandler(connFd, new ClientHandler(this->_loop, this->_clients));
-    //add client to the class
+    this->_clients.addClient(Client(connFd));
 }
