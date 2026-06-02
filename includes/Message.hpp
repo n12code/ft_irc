@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:38:55 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 11:54:23 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/02 08:28:00 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 
 # include <string>
 
+# include "ClientManager.hpp"
+
 class Message
 {
     private:
-        
+        ClientManager&  _clients;
     public:
-        Message();
+        Message(ClientManager& clients);
         ~Message();
 
-        std::string readMessage(int);
+        bool readMessage(int fd);
         //parseMessage();
 };
 

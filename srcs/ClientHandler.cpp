@@ -6,11 +6,13 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 11:19:15 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/02 08:27:13 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClientHandler.hpp"
+#include "Client.hpp"
+#include "Message.hpp"
 #include <iostream>
 #include <unistd.h>
 #include <stdexcept>
@@ -32,6 +34,10 @@ void ClientHandler::onError(int fd)
 
 void ClientHandler::onReadable(const int fd)
 {
-    //TO IMPLEMENT NEXT
-    (void)fd;
+    Message msg(this->_clients);
+    if (!msg.readMessage(fd))
+        this->onError(fd);
+    
+    Client& client = this->_clients.getClientWithFd(fd);
+    std::cout << client.getBuffer() << std::endl;
 }

@@ -8,9 +8,9 @@ SRCS_DIR 		:= srcs/
 INCS_DIR 		:= includes/
 OBJS_DIR		:= .objs/
 
-FILES 			:= Server EventLoop EventHandler ClientHandler ServerHandler Client ClientManager main
+FILES 			:= Server EventLoop EventHandler ClientHandler ServerHandler Client ClientManager Message main
 
-HEADERS 		:= Server EventLoop EventHandler ClientHandler ServerHandler Client ClientManager
+HEADERS 		:= Server EventLoop EventHandler ClientHandler ServerHandler Client ClientManager Message
 
 SRCS 			:= $(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(FILES)))
 INCS 			:= $(addprefix $(INCS_DIR), $(addsuffix .hpp, $(HEADERS)))
