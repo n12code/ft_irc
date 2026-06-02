@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/02 08:27:13 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/02 10:36:52 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,7 @@ void ClientHandler::onReadable(const int fd)
     
     Client& client = this->_clients.getClientWithFd(fd);
     std::cout << client.getBuffer() << std::endl;
+    if (!msg.parseMessage(client.getBuffer()))
+        return ;
+    //execute
 }
