@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Command.cpp                                        :+:      :+:    :+:   */
+/*   CommandContext.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 10:23:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 00:24:06 by ubuntu           ###   ########lyon.fr   */
+/*   Created: 2026/06/04 00:08:29 by ubuntu            #+#    #+#             */
+/*   Updated: 2026/06/04 00:56:53 by ubuntu           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
-#include "CommandContext.hpp"
-#include <string>
+#ifndef COMMANDCONTEXT_HPP
+# define COMMANDCONTEXT_HPP
 
-Command::Command(CommandContext context, std::string name, bool authRequired) :
-    _context(context),
-    _name(name),
-    _authRequired(authRequired) {}
+class Server;
+class Client;
+class ClientManager;
+class ChannelManager;
+class Message;
 
-Command::~Command() {}
 
-std::string&    Command::getName()
-{
-    return (this->_name);
-}
+struct CommandContext {
+    Server&         server;
+    Client&         client;
+    ClientManager&  clients;
+    //ChannelManager& channels;
+    const Message&  msg;
 
-bool    Command::isAuthRequired() 
-{
-    return (this->_authRequired);
-}
+    CommandContext(Server& s, Client& c, ClientManager& cm, const Message& m);
+};
+
+#endif

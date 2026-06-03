@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Command.cpp                                        :+:      :+:    :+:   */
+/*   PassCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 10:23:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 00:24:06 by ubuntu           ###   ########lyon.fr   */
+/*   Created: 2026/06/04 00:51:03 by ubuntu            #+#    #+#             */
+/*   Updated: 2026/06/04 00:51:22 by ubuntu           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
-#include "CommandContext.hpp"
-#include <string>
+#include "PassCommand.hpp"
 
-Command::Command(CommandContext context, std::string name, bool authRequired) :
-    _context(context),
-    _name(name),
-    _authRequired(authRequired) {}
+PassCommand::PassCommand(const CommandContext &context):
+    Command(context, "JOIN", true) {}
 
-Command::~Command() {}
+PassCommand::~PassCommand() {}
 
-std::string&    Command::getName()
-{
-    return (this->_name);
-}
-
-bool    Command::isAuthRequired() 
-{
-    return (this->_authRequired);
-}
+void    PassCommand::execute() {}

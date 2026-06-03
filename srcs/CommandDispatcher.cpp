@@ -3,26 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   CommandDispatcher.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 11:24:30 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 00:54:53 by ubuntu           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "CommandDispatcher.hpp"
+#include "CommandContext.hpp"
 #include "Message.hpp"
-#include "JoinCommand.hpp"
+#include "PassCommand.hpp"
 #include "Client.hpp"
 #include <cctype>
 #include <algorithm>
 #include <iostream>
 
 
-CommandDispatcher::CommandDispatcher(ClientManager& clients) :
+static Command* createPass(const CommandContext& context) { return new PassCommand(context); }
+
+CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients) :
+    _server(server),
     _clients(clients)
 {
-    // this->_commands["PASS"] = PassCommand();
+    this->_commands["PASS"] = createPass;
     // this->_commands["NICK"] = NickCommand();
     // this->_commands["USER"] = UserCommand();
     // this->_commands["QUIT"] = QuitCommand();
@@ -49,10 +53,12 @@ void    CommandDispatcher::dispatch(int clientFd, Message msg)
         return ;//command unknown
     }
     
-    Command*    cmd = this->_commands[command];
-    Client&     client = this->_clients.getClientWithFd(clientFd); 
-    if (cmd->isAuthRequired() && !client.isRegistered())
+    Client& client = this->_clients.getClientWithFd(clientFd);
+    CommandContext  context(this->_server, client, this->_clients, msg);//channel
+    Command*        cmd = this->_commands[command](context);
+    
+    if (cmd->isAuthRequired() && !client.isRegistered())// is it the correct check ?
         return ;//client not registered
 
-    cmd->execute(clientFd, msg, this->_clients);//channel manager
+    cmd->execute();
 }
