@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/02 10:39:21 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/03 10:58:03 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 #include <unistd.h>
 #include <iostream>
 #include <cerrno>
+#include <vector>
 #include <cstring>
+
 
 Message::Message(ClientManager& clients):
     _clients(clients) {}
@@ -59,30 +61,51 @@ bool    Message::readMessage(int fd)
 
 std::string  Message::extractMessage(std::string& buffer)
 {
-    int pos = buffer.find("\n");
+    size_t pos = buffer.find("\n");
     if (pos == std::string::npos)
         return ("");
     std::string message = buffer.substr(0, pos);
     buffer.erase(0, pos + 1);
-    if (message.size() == 1)
-        return ("");
-    message.erase(message.size() - 1);
+    if (!message.empty() && message[message.size() - 1] == '\r')
+        message.erase(message.size() - 1);
     return (message);
 }
 
-std::string Message::extractSrc(std::string message)
+void Message::extractCommand(std::string message)
 {
-    return std::string();
+    size_t  pos = message.find(' ');
+    if (pos == std::string::npos)
+    {
+        this->_command = message;// no params
+        return ;
+    }
+    this->_command = message.substr(0, pos);
 }
 
-std::string Message::extractCmd(std::string message)
+void Message::extractParams(std::string message)
 {
-    return std::string();
-}
-
-std::string Message::extractParams(std::string message)
-{
-    return std::string();
+    size_t  pos = message.find(' ');
+    if (pos == std::string::npos)
+        return ;//no params
+    for (;;)
+    { 
+        pos = message.find_first_not_of(' ', pos);
+        if (pos == std::string::npos)
+            return ;//no more params
+        if (message[pos] == ':')
+        {
+            this->_trailing = message.substr(pos + 1);
+            return ;//trailing
+        }
+        size_t nextSpace = message.find(' ', pos);
+        if (nextSpace == std::string::npos)
+        {
+            this->_params.push_back(message.substr(pos));//last param
+            return ;
+        }
+        this->_params.push_back(message.substr(pos, nextSpace - pos));
+        pos = nextSpace;
+    }
 }
 
 bool    Message::parseMessage(std::string& buffer)
@@ -90,5 +113,20 @@ bool    Message::parseMessage(std::string& buffer)
     std::string message = this->extractMessage(buffer);
     if (message.empty())
         return (false);
-    extractSrc();
+    this->extractCommand(message);
+    this->extractParams(message);
+
+    // std::cout << "\n--- DEBUG START ---" << std::endl;
+    // std::cout << "Command: [" << this->_command << "]" << std::endl;
+    // std::cout << "Params: " << std::endl;
+    // for (size_t i = 0; i < this->_params.size(); ++i)
+    //     std::cout << "[" << this->_params[i] << "]" << std::endl;
+    // std::cout << "Trailing: [" << this->_trailing << "]" << std::endl;
+    // std::cout << "--- DEBUG END ---\n" << std::endl;
+
+    this->_command.clear();
+    this->_params.clear();
+    this->_trailing.clear();
+
+    return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:38:55 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/02 10:38:37 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/03 09:02:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 # define MESSAGE_HPP
 
 # include <string>
+# include <vector>
 
 # include "ClientManager.hpp"
 
 class Message
 {
     private:
-        ClientManager&  _clients;
-        std::string     _src;
-        std::string     _cmd;
-        std::string     _params;
+        ClientManager&              _clients;
+        std::string                 _source;
+        std::string                 _command;
+        std::vector<std::string>    _params;
+        std::string                 _trailing;
 
-        static std::string     extractMessage(std::string& buffer);
-        static std::string     extractSrc(std::string message);
-        static std::string     extractCmd(std::string message);
-        static std::string     extractParams(std::string message);
+        std::string     extractMessage(std::string& buffer);
+        void            extractCommand(std::string message);
+        void            extractParams(std::string message);
     public:
         Message(ClientManager& clients);
         ~Message();
