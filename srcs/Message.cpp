@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/03 10:58:03 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/03 11:05:48 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,12 @@ bool    Message::parseMessage(std::string& buffer)
     // std::cout << "Trailing: [" << this->_trailing << "]" << std::endl;
     // std::cout << "--- DEBUG END ---\n" << std::endl;
 
+    return (true);
+}
+
+void Message::clearParsedData()
+{
     this->_command.clear();
     this->_params.clear();
     this->_trailing.clear();
-
-    return (true);
 }

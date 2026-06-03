@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:38:55 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/03 09:02:42 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/03 11:04:25 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class Message
 
         bool    readMessage(int fd);
         bool    parseMessage(std::string& buffer);
+        void    clearParsedData();
 };
 
 #endif
