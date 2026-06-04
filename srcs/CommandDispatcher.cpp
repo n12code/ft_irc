@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 11:07:23 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 11:24:30 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "Client.hpp"
 #include <cctype>
 #include <algorithm>
+#include <iostream>
 
 
 CommandDispatcher::CommandDispatcher(ClientManager& clients) :
@@ -43,7 +44,10 @@ void    CommandDispatcher::dispatch(int clientFd, Message msg)
     std::transform(command.begin(), command.end(), command.begin(), ::toupper);
     
     if (this->_commands.find(command) == this->_commands.end())
+    {
+        std::cout << "command unknown : "<< command << std::endl;
         return ;//command unknown
+    }
     
     Command*    cmd = this->_commands[command];
     Client&     client = this->_clients.getClientWithFd(clientFd); 
