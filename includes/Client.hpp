@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:47:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 10:38:52 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 11:03:04 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ class Client
 {
     private:
         int             _fd;
+        bool            _registered;
         std::string     _buffer;
+        std::string     _nick;
+        std::string     _user;
     public:
         Client();
         Client(int fd); 
@@ -27,8 +30,11 @@ class Client
         ~Client();
         
         //getter
-        std::string&    getBuffer();
         int&            getFd();
+        bool            isRegistered();
+        std::string&    getBuffer();
+        std::string&    getNick();
+        std::string&    getUser();
 };
 
 #endif

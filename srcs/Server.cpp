@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 08:33:34 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 11:16:00 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 
 Server::Server(const unsigned short port, const std::string pswd) :
     _port(port),
-    _pswd(pswd)
+    _pswd(pswd),
+    _dispatcher(CommandDispatcher(this->_clients))
 {
     setSocket();
 }

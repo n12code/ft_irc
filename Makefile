@@ -17,6 +17,7 @@ FILES 			:= Server \
 				   ClientManager \
 				   Message \
 				   CommandDispatcher \
+				   Command \
 				   main
 
 HEADERS 		:= Server \
@@ -27,7 +28,8 @@ HEADERS 		:= Server \
 				   Client \
 				   ClientManager \
 				   Message \
-				   CommandDispatcher
+				   CommandDispatcher \
+				   Command 
 
 SRCS 			:= $(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(FILES)))
 INCS 			:= $(addprefix $(INCS_DIR), $(addsuffix .hpp, $(HEADERS)))

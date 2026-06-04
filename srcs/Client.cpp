@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 10:40:24 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 11:16:55 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,27 @@ Client::Client(const Client &copy) :
 
 Client::~Client() {}
 
+int&    Client::getFd()
+{
+    return (this->_fd);
+}
+
+bool    Client::isRegistered()
+{
+    return (this->_registered);
+}
+
 std::string&    Client::getBuffer()
 {
     return (this->_buffer);
 }
 
-int&    Client::getFd()
+std::string&    Client::getNick()
 {
-    return (this->_fd);
+    return (this->_nick);
+}
+
+std::string&    Client::getUser()
+{
+    return (this->_user);
 }

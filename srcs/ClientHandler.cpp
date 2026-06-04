@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 08:47:22 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 11:16:45 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void ClientHandler::onReadable(const int fd)
         // std::cout << "buffer:\n" << client.getBuffer() << std::endl;
         if (!msg.parseMessage(client.getBuffer()))
             return ;
-        this->_dispatcher.dispatch(msg);
+        this->_dispatcher.dispatch(fd, msg);
         msg.clearParsedData();
     }
 }

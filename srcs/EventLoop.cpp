@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/29 08:18:54 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 11:02:12 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void    EventLoop::serverRoutine()
     }    
 }
 
-int     EventLoop::getEpfd() 
+int&    EventLoop::getEpfd() 
 {
     return (this->_epfd);
 }

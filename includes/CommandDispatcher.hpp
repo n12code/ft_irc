@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:27:45 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 09:08:04 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 10:59:27 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <map>
 # include <string>
+# include "ClientManager.hpp"
+# include "ChannelManager.hpp"
 
 class Message;
 class Command;
@@ -22,12 +24,14 @@ class Command;
 class CommandDispatcher
 {
     private:
-        std::map<std::string, Command> _commands;
+        std::map<std::string, Command*> _commands;
+        ClientManager&                  _clients;
+        //ChannelManager&                 _channels;
     public:
-        CommandDispatcher();
+        CommandDispatcher(ClientManager& clients);//channel manager
         ~CommandDispatcher();
 
-        void    dispatch(Message& msg);
+        void    dispatch(int clientFd, Message msg);
 };
 
 #endif
