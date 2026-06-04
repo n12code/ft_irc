@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClientHandler.hpp                                  :+:      :+:    :+:   */
+/*   CommandDispatcher.hpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 11:24:10 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 08:39:42 by nbodin           ###   ########lyon.fr   */
+/*   Created: 2026/06/04 08:27:45 by nbodin            #+#    #+#             */
+/*   Updated: 2026/06/04 09:08:04 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLIENTHANDLER_HPP
-# define CLIENTHANDLER_HPP
+#ifndef COMMANDDISPATCHER_HPP
+# define COMMANDDISPATCHER_HPP
 
-# include "EventHandler.hpp"
-# include "ClientManager.hpp"
-# include "CommandDispatcher.hpp"
+# include <map>
+# include <string>
 
-class EventLoop;
+class Message;
+class Command;
 
-class ClientHandler : public EventHandler
+class CommandDispatcher
 {
+    private:
+        std::map<std::string, Command> _commands;
     public:
-        ClientHandler(EventLoop& loop, ClientManager& clients, CommandDispatcher& dispatcher);//channel manager
-        ~ClientHandler();
+        CommandDispatcher();
+        ~CommandDispatcher();
 
-        void    onReadable(const int fd);
-        void    onError(int fd);
+        void    dispatch(Message& msg);
 };
 
 #endif

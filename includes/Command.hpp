@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClientHandler.hpp                                  :+:      :+:    :+:   */
+/*   Command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 11:24:10 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 08:39:42 by nbodin           ###   ########lyon.fr   */
+/*   Created: 2026/06/04 09:04:20 by nbodin            #+#    #+#             */
+/*   Updated: 2026/06/04 09:04:51 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLIENTHANDLER_HPP
-# define CLIENTHANDLER_HPP
+#ifndef COMMAND_HPP
+# define COMMAND_HPP
 
-# include "EventHandler.hpp"
-# include "ClientManager.hpp"
-# include "CommandDispatcher.hpp"
-
-class EventLoop;
-
-class ClientHandler : public EventHandler
+class Command
 {
+    private:
+        /* data */
     public:
-        ClientHandler(EventLoop& loop, ClientManager& clients, CommandDispatcher& dispatcher);//channel manager
-        ~ClientHandler();
-
-        void    onReadable(const int fd);
-        void    onError(int fd);
+        Command(/* args */);
+        ~Command();
 };
+
+Command::Command(/* args */)
+{
+}
+
+Command::~Command()
+{
+}
 
 #endif

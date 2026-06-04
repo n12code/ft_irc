@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:41:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/03 12:05:58 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 08:30:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 
 # include "EventLoop.hpp"
 # include "ClientManager.hpp"
+# include "CommandDispatcher.hpp"
 # include <sys/epoll.h>
 # include <string>
 
 class Server
 {
     private:
-        int             _socketFd;
-        unsigned short  _port;
-        std::string     _pswd;
+        int                 _socketFd;
+        unsigned short      _port;
+        std::string         _pswd;
         
-        EventLoop       _loop;
-        ClientManager   _clients;
+        EventLoop           _loop;
+        ClientManager       _clients;
+        CommandDispatcher   _dispatcher;
         //channel manager
         //command dispatcher -> command base class-> derived classes
         //reply message utility class

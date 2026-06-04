@@ -6,22 +6,24 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 07:58:40 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 10:48:56 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 08:37:22 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "EventHandler.hpp"
 #include "EventLoop.hpp"
 #include "ClientManager.hpp"
+#include "CommandDispatcher.hpp"
 #include <unistd.h>
 #include <cstring>
 #include <cerrno>
 #include <iostream>
 #include <sys/epoll.h>
 
-EventHandler::EventHandler(EventLoop& loop, ClientManager& clients) :
+EventHandler::EventHandler(EventLoop& loop, ClientManager& clients, CommandDispatcher& dispatcher) :
     _loop(loop),
-    _clients(clients) {}
+    _clients(clients),
+    _dispatcher(dispatcher) {}
 
 EventHandler::~EventHandler() {}
 

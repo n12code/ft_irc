@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ServerHandler.hpp                                  :+:      :+:    :+:   */
+/*   JoinCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 11:24:10 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 08:33:50 by nbodin           ###   ########lyon.fr   */
+/*   Created: 2026/06/04 09:02:32 by nbodin            #+#    #+#             */
+/*   Updated: 2026/06/04 09:19:57 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVERHANDLER_HPP
-# define SERVERHANDLER_HPP
+#ifndef JOINCOMMAND_HPP
+# define JOINCOMMAND_HPP
 
-# include "EventHandler.hpp"
-# include "ClientManager.hpp"
+#include "Command.hpp"
 
-class EventLoop;
-
-class ServerHandler : public EventHandler
+class JoinCommand : public Command
 {
-    public:
-        ServerHandler(EventLoop& loop, ClientManager& clients, CommandDispatcher& dispatcher);
-        ~ServerHandler();
-
-        void    onReadable(const int fd);
-        void    onError(int fd);
+private:
+    /* data */
+public:
+    JoinCommand(/* args */);
+    ~JoinCommand();
 };
 
 #endif

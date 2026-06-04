@@ -6,13 +6,14 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 11:06:59 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 08:41:15 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ServerHandler.hpp"
 #include "ClientHandler.hpp"
 #include "ClientManager.hpp"
+#include "CommandDispatcher.hpp"
 #include "Client.hpp"
 #include <iostream>
 #include <unistd.h>
@@ -23,8 +24,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-ServerHandler::ServerHandler(EventLoop &loop, ClientManager &clients) :
-    EventHandler(loop, clients) {}
+ServerHandler::ServerHandler(EventLoop &loop, ClientManager &clients, CommandDispatcher& dispatcher) :
+    EventHandler(loop, clients, dispatcher) {}
 
 ServerHandler::~ServerHandler() {}
 
@@ -53,6 +54,6 @@ void    ServerHandler::onReadable(const int fd)
         }
         throw std::runtime_error(std::string("Error: accept failed: ") + strerror(errno));
     }
-    this->_loop.registerHandler(connFd, new ClientHandler(this->_loop, this->_clients));
+    this->_loop.registerHandler(connFd, new ClientHandler(this->_loop, this->_clients, this->_dispatcher));
     this->_clients.addClient(Client(connFd));
 }

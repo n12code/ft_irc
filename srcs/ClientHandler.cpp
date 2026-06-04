@@ -6,13 +6,14 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/03 12:05:21 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 08:47:22 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClientHandler.hpp"
 #include "Client.hpp"
 #include "Message.hpp"
+#include "CommandDispatcher.hpp"
 #include <iostream>
 #include <unistd.h>
 #include <stdexcept>
@@ -20,8 +21,8 @@
 #include <cstring>
 #include <sys/epoll.h>
 
-ClientHandler::ClientHandler(EventLoop &loop, ClientManager &clients) :
-    EventHandler(loop, clients) {}
+ClientHandler::ClientHandler(EventLoop &loop, ClientManager &clients, CommandDispatcher& dispatcher) :
+    EventHandler(loop, clients, dispatcher) {}
 
 ClientHandler::~ClientHandler() {}
 
@@ -44,7 +45,7 @@ void ClientHandler::onReadable(const int fd)
         // std::cout << "buffer:\n" << client.getBuffer() << std::endl;
         if (!msg.parseMessage(client.getBuffer()))
             return ;
-        //pass to command dispatcher
+        this->_dispatcher.dispatch(msg);
         msg.clearParsedData();
     }
 }

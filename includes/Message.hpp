@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:38:55 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/03 11:04:25 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 09:21:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ class Message
 {
     private:
         ClientManager&              _clients;
-        std::string                 _source;
+        std::string                 _source;//needed ?
         std::string                 _command;
         std::vector<std::string>    _params;
         std::string                 _trailing;
@@ -37,6 +37,11 @@ class Message
         bool    readMessage(int fd);
         bool    parseMessage(std::string& buffer);
         void    clearParsedData();
+
+        //getter
+        std::string                 getCommand();
+        std::string                 getTrailing();
+        std::vector<std::string>    getParams();
 };
 
 #endif

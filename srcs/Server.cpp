@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/01 10:55:35 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 08:33:34 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void Server::setSocket()
 
 void    Server::run()
 {
-    ServerHandler*   serverHandler = new ServerHandler(this->_loop, this->_clients);
+    ServerHandler*   serverHandler = new ServerHandler(this->_loop, this->_clients, this->_dispatcher);
     
     this->_loop.initLoop();
     this->_loop.registerHandler(this->_socketFd, serverHandler);

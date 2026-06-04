@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/03 11:05:48 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/04 09:22:48 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,19 @@ void Message::clearParsedData()
     this->_command.clear();
     this->_params.clear();
     this->_trailing.clear();
+}
+
+std::string Message::getCommand()
+{
+    return (this->_command);
+}
+
+std::string Message::getTrailing()
+{
+    return (this->_trailing);
+}
+
+std::vector<std::string>    Message::getParams()
+{
+    return (this->_params);
 }
