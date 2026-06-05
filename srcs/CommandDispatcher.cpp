@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 08:49:19 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:05:58 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients) :
     // this->_commands["TOPIC"] = TopicCommand();
     // this->_commands["MODE"] = ModeCommand();
     // this->_commands["PRIVMSG"] = PrivMsgCommand();
-    //PING ?
 }
 
 CommandDispatcher::~CommandDispatcher() {}
@@ -72,6 +71,9 @@ void    CommandDispatcher::dispatch(int clientFd, Message msg)
     else if (rule == ANYTIME && !client.isAuth())
         errorMessage = "not registered";
 
+    if (errorMessage.empty() && msg.getParams().size() < cmd->getMinParams())
+        errorMessage = "need more params";
+        
     if (!errorMessage.empty())
     {
         //send error message

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 09:04:20 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 08:20:09 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:10:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,18 @@ class Command
         CommandContext  _context;
         std::string     _name;
         RegRule         _rule;
+        size_t          _minParams;
         bool            _authRequired;
     public:
-        Command(CommandContext context, std::string name, RegRule rule, bool authRequired = true);
+        Command(CommandContext context, std::string name, RegRule rule, size_t minParams, bool authRequired);
         virtual ~Command();
 
         virtual void    execute() = 0;
+        CommandContext& getContext();
         std::string&    getName();
         RegRule         getRule();
         bool            isAuthRequired();
+        size_t          getMinParams();
 };
 
 #endif

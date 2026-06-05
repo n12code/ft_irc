@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Message.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 00:59:11 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:04:19 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void Message::extractCommand(std::string message)
     this->_command = message.substr(0, pos);
 }
 
-void Message::extractParams(std::string message)
+void Message::extractParams(std::string message)//check for 15 params
 {
     size_t  pos = message.find(' ');
     if (pos == std::string::npos)
@@ -94,8 +94,8 @@ void Message::extractParams(std::string message)
             return ;//no more params
         if (message[pos] == ':')
         {
-            this->_trailing = message.substr(pos + 1);
-            return ;//trailing
+            this->_params.push_back(message.substr(pos + 1));//trailing
+            return ;
         }
         size_t nextSpace = message.find(' ', pos);
         if (nextSpace == std::string::npos)
@@ -121,7 +121,6 @@ bool    Message::parseMessage(std::string& buffer)
     // std::cout << "Params: " << std::endl;
     // for (size_t i = 0; i < this->_params.size(); ++i)
     //     std::cout << "[" << this->_params[i] << "]" << std::endl;
-    // std::cout << "Trailing: [" << this->_trailing << "]" << std::endl;
     // std::cout << "--- DEBUG END ---\n" << std::endl;
 
     return (true);
@@ -131,17 +130,11 @@ void Message::clearParsedData()
 {
     this->_command.clear();
     this->_params.clear();
-    this->_trailing.clear();
 }
 
 std::string& Message::getCommand()
 {
     return (this->_command);
-}
-
-std::string& Message::getTrailing()
-{
-    return (this->_trailing);
 }
 
 std::vector<std::string>&    Message::getParams()
