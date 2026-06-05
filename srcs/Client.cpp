@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 10:26:32 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 11:26:10 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ std::string&    Client::getBuffer()
     return (this->_buffer);
 }
 
-std::string&    Client::getNick()
+const std::string&    Client::getNick() const
 {
     return (this->_nick);
 }
@@ -60,4 +60,19 @@ std::string&    Client::getUser()
 void Client::setAuth(bool auth)
 {
     this->_auth = auth;
+}
+
+void Client::setRegistered(bool registered)
+{
+    this->_registered = registered;
+}
+
+void Client::setNick(const std::string& nick)
+{
+    this->_nick = nick;
+}
+
+void Client::setUser(const std::string& user)
+{
+    this->_user = user;
 }

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 10:05:58 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 11:30:49 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "CommandContext.hpp"
 #include "Message.hpp"
 #include "PassCommand.hpp"
+#include "NickCommand.hpp"
 #include "Client.hpp"
 #include <cctype>
 #include <algorithm>
@@ -21,13 +22,14 @@
 
 
 static Command* createPass(const CommandContext& context) { return new PassCommand(context); }
+static Command* createNick(const CommandContext& context) { return new NickCommand(context); }
 
 CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients) :
     _server(server),
     _clients(clients)
 {
     this->_commands["PASS"] = createPass;
-    // this->_commands["NICK"] = NickCommand();
+    this->_commands["NICK"] = createNick;
     // this->_commands["USER"] = UserCommand();
     //this->_commands["JOIN"] = JoinCommand();
     // this->_commands["PART"] = PartCommand();

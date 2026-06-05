@@ -19,6 +19,7 @@ FILES 			:= Server \
 				   CommandDispatcher \
 				   CommandContext \
 				   PassCommand \
+				   NickCommand \
 				   Command \
 				   main
 
@@ -33,6 +34,7 @@ HEADERS 		:= Server \
 				   CommandDispatcher \
 				   CommandContext \
 				   PassCommand \
+				   NickCommand \
 				   Command 
 
 SRCS 			:= $(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(FILES)))

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:47:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 10:26:13 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 11:26:29 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,17 @@ class Client
         ~Client();
         
         //getter
-        int&            getFd();
-        bool            isRegistered();
-        bool            isAuth();
-        std::string&    getBuffer();
-        std::string&    getNick();
-        std::string&    getUser();
+        int&                getFd();
+        bool                isRegistered();
+        bool                isAuth();
+        std::string&        getBuffer();
+        const std::string&  getNick() const;
+        std::string&        getUser();
 
-        void            setAuth(bool auth);
+        void                setAuth(bool auth);
+        void                setNick(const std::string& nick);
+        void                setUser(const std::string& user);
+        void                setRegistered(bool registered);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/05/28 09:13:04 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 11:12:45 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include <iostream>
 #include <exception>
 #include <sstream>
+
+//check for private/protected/public scopes
+//check for const identifiers
+//check for references
+//check for const for return types and arguments
 
 int main(int argc, char *argv[])
 {
