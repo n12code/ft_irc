@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 00:55:58 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:18:59 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ void Server::setSocket()
 
     if (::listen(this->_socketFd, 128) == -1)
         throw std::runtime_error(std::string("Error: socket listening failed: ") + strerror(errno));
+}
+
+std::string Server::getPassword()
+{
+    return (this->_pswd);
 }
 
 void    Server::run()

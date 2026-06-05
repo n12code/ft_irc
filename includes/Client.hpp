@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:47:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 08:28:37 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:26:13 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ class Client
         std::string&    getBuffer();
         std::string&    getNick();
         std::string&    getUser();
+
+        void            setAuth(bool auth);
 };
 
 #endif

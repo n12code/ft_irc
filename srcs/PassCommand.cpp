@@ -6,11 +6,15 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:51:03 by ubuntu            #+#    #+#             */
-/*   Updated: 2026/06/05 10:12:29 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:28:56 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PassCommand.hpp"
+#include "CommandContext.hpp"
+#include "Message.hpp"
+#include "Server.hpp"
+#include "Client.hpp"
 #include <iostream>
 
 PassCommand::PassCommand(const CommandContext &context):
@@ -20,5 +24,11 @@ PassCommand::~PassCommand() {}
 
 void    PassCommand::execute()
 {
-    std::cout << "pass" << std::endl;
+    if (this->_context.msg.getParams()[0] != this->_context.server.getPassword())
+    {
+        std::cout << "464 password mismatch" << std::endl;
+        return ;
+    }
+    this->_context.client.setAuth(true);
+    std::cout << "authenticated" << std::endl;
 }

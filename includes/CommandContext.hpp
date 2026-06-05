@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CommandContext.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:08:29 by ubuntu            #+#    #+#             */
-/*   Updated: 2026/06/04 00:56:53 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:21:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ struct CommandContext {
     Client&         client;
     ClientManager&  clients;
     //ChannelManager& channels;
-    const Message&  msg;
+    Message&        msg;
 
-    CommandContext(Server& s, Client& c, ClientManager& cm, const Message& m);
+    CommandContext(Server& s, Client& c, ClientManager& cm, Message& m);
 };
 
 #endif

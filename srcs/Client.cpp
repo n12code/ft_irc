@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 08:28:57 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:26:32 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,9 @@ std::string&    Client::getNick()
 std::string&    Client::getUser()
 {
     return (this->_user);
+}
+
+void Client::setAuth(bool auth)
+{
+    this->_auth = auth;
 }

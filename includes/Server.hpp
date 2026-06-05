@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:41:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 08:30:35 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 10:18:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ class Server
         
         void    run();
         void    setSocket();
+
+        std::string         getPassword();
 };
 
 #endif
