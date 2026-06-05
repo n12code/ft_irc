@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CommandDispatcher.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 00:54:53 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 08:49:19 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients) :
     this->_commands["PASS"] = createPass;
     // this->_commands["NICK"] = NickCommand();
     // this->_commands["USER"] = UserCommand();
-    // this->_commands["QUIT"] = QuitCommand();
     //this->_commands["JOIN"] = JoinCommand();
     // this->_commands["PART"] = PartCommand();
     // this->_commands["KICK"] = KickCommand();
@@ -47,18 +46,40 @@ void    CommandDispatcher::dispatch(int clientFd, Message msg)
     std::string command = msg.getCommand();
     std::transform(command.begin(), command.end(), command.begin(), ::toupper);
     
+    //check for QUIT command
+    
     if (this->_commands.find(command) == this->_commands.end())
     {
         std::cout << "command unknown : "<< command << std::endl;
         return ;//command unknown
     }
     
-    Client& client = this->_clients.getClientWithFd(clientFd);
+    Client&         client = this->_clients.getClientWithFd(clientFd);
     CommandContext  context(this->_server, client, this->_clients, msg);//channel
     Command*        cmd = this->_commands[command](context);
+    RegRule         rule = cmd->getRule();
+    std::string     errorMessage = "";
     
-    if (cmd->isAuthRequired() && !client.isRegistered())// is it the correct check ?
-        return ;//client not registered
+    if (rule == PRE_REG)
+    {
+        if (client.isRegistered())
+            errorMessage = "already registered";
+        else if (cmd->isAuthRequired() && !client.isAuth())
+            errorMessage = "not registered";
+    }
+    else if (rule == POST_REG && !client.isRegistered())
+        errorMessage = "not registered";
+    else if (rule == ANYTIME && !client.isAuth())
+        errorMessage = "not registered";
+
+    if (!errorMessage.empty())
+    {
+        //send error message
+        std::cout << errorMessage << std::endl;
+        delete (cmd);
+        return ;
+    }
 
     cmd->execute();
+    delete (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 11:16:55 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/05 08:28:57 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ int&    Client::getFd()
 bool    Client::isRegistered()
 {
     return (this->_registered);
+}
+
+bool    Client::isAuth()
+{
+    return (this->_auth);
 }
 
 std::string&    Client::getBuffer()
