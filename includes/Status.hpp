@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Status.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 08:03:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/10 10:56:34 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/06 14:34:44 by ubuntu           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 enum    Status {
     SUCCESS = 0,
+    
+    //rpl
+    RPL_TOPIC = 332,
+    RPL_NAMREPLY = 353,
+    RPL_ENDOFNAMES = 366,
     
     //command and registration
     ERR_NOTREGISTERED = 451,

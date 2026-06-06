@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   JoinCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/10 11:02:32 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/06 15:10:45 by ubuntu           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ JoinCommand::JoinCommand(const CommandContext& context):
     Command(context, "JOIN", POST_REG, 1, true) {}
 
 JoinCommand::~JoinCommand() {}
-
-// ERR_NEEDMOREPARAMS              ERR_BANNEDFROMCHAN
-// ERR_INVITEONLYCHAN              ERR_BADCHANNELKEY
-// ERR_CHANNELISFULL               ERR_BADCHANMASK
-// ERR_NOSUCHCHANNEL               ERR_TOOMANYCHANNELS
-// ERR_TOOMANYTARGETS              ERR_UNAVAILRESOURCE
-// RPL_TOPIC
 
 void JoinCommand::execute()
 {
@@ -112,27 +105,26 @@ Status JoinCommand::isValidName(std::string& name)
 
 void    JoinCommand::sendMessages(Channel* channel, Client& client)
 {
-    //JOIN msg
     std::string joinMsg = this->_name + " message from " + client.getNick() + " on channel " + channel->getName();
-    std::cout << "joinMSG : " << joinMsg << std::endl;
     client.sendMessage(joinMsg);
+    std::cout << "joinMSG : " << joinMsg << std::endl;
     
-    //RPL_TOPIC
-    //client.sendMessage(Replies::rplTopic(channel.getTopic()));
+    client.sendMessage(Replies::create(RPL_TOPIC, channel->getName(), channel->getTopic()));
+    std::cout << "topic" << std::endl;
     
-    //RPL_NAMEREPLY
-    // std::string     namesMsg;
-    // std::set<int>   users = channel->getUsers();
-    // ClientManager&  clients = this->_context.clients;
-    // std::set<int>::const_iterator   it = users.begin();
-    // for (; it != users.end(); ++it)
-    // {
-    //     if (channel->isChanop(*it))
-    //         namesMsg += "@";
-    //     namesMsg += clients.getClientWithFd(*it).getNick() + " ";
-    // }
-    //client.sendMessage(Replies::rplNamReply("=" + channel->getName(), namesMsg));
+    std::string     namesMsg;
+    std::set<int>   users = channel->getUsers();
+    ClientManager&  clients = this->_context.clients;
+    std::set<int>::const_iterator   it = users.begin();
+    for (; it != users.end(); ++it)
+    {
+        if (channel->isChanop(*it))
+            namesMsg += "@";
+        namesMsg += clients.getClientWithFd(*it).getNick() + " ";
+    }
+    client.sendMessage(Replies::create(RPL_NAMREPLY, "=" + channel->getName(), namesMsg));
+    std::cout << "nqmreply" << std::endl;
 
-    //RPL_ENDOFNAMES
-    //client.sendMessage(Replies::rplEndOfNames(channel->getName()));
+    client.sendMessage(Replies::create(RPL_ENDOFNAMES, channel->getName()));
+    std::cout << "endofnames" << std::endl;
 }

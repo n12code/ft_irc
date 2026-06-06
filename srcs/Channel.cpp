@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/09 11:03:34 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/06 15:01:06 by ubuntu           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Channel.hpp"
+#include <iostream>
 
-Channel::Channel()
-{
-}
+Channel::Channel():
+    _name(""),
+    _topic(""),
+    _password(""),
+    _maxCap(0) {}
 
-Channel::Channel(const std::string &name, const int creatorFd) : _name(name)
+Channel::Channel(const std::string &name, const int creatorFd) :
+    _name(name),
+    _topic(""),
+    _password(""),
+    _maxCap(0)
 {
     this->addChanop(creatorFd);
 }
@@ -98,6 +105,11 @@ const std::string   Channel::getPassword() const
 const std::string   Channel::getName() const
 {
     return (this->_name);
+}
+
+const std::string Channel::getTopic() const
+{
+    return (this->_topic);
 }
 
 const std::set<int> Channel::getUsers() const

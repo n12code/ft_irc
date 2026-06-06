@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Replies.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/10 10:44:40 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/06 14:36:30 by ubuntu           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ class Replies
                                   const std::string& arg8 = "");
                                   
         static  std::string errNoSuchChannel(const std::vector<std::string>& args);
+        static  std::string rplTopic(const std::vector<std::string> &args);
+        static  std::string rplNamReply(const std::vector<std::string> &args);
+        static  std::string rplEndOfNames(const std::vector<std::string> &args);
 };
 
 #endif

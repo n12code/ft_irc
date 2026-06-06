@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:57:18 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/09 11:03:14 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/06 14:58:11 by ubuntu           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 class Channel
 {
     private:
-        std::size_t     _maxCap;
         std::string     _name;
         std::string     _topic;
         std::string     _password;
+        std::size_t     _maxCap;
         std::set<char>  _modes;
         std::set<int>   _chanops;
         std::set<int>   _users;
@@ -39,7 +39,8 @@ class Channel
         
         const std::string   getPassword() const;
         const std::string   getName() const;
-        std::size_t   getMaxCap() const;
+        const std::string   getTopic() const;
+        std::size_t         getMaxCap() const;
         const std::set<int> getUsers() const;
 
         
