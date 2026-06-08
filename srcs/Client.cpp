@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 11:26:10 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/08 08:07:12 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ const std::string&    Client::getNick() const
     return (this->_nick);
 }
 
-std::string&    Client::getUser()
+const std::string&    Client::getUser() const
 {
     return (this->_user);
 }

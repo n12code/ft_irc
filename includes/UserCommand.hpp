@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   NickCommand.hpp                                    :+:      :+:    :+:   */
+/*   UserCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 09:02:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 07:22:37 by nbodin           ###   ########lyon.fr   */
+/*   Created: 2026/06/08 07:20:54 by nbodin            #+#    #+#             */
+/*   Updated: 2026/06/08 08:05:01 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NICKCOMMAND_HPP
-# define NICKCOMMAND_HPP
+#ifndef USERCOMMAND_HPP
+# define USERCOMMAND_HPP
 
 # include "Command.hpp"
+# include <string>
 
-class NickCommand : public Command
+class UserCommand : public Command
 {
     public:
-        NickCommand(const CommandContext& context);
-        ~NickCommand();
+        UserCommand(const CommandContext& context);
+        ~UserCommand();
 
         void    execute();
-        bool    isValidNick(const std::string &nick);
+        void    FormatUser(std::string &user);
 };
 
 #endif

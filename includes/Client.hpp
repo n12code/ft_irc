@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:47:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 11:26:29 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/08 08:07:20 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ class Client
         bool                isAuth();
         std::string&        getBuffer();
         const std::string&  getNick() const;
-        std::string&        getUser();
+        const std::string&  getUser() const;
 
         void                setAuth(bool auth);
         void                setNick(const std::string& nick);
