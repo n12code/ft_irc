@@ -15,6 +15,7 @@ FILES 			:= Server \
 				   ServerHandler \
 				   Client \
 				   ClientManager \
+				   ChannelManager \
 				   Message \
 				   CommandDispatcher \
 				   CommandContext \
@@ -31,6 +32,7 @@ HEADERS 		:= Server \
 				   ServerHandler \
 				   Client \
 				   ClientManager \
+				   ChannelManager \
 				   Message \
 				   CommandDispatcher \
 				   CommandContext \

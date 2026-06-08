@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:56:08 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 11:09:55 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/08 11:10:48 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <iterator>
 #include <map>
 #include <utility>
+#include <stdexcept>
 
 ClientManager::ClientManager() :
     _clients(std::map<int, Client>()) {}

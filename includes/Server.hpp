@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:41:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 10:18:42 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/08 10:49:33 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "EventLoop.hpp"
 # include "ClientManager.hpp"
+# include "ChannelManager.hpp"
 # include "CommandDispatcher.hpp"
 # include <sys/epoll.h>
 # include <string>
@@ -28,9 +29,9 @@ class Server
         
         EventLoop           _loop;
         ClientManager       _clients;
+        ChannelManager      _channels;
         CommandDispatcher   _dispatcher;
-        //channel manager
-        //command dispatcher -> command base class-> derived classes
+
         //reply message utility class
         
     public:

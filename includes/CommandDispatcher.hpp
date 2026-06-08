@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CommandDispatcher.hpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:27:45 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 00:55:31 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/08 10:46:20 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ class CommandDispatcher
         std::map<std::string, CommandCreator>   _commands;
         Server&                                 _server;
         ClientManager&                          _clients;
-        //ChannelManager&                       _channels;
+        ChannelManager&                         _channels;
     public:
-        CommandDispatcher(Server& server, ClientManager& clients);//channel manager
+        CommandDispatcher(Server& server, ClientManager& clients, ChannelManager& channels);
         ~CommandDispatcher();
 
         void    dispatch(int clientFd, Message msg);

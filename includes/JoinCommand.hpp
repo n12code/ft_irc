@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Channel.hpp                                        :+:      :+:    :+:   */
+/*   JoinCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/08 10:57:18 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 10:57:56 by nbodin           ###   ########lyon.fr   */
+/*   Created: 2026/06/08 10:11:14 by nbodin            #+#    #+#             */
+/*   Updated: 2026/06/08 10:12:41 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHANNEL_HPP
-# define CHANNEL_HPP
+#ifndef JOINCOMMAND_HPP
+# define JOINCOMMAND_HPP
 
-class Channel
+# include "Command.hpp"
+
+class JoinCommand : public Command
 {
-    private:
-    
     public:
-        Channel();
-        ~Channel();
+        JoinCommand(const CommandContext& context);
+        ~JoinCommand();
+
+        void    execute();
 };
+
 
 #endif

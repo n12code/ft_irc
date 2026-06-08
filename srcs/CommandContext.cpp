@@ -1,8 +1,8 @@
 #include "CommandContext.hpp"
 
-CommandContext::CommandContext(Server &s, Client &c, ClientManager &cm, Message &m)://, ChannelManager& chm
+CommandContext::CommandContext(Server &s, Client &c, ClientManager &cm, ChannelManager &chm, Message &m):
     server(s),
     client(c),
     clients(cm),
-    //channels(chm),
+    channels(chm),
     msg(m) {}

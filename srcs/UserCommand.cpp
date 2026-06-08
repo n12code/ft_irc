@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 08:13:57 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/08 10:13:02 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-UserCommand::UserCommand(const CommandContext &context):
+UserCommand::UserCommand(const CommandContext& context):
     Command(context, "USER", PRE_REG, 4, true){}
 
 UserCommand::~UserCommand() {}

@@ -6,13 +6,14 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 10:23:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 10:09:51 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/08 11:31:51 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Command.hpp"
 #include "CommandContext.hpp"
 #include <string>
+#include <vector>
 
 Command::Command(CommandContext context, std::string name, RegRule rule, size_t minParams, bool authRequired) :
     _context(context),
@@ -46,4 +47,24 @@ bool    Command::isAuthRequired()
 size_t  Command::getMinParams()
 {
     return (this->_minParams);
+}
+
+std::vector<std::string>& Command::ParseParam(const std::string& params)
+{
+    size_t                      pos = 0;
+    size_t                      nextComma;
+    std::vector<std::string>    result;
+    
+    for (;;)
+    {
+        nextComma = params.find(',');
+        if (nextComma == std::string::npos)
+        {
+            result.push_back(params.substr(pos));
+            break ;
+        }
+        result.push_back(params.substr(pos, nextComma - pos));
+        pos = nextComma + 1;
+    }
+    return (result);
 }
