@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 09:04:20 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 11:31:57 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/09 10:00:11 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define COMMAND_HPP
 
 # include <string>
+# include <vector>
 # include "CommandContext.hpp"
 
 class Message;
@@ -39,7 +40,8 @@ class Command
         virtual ~Command();
 
         virtual void                execute() = 0;
-        std::vector<std::string>&   ParseParam(const std::string& params);
+        std::vector<std::string>    ParseParam(const std::string& params);
+        void                        toLowerIRC(std::string& string);
                 
         CommandContext& getContext();
         std::string&    getName();

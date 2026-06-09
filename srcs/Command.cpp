@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 10:23:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 11:31:51 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/09 09:57:24 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ size_t  Command::getMinParams()
     return (this->_minParams);
 }
 
-std::vector<std::string>& Command::ParseParam(const std::string& params)
+std::vector<std::string> Command::ParseParam(const std::string& params)
 {
     size_t                      pos = 0;
     size_t                      nextComma;
@@ -67,4 +67,21 @@ std::vector<std::string>& Command::ParseParam(const std::string& params)
         pos = nextComma + 1;
     }
     return (result);
+}
+
+void    Command::toLowerIRC(std::string& string)
+{
+    for (size_t i = 0; i < string.size(); ++i)
+    {
+        if ('A' <= string[i] && string[i] <= 'Z')
+            string[i] = string[i] + 32;
+        else if (string[i] == '[') 
+            string[i] = '{';
+        else if (string[i] == ']') 
+            string[i] = '}';
+        else if (string[i] == '\\')
+            string[i] = '|';
+        else if (string[i] == '~') 
+            string[i] = '^';
+    }
 }

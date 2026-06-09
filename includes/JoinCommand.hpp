@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:11:14 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 10:12:41 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/09 11:00:15 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define JOINCOMMAND_HPP
 
 # include "Command.hpp"
+# include "Status.hpp"
+# include <string>
 
 class JoinCommand : public Command
 {
@@ -22,7 +24,9 @@ class JoinCommand : public Command
         ~JoinCommand();
 
         void    execute();
+        int     join(Channel* channel, const std::string& passwd, const int clientFd);
+        bool    isValidName(std::string& name);
+        void    sendMessages(Channel* channel, Client& client);
 };
-
 
 #endif

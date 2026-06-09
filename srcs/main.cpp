@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 11:12:45 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/09 10:10:32 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 //check for const identifiers
 //check for references
 //check for const for return types and arguments
+// \r and \0 remover
+//channel and nick case sensitive
 
 int main(int argc, char *argv[])
 {
@@ -37,5 +39,5 @@ int main(int argc, char *argv[])
     catch (const std::exception &e) {
         std::cout << e.what() << std::endl;
     }
-    return (0);    
+    return (0);
 }

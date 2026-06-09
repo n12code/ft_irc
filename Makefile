@@ -14,6 +14,7 @@ FILES 			:= Server \
 				   ClientHandler \
 				   ServerHandler \
 				   Client \
+				   Channel \
 				   ClientManager \
 				   ChannelManager \
 				   Message \
@@ -31,6 +32,7 @@ HEADERS 		:= Server \
 				   ClientHandler \
 				   ServerHandler \
 				   Client \
+				   Channel \
 				   ClientManager \
 				   ChannelManager \
 				   Message \
