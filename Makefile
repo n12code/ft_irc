@@ -23,7 +23,9 @@ FILES 			:= Server \
 				   PassCommand \
 				   NickCommand \
 				   UserCommand \
+				   JoinCommand \
 				   Command \
+				   Replies \
 				   main
 
 HEADERS 		:= Server \
@@ -41,7 +43,10 @@ HEADERS 		:= Server \
 				   PassCommand \
 				   NickCommand \
 				   UserCommand \
-				   Command 
+				   JoinCommand \
+				   Replies \
+				   Command
+				   
 
 SRCS 			:= $(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(FILES)))
 INCS 			:= $(addprefix $(INCS_DIR), $(addsuffix .hpp, $(HEADERS)))

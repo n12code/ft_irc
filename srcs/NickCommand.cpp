@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 10:34:36 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 11:28:42 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/10 08:23:39 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ void    NickCommand::execute()
     if (!this->_context.client.getUser().empty())
         this->_context.client.setRegistered(true);
 
-    std::cout << "nick :" << this->_context.client.getNick() << std::endl;
-    std::cout << this->_context.client.isAuth() << std::endl;
-    std::cout << this->_context.client.isRegistered() << std::endl;
+    std::cout << "NICK SET TO:" << this->_context.client.getNick() << std::endl;
 }
 
 bool    NickCommand::isValidNick(const std::string& nick)

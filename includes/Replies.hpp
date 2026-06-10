@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Replies.hpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
+/*   Updated: 2026/06/10 10:44:40 by nbodin           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef REPLIES_HPP
+# define REPLIES_HPP
+
+# include "Status.hpp"
+# include <string>
+# include <vector>
+# include <map>
+
+class Replies
+{
+    private:
+        typedef std::string (*ReplyBuilder)(const std::vector<std::string>& args);
+        static  std::map<Status, ReplyBuilder> _replies;
+        
+        static std::string dispatch(Status status, const std::vector<std::string>& args);
+    public:
+        static void init();
+        static std::string create(Status status, 
+                                  const std::string& arg1, 
+                                  const std::string& arg2 = "", 
+                                  const std::string& arg3 = "", 
+                                  const std::string& arg4 = "", 
+                                  const std::string& arg5 = "", 
+                                  const std::string& arg6 = "", 
+                                  const std::string& arg7 = "", 
+                                  const std::string& arg8 = "");
+                                  
+        static  std::string errNoSuchChannel(const std::vector<std::string>& args);
+};
+
+#endif

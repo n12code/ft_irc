@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/09 07:16:50 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/10 08:25:13 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ void    UserCommand::execute()
     if (!this->_context.client.getNick().empty())
         this->_context.client.setRegistered(true);
 
-    std::cout << "user :" << this->_context.client.getUser() << std::endl;
-    std::cout << this->_context.client.isAuth() << std::endl;
-    std::cout << this->_context.client.isRegistered() << std::endl;
+    std::cout << "USER SET TO :" << this->_context.client.getUser() << std::endl;
+    if (this->_context.client.isAuth())
+        std::cout << this->_context.client.getUser() << " is authenticated" << std::endl;
+    if (this->_context.client.isRegistered())
+        std::cout << this->_context.client.getUser() << " is registered" << std::endl;
+    std::cout <<std::endl;
 }
 
 void UserCommand::FormatUser(std::string &user)

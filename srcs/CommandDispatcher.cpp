@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 10:50:41 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/10 08:10:10 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 static Command* createPass(const CommandContext& context) { return new PassCommand(context); }
 static Command* createNick(const CommandContext& context) { return new NickCommand(context); }
 static Command* createUser(const CommandContext& context) { return new UserCommand(context); }
-//static Command* createJoin(const CommandContext& context) { return new JoinCommand(context); }
+static Command* createJoin(const CommandContext& context) { return new JoinCommand(context); }
 
 CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients, ChannelManager &channels) :
     _server(server),
@@ -36,7 +36,7 @@ CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients, Cha
     this->_commands["PASS"] = createPass;
     this->_commands["NICK"] = createNick;
     this->_commands["USER"] = createUser;
-    //this->_commands["JOIN"] = createJoin;
+    this->_commands["JOIN"] = createJoin;
     // this->_commands["PART"] = PartCommand();
     // this->_commands["KICK"] = KickCommand();
     // this->_commands["INVITE"] = InviteCommand();

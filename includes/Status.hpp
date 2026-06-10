@@ -6,9 +6,12 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 08:03:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/09 10:00:29 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/10 10:56:34 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef STATUS_HPP
+# define STATUS_HPP
 
 enum    Status {
     SUCCESS = 0,
@@ -31,3 +34,5 @@ enum    Status {
     ERR_INVITEONLYCHAN = 473,
     ERR_BADCHANNELKEY = 475, 
 };
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 10:23:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/09 09:57:24 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/10 10:39:58 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "CommandContext.hpp"
 #include <string>
 #include <vector>
+#include <iostream>
 
 Command::Command(CommandContext context, std::string name, RegRule rule, size_t minParams, bool authRequired) :
     _context(context),
@@ -57,12 +58,13 @@ std::vector<std::string> Command::ParseParam(const std::string& params)
     
     for (;;)
     {
-        nextComma = params.find(',');
+        nextComma = params.find(',', pos);
         if (nextComma == std::string::npos)
         {
             result.push_back(params.substr(pos));
             break ;
         }
+        std::cout << params.substr(pos, nextComma - pos)<< std::endl;
         result.push_back(params.substr(pos, nextComma - pos));
         pos = nextComma + 1;
     }

@@ -6,12 +6,13 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 08:07:12 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/10 10:16:18 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
 #include <string>
+#include <sys/socket.h>
 
 Client::Client() :
     _fd(-1),
@@ -57,22 +58,36 @@ const std::string&    Client::getUser() const
     return (this->_user);
 }
 
-void Client::setAuth(bool auth)
+void    Client::setAuth(bool auth)
 {
     this->_auth = auth;
 }
 
-void Client::setRegistered(bool registered)
+void    Client::setRegistered(bool registered)
 {
     this->_registered = registered;
 }
 
-void Client::setNick(const std::string& nick)
+void    Client::setNick(const std::string& nick)
 {
     this->_nick = nick;
 }
 
-void Client::setUser(const std::string& user)
+void    Client::setUser(const std::string& user)
 {
     this->_user = user;
+}
+
+void    Client::sendMessage(const std::string& message) const
+{
+    if (message.length() < 2 || this->_fd == -1)
+        return;
+        
+    ssize_t sent = 0;
+    for (size_t total = 0; total < message.length(); total += sent)
+    {
+        sent = send(this->_fd, message.c_str() + total, message.length() - total, 0);
+        if (sent <= 0)
+            break; //error or socket closed, escape cleanly
+    }
 }

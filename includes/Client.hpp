@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:47:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 08:07:20 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/10 08:06:12 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ class Client
         void                setNick(const std::string& nick);
         void                setUser(const std::string& user);
         void                setRegistered(bool registered);
+        
+        void                sendMessage(const std::string& message) const;
 };
 
 #endif

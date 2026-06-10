@@ -6,11 +6,12 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 10:48:48 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/10 10:48:52 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Server.hpp"
+#include "Replies.hpp"
 #include "ServerHandler.hpp"
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -25,6 +26,7 @@ Server::Server(const unsigned short port, const std::string pswd) :
     _dispatcher(CommandDispatcher(*this, this->_clients, this->_channels))
 {
     setSocket();
+    Replies::init();
 }
 
 Server::~Server() {}
