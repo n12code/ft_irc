@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/10 10:48:52 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 09:25:33 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ void Server::setSocket()
 std::string Server::getPassword()
 {
     return (this->_pswd);
+}
+
+const CommandDispatcher &Server::getDispatcher() const
+{
+    return (this->_dispatcher);
 }
 
 void    Server::run()

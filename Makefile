@@ -24,6 +24,7 @@ FILES 			:= Server \
 				   NickCommand \
 				   UserCommand \
 				   JoinCommand \
+				   PartCommand \
 				   Command \
 				   Replies \
 				   main
@@ -44,6 +45,7 @@ HEADERS 		:= Server \
 				   NickCommand \
 				   UserCommand \
 				   JoinCommand \
+				   PartCommand \
 				   Replies \
 				   Command
 				   

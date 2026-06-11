@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/06 15:01:06 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 10:10:48 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Channel.hpp"
+#include "Client.hpp"
+#include "ClientManager.hpp"
 #include <iostream>
 
 Channel::Channel():
@@ -29,6 +31,8 @@ Channel::Channel(const std::string &name, const int creatorFd) :
 }
 
 Channel::~Channel() {}
+
+//utility
 
 bool Channel::hasMode(const char mode)
 {
@@ -51,7 +55,12 @@ bool Channel::isChanop(const int fd)
     return (false);
 }
 
-//utility
+bool Channel::isUser(const int fd)
+{
+    if (this->_users.find(fd) != this->_users.end())
+        return (true);
+    return (false);
+}
 
 void Channel::addMode(const char mode)
 {
@@ -81,7 +90,6 @@ void Channel::addChanop(const int fd)
 
 void Channel::removeChanop(const int fd)
 {
-    this->removeUser(fd);
     this->_chanops.erase(fd);
 }
 
@@ -93,6 +101,19 @@ void Channel::addUser(const int fd)
 void Channel::removeUser(const int fd)
 {
     this->_users.erase(fd);
+    this->_chanops.erase(fd);
+    this->_invited.erase(fd);
+}
+
+void Channel::sendToChannel(const std::string &message, ClientManager &clients)
+{
+    std::set<int>::const_iterator   it = this->_users.begin();
+    Client*                         client = NULL;
+    for (; it != this->_users.end(); ++it)
+    {
+        client = &clients.getClientWithFd(*it);
+        client->sendMessage(message);
+    }
 }
 
 //getter

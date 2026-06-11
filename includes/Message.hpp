@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:38:55 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/05 10:21:21 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 09:50:59 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ class Message
         //getter
         std::string&                getCommand();
         std::vector<std::string>&   getParams();
+
+        //setter
+        void                        setParams(const std::vector<std::string> params);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/10 08:10:10 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 10:26:41 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,17 @@
 #include "NickCommand.hpp"
 #include "UserCommand.hpp"
 #include "JoinCommand.hpp"
+#include "PartCommand.hpp"
 #include "Client.hpp"
 #include <cctype>
 #include <algorithm>
 #include <iostream>
 
-
 static Command* createPass(const CommandContext& context) { return new PassCommand(context); }
 static Command* createNick(const CommandContext& context) { return new NickCommand(context); }
 static Command* createUser(const CommandContext& context) { return new UserCommand(context); }
 static Command* createJoin(const CommandContext& context) { return new JoinCommand(context); }
+static Command* createPart(const CommandContext& context) { return new PartCommand(context); }
 
 CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients, ChannelManager &channels) :
     _server(server),
@@ -37,7 +38,7 @@ CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients, Cha
     this->_commands["NICK"] = createNick;
     this->_commands["USER"] = createUser;
     this->_commands["JOIN"] = createJoin;
-    // this->_commands["PART"] = PartCommand();
+    this->_commands["PART"] = createPart;
     // this->_commands["KICK"] = KickCommand();
     // this->_commands["INVITE"] = InviteCommand();
     // this->_commands["TOPIC"] = TopicCommand();
@@ -92,4 +93,9 @@ void    CommandDispatcher::dispatch(int clientFd, Message msg)
 
     cmd->execute();
     delete (cmd);
+}
+
+const std::map<std::string, CommandDispatcher::CommandCreator>& CommandDispatcher::getCommands() const
+{
+    return (this->_commands);
 }

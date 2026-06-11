@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Replies.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/06 15:11:06 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 10:22:59 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ std::string Replies::dispatch(Status status, const std::vector<std::string> &arg
 void Replies::init()
 {
     _replies[ERR_NOSUCHCHANNEL] = errNoSuchChannel;
+    _replies[ERR_NOTONCHANNEL] = errNotOnChannel;
     _replies[RPL_TOPIC] = rplTopic;
     _replies[RPL_NAMREPLY] = rplNamReply;
     _replies[RPL_ENDOFNAMES] = rplEndOfNames;
@@ -47,6 +48,12 @@ std::string Replies::create(Status status, const std::string &arg1, const std::s
 std::string Replies::errNoSuchChannel(const std::vector<std::string> &args)
 {
     std::string rep = "403 ERR_NOSUCHCHANNEL " + args[0] + " :No such channel\r\n";
+    return (rep);
+}
+
+std::string Replies::errNotOnChannel(const std::vector<std::string> &args)
+{
+    std::string rep = "442 ERR_NOTONCHANNEL " + args[0] + " :You're not on that channel\r\n";
     return (rep);
 }
 

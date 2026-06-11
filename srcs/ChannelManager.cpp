@@ -6,13 +6,14 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:48:12 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/10 08:17:03 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 10:43:20 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ChannelManager.hpp"
 #include "Channel.hpp"
 #include <string>
+#include <vector>
 #include <map>
 #include <stdexcept>
 
@@ -49,4 +50,16 @@ void ChannelManager::addChannel(Channel channel)
 void ChannelManager::removeChannel(const std::string& name)
 {
     this->_channels.erase(name);
+}
+
+std::vector<std::string>& ChannelManager::getChannelsOfUser(const int clientFd)
+{
+    std::vector<std::string>            chanOfUser;
+    std::map<std::string, Channel>::iterator  it = this->_channels.begin();
+    for (; it != this->_channels.end(); ++it)
+    {
+        if (it->second.isUser(clientFd))
+            chanOfUser.push_back(it->second.getName());
+    }
+    return (chanOfUser);
 }

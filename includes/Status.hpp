@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Status.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 08:03:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/06 14:34:44 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 10:20:08 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ enum    Status {
 
     //channel
     ERR_NOSUCHCHANNEL = 403,
+    ERR_NOTONCHANNEL = 442,
     ERR_CHANNELISFULL = 471,
     ERR_INVITEONLYCHAN = 473,
     ERR_BADCHANNELKEY = 475, 

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:27:45 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/08 10:46:20 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 09:26:50 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class CommandDispatcher
         ~CommandDispatcher();
 
         void    dispatch(int clientFd, Message msg);
+        const std::map<std::string, CommandCreator>&    getCommands() const;
 };
 
 #endif

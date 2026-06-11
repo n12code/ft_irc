@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   JoinCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/06 15:10:45 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 10:45:28 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,20 @@ JoinCommand::~JoinCommand() {}
 
 void JoinCommand::execute()
 {
-    std::vector<std::string>    params = this->_context.msg.getParams(); 
+    std::vector<std::string>    params = this->_context.msg.getParams();
     std::vector<std::string>    channels = ParseParam(params[0]);
     std::vector<std::string>    keys;
     if (params.size() >= 2)
         keys = ParseParam(params[1]);
     if (channels[0] == "0")
     {
-        //PART for every channels
+        std::vector<std::string>    partParam;
+        //get all channels in a string format channel,channel,channel
+        //put it as first param of partParam
+        this->_context.msg.setParams(partParam);
+        Command*    cmd = this->_context.server.getDispatcher().getCommands().at("PART")(this->_context);
+        cmd->execute();
+        delete cmd;
         return ;
     }
     else
@@ -105,8 +111,8 @@ Status JoinCommand::isValidName(std::string& name)
 
 void    JoinCommand::sendMessages(Channel* channel, Client& client)
 {
-    std::string joinMsg = this->_name + " message from " + client.getNick() + " on channel " + channel->getName();
-    client.sendMessage(joinMsg);
+    std::string joinMsg = this->_name + " message from " + client.getNick() + " on channel " + channel->getName() + "\r\n";
+    channel->sendToChannel(joinMsg, this->_context.clients);
     std::cout << "joinMSG : " << joinMsg << std::endl;
     
     client.sendMessage(Replies::create(RPL_TOPIC, channel->getName(), channel->getTopic()));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:57:18 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/06 14:58:11 by ubuntu           ###   ########lyon.fr   */
+/*   Updated: 2026/06/11 09:58:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <set>
 # include <string>
+# include "ClientManager.hpp"
 
 class Channel
 {
@@ -32,20 +33,21 @@ class Channel
         Channel(const std::string& name, const int creatorFd);
         ~Channel();
 
-        bool    hasMode(const char mode);
-        bool    isInvited(const int fd);
-        bool    isBanned(const int fd);
-        bool    isChanop(const int fd);
-        
+        //getter
         const std::string   getPassword() const;
         const std::string   getName() const;
         const std::string   getTopic() const;
         std::size_t         getMaxCap() const;
         const std::set<int> getUsers() const;
-
         
+        //setter
         void    setPassword(const std::string& password);
+        
         //utility
+        bool    hasMode(const char mode);
+        bool    isInvited(const int fd);
+        bool    isChanop(const int fd);
+        bool    isUser(const int fd);
         void    addMode(const char mode);
         void    removeMode(const char mode);
         void    addInvited(const int fd);
@@ -54,6 +56,7 @@ class Channel
         void    removeChanop(const int fd);
         void    addUser(const int fd);
         void    removeUser(const int fd);
+        void    sendToChannel(const std::string& message, ClientManager& clients);
 };
 
 #endif
