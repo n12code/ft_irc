@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 10:34:36 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/10 08:23:39 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 10:52:01 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void    NickCommand::execute()
         return ;
     }
     this->_context.client.setNick(nick);
-    if (!this->_context.client.getUser().empty())
-        this->_context.client.setRegistered(true);
 
     std::cout << "NICK SET TO:" << this->_context.client.getNick() << std::endl;
 }

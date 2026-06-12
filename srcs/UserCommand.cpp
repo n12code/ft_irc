@@ -6,14 +6,15 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/10 08:25:13 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 10:53:45 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "UserCommand.hpp"
 #include "Message.hpp"
 #include "Client.hpp"
-
+#include "Replies.hpp"
+#include "Status.hpp"
 #include <iostream>
 
 UserCommand::UserCommand(const CommandContext& context):
@@ -31,7 +32,10 @@ void    UserCommand::execute()
     
     this->_context.client.setUser(user);
     if (!this->_context.client.getNick().empty())
+    {
         this->_context.client.setRegistered(true);
+        this->_context.client.sendMessage(Replies::create(RPL_WELCOME,));
+    }
 
     std::cout << "USER SET TO :" << this->_context.client.getUser() << std::endl;
     if (this->_context.client.isAuth())

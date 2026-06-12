@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 08:16:05 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 10:27:54 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void JoinCommand::execute()
         std::string pass;
         Status      status;
         Client&     client = this->_context.client;
+        Channel*    chan = NULL;
         for (size_t i = 0; i < channels.size(); ++i)
         {
-            Channel*    chan = NULL;
             pass = i < keys.size() ? keys[i] : "";
             bool        isAlrMember = false;
             if (this->_context.channels.hasChannel(channels[i]))

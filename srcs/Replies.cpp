@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 10:22:59 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 10:55:50 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,17 @@ std::string Replies::dispatch(Status status, const std::vector<std::string> &arg
 
 void Replies::init()
 {
+    //errors
     _replies[ERR_NOSUCHCHANNEL] = errNoSuchChannel;
+    _replies[ERR_USERNOTINCHANNEL] = errUserNotInChannel;
     _replies[ERR_NOTONCHANNEL] = errNotOnChannel;
+    _replies[ERR_CHANNELISFULL] = errChannelIsFull;
+    _replies[ERR_INVITEONLYCHAN] = errInviteOnlyChan;
+    _replies[ERR_BADCHANNELKEY] = errBadChannelKey;
+    _replies[ERR_CHANOPRIVSNEEDED] = errChaNoPrivsNeeded;
+
+    //replies
+    _replies[RPL_WELCOME] = rplWelcome;
     _replies[RPL_TOPIC] = rplTopic;
     _replies[RPL_NAMREPLY] = rplNamReply;
     _replies[RPL_ENDOFNAMES] = rplEndOfNames;
@@ -44,16 +53,53 @@ std::string Replies::create(Status status, const std::string &arg1, const std::s
     return (dispatch(status, args));
 }
 
-//messages
+//errors
 std::string Replies::errNoSuchChannel(const std::vector<std::string> &args)
 {
     std::string rep = "403 ERR_NOSUCHCHANNEL " + args[0] + " :No such channel\r\n";
     return (rep);
 }
 
+std::string Replies::errUserNotInChannel(const std::vector<std::string> &args)
+{
+    std::string rep = "441 ERR_USERNOTINCHANNEL " + args[0] + " " + args[1] + " :They aren't on that channel\r\n";
+    return (rep);
+}
+
 std::string Replies::errNotOnChannel(const std::vector<std::string> &args)
 {
     std::string rep = "442 ERR_NOTONCHANNEL " + args[0] + " :You're not on that channel\r\n";
+    return (rep);
+}
+
+std::string Replies::errChannelIsFull(const std::vector<std::string> &args)
+{
+    std::string rep = "471 ERR_CHANNELISFULL " + args[0] + " :Cannot join channel (+l)\r\n";
+    return (rep);
+}
+
+std::string Replies::errInviteOnlyChan(const std::vector<std::string> &args)
+{
+    std::string rep = "473 ERR_INVITEONLYCHAN " + args[0] + " :Cannot join channel (+i)\r\n";
+    return (rep);
+}
+
+std::string Replies::errBadChannelKey(const std::vector<std::string> &args)
+{
+    std::string rep = "475 ERR_BADCHANNELKEY " + args[0] + " :Cannot join channel (+k)\r\n";
+    return (rep);
+}
+
+std::string Replies::errChaNoPrivsNeeded(const std::vector<std::string> &args)
+{
+    std::string rep = "482 ERR_CHANOPRIVSNEEDED " + args[0] + " :You're not channel operator\r\n";
+    return (rep);
+}
+
+// replies
+std::string Replies::rplWelcome(const std::vector<std::string> &args)
+{
+    std::string rep = "001 RPL_WELCOME Welcome to the Internet Relay Network " + args[0] + "!" + args[1] + "@" + args[2] + "\r\n";
     return (rep);
 }
 

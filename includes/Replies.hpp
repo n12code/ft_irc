@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 10:21:15 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 10:51:03 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,17 @@ class Replies
                                   const std::string& arg7 = "", 
                                   const std::string& arg8 = "");
                                   
+        //errors
         static  std::string errNoSuchChannel(const std::vector<std::string>& args);
+        static  std::string errUserNotInChannel(const std::vector<std::string> &args);
         static  std::string errNotOnChannel(const std::vector<std::string>& args);
+        static  std::string errChannelIsFull(const std::vector<std::string> &args);
+        static  std::string errInviteOnlyChan(const std::vector<std::string> &args);
+        static  std::string errBadChannelKey(const std::vector<std::string> &args);
+        static  std::string errChaNoPrivsNeeded(const std::vector<std::string> &args);
+
+        //replies
+        static  std::string rplWelcome(const std::vector<std::string> &args);
         static  std::string rplTopic(const std::vector<std::string> &args);
         static  std::string rplNamReply(const std::vector<std::string> &args);
         static  std::string rplEndOfNames(const std::vector<std::string> &args);
