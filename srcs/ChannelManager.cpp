@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:48:12 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 10:43:20 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 07:38:09 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void ChannelManager::removeChannel(const std::string& name)
     this->_channels.erase(name);
 }
 
-std::vector<std::string>& ChannelManager::getChannelsOfUser(const int clientFd)
+std::vector<std::string> ChannelManager::getChannelsOfUser(const int clientFd)
 {
     std::vector<std::string>            chanOfUser;
     std::map<std::string, Channel>::iterator  it = this->_channels.begin();

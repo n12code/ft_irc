@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 10:31:32 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 08:18:48 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 //channel and nick case sensitive
 //leaks
 //check status == replies functions
+//check modes for join command once implemented
 
 int main(int argc, char *argv[])
 {

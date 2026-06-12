@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 10:45:28 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 08:16:05 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ void JoinCommand::execute()
         keys = ParseParam(params[1]);
     if (channels[0] == "0")
     {
-        std::vector<std::string>    partParam;
-        //get all channels in a string format channel,channel,channel
-        //put it as first param of partParam
-        this->_context.msg.setParams(partParam);
-        Command*    cmd = this->_context.server.getDispatcher().getCommands().at("PART")(this->_context);
+        Command*    cmd = formatForPart(this->_context);
         cmd->execute();
         delete cmd;
         return ;
@@ -50,16 +46,21 @@ void JoinCommand::execute()
         for (size_t i = 0; i < channels.size(); ++i)
         {
             Channel*    chan = NULL;
-            pass = i < keys.size() ? keys[i] : "";;
+            pass = i < keys.size() ? keys[i] : "";
+            bool        isAlrMember = false;
             if (this->_context.channels.hasChannel(channels[i]))
             {
                 std::cout << "joining" << std::endl;
                 chan = &this->_context.channels.getChannelByName(channels[i]);
-                status = this->join(chan, pass, client.getFd());
-                if (status != SUCCESS)
+                isAlrMember = chan->isUser(client.getFd());
+                if (!isAlrMember)
                 {
-                    client.sendMessage(Replies::create(status, channels[i]));
-                    continue ;
+                    status = this->join(chan, pass, client.getFd());
+                    if (status != SUCCESS)
+                    {
+                        client.sendMessage(Replies::create(status, channels[i]));
+                        continue ;
+                    }
                 }
             }
             else
@@ -72,6 +73,12 @@ void JoinCommand::execute()
                     continue ;
                 }
                 chan = &this->_context.channels.createChannel(channels[i], client.getFd());
+            }
+            if (!isAlrMember)
+            {
+                std::string joinMsg = this->_name + " message from " + client.getNick() + " on channel " + chan->getName() + "\r\n";
+                chan->sendToChannel(joinMsg, this->_context.clients);
+                std::cout << "joinMSG : " << joinMsg << std::endl;
             }
             sendMessages(chan, client);
         }
@@ -111,10 +118,6 @@ Status JoinCommand::isValidName(std::string& name)
 
 void    JoinCommand::sendMessages(Channel* channel, Client& client)
 {
-    std::string joinMsg = this->_name + " message from " + client.getNick() + " on channel " + channel->getName() + "\r\n";
-    channel->sendToChannel(joinMsg, this->_context.clients);
-    std::cout << "joinMSG : " << joinMsg << std::endl;
-    
     client.sendMessage(Replies::create(RPL_TOPIC, channel->getName(), channel->getTopic()));
     std::cout << "topic" << std::endl;
     
@@ -133,4 +136,23 @@ void    JoinCommand::sendMessages(Channel* channel, Client& client)
 
     client.sendMessage(Replies::create(RPL_ENDOFNAMES, channel->getName()));
     std::cout << "endofnames" << std::endl;
+}
+
+Command*    JoinCommand::formatForPart(CommandContext& context)
+{
+    std::vector<std::string>    partParams;
+    std::vector<std::string>    chanOfUser = context.channels.getChannelsOfUser(context.client.getFd());
+    std::string                 newParam = "";
+    
+    for (size_t i = 0; i < chanOfUser.size(); ++i)
+    {
+        newParam += chanOfUser[i];
+        if (i != chanOfUser.size() - 1)
+            newParam += ",";
+    }
+    
+    std::cout << "params :" << newParam << std::endl;
+    partParams.push_back(newParam);
+    context.msg.setParams(partParams);
+    return (context.server.getDispatcher().getCommands().at("PART")(context));
 }

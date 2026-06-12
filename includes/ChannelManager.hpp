@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:47:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 10:38:12 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/12 08:15:43 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <string>
 # include <map>
+# include <vector>
 
 class Channel;
 
@@ -33,7 +34,7 @@ class ChannelManager
         void        addChannel(Channel channel);
         void        removeChannel(const std::string& name);
 
-        std::vector<std::string>& getChannelsOfUser(const int clientFd);
+        std::vector<std::string>    getChannelsOfUser(const int clientFd);
 };
 
 #endif
