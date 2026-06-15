@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 07:18:51 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 10:23:48 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 //check modes for join command once implemented
 //15 settings max
 //check every comment
-//has nick, has fd for client manager, same logic as has name for channel manager -> no exception
+//has nick, has fd for client manager, same logic as has name for channel manager -> no exception   
 //define server name for prefix
 //handle source in message
 //handle prefixes for replies and messages

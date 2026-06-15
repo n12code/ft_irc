@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 10:15:29 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 10:59:50 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ UserCommand::~UserCommand() {}
 void    UserCommand::execute()
 {
     std::string user = this->_context.msg.getParams()[0];
+    std::string realname = this->_context.msg.getParams()[3];
 
-    if (user.empty())
+    if (user.empty() || realname.empty())
         std::cout << "461 need more params" << std::endl;
     this->FormatUser(user);
     
     Client& client = this->_context.client;
     client.setUser(user);
+    client.setRealName(realname);
     if (!client.getNick().empty())
     {
         client.setRegistered(true);

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 09:06:31 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 10:30:45 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "JoinCommand.hpp"
 #include "PartCommand.hpp"
 #include "KickCommand.hpp"
+#include "WhoCommand.hpp"
 #include "Client.hpp"
 #include <cctype>
 #include <algorithm>
@@ -30,6 +31,7 @@ static Command* createUser(const CommandContext& context) { return new UserComma
 static Command* createJoin(const CommandContext& context) { return new JoinCommand(context); }
 static Command* createPart(const CommandContext& context) { return new PartCommand(context); }
 static Command* createKick(const CommandContext& context) { return new KickCommand(context); }
+//static Command* createWho(const CommandContext& context) { return new WhoCommand(context); }
 
 CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients, ChannelManager &channels) :
     _server(server),
@@ -42,6 +44,7 @@ CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients, Cha
     this->_commands["JOIN"] = createJoin;
     this->_commands["PART"] = createPart;
     this->_commands["KICK"] = createKick;
+    //this->_commands["WHO"] = createWho;
     // this->_commands["INVITE"] = InviteCommand();
     // this->_commands["TOPIC"] = TopicCommand();
     // this->_commands["MODE"] = ModeCommand();

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 10:16:53 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 11:02:20 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void Replies::init()
     //replies
     _replies[RPL_WELCOME] = rplWelcome;
     _replies[RPL_TOPIC] = rplTopic;
+    _replies[RPL_WHOREPLY] = rplWhoReply;
     _replies[RPL_NAMREPLY] = rplNamReply;
     _replies[RPL_ENDOFNAMES] = rplEndOfNames;
 }
@@ -113,9 +114,17 @@ std::string Replies::rplWelcome(const std::vector<std::string> &args)
     return (rep);
 }
 
+
 std::string Replies::rplTopic(const std::vector<std::string> &args)
 {
     std::string rep = ":" + _server + " 332 " + args[0] +  " " + args[1] +  " :" + args[2] + "\r\n";
+    return (rep);
+}
+
+std::string Replies::rplWhoReply(const std::vector<std::string> &args)
+{
+    //to contiue
+    std::string rep = ":" + _server + " 352 " + args[0] +  + "\r\n";
     return (rep);
 }
 

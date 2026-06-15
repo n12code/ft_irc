@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 08:10:45 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 10:59:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ const std::string &Client::getPrefix() const
     return (this->_prefix);
 }
 
+const std::string &Client::getRealName() const
+{
+    return (this->_realname);
+}
+
 void    Client::setAuth(bool auth)
 {
     this->_auth = auth;
@@ -96,6 +101,11 @@ void Client::setHost(const std::string &host)
 void Client::setPrefix(const std::string &prefix)
 {
     this->_prefix = prefix;
+}
+
+void Client::setRealName(const std::string &realname)
+{
+    this->_realname = realname;
 }
 
 void    Client::sendMessage(const std::string& message) const
