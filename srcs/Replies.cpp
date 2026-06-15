@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 09:31:08 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 10:16:53 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ std::string Replies::errChaNoPrivsNeeded(const std::vector<std::string> &args)
 // replies
 std::string Replies::rplWelcome(const std::vector<std::string> &args)
 {
-    std::string rep = ":" + _server + " 001 " + args[0] + "!" + args[1] + "@" + args[2] + "\r\n";
+    std::string rep = ":" + _server + " 001 " + args[0] + " :Welcome to the Internet Relay Network " + args[1] + "\r\n";
     return (rep);
 }
 

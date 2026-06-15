@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 08:07:10 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 10:15:29 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void    UserCommand::execute()
         client.setRegistered(true);
         std::string prefix = client.getNick() + "!" + client.getUser() + "@" + client.getHost();
         client.setPrefix(prefix);
-        //this->_context.client.sendMessage(Replies::create(RPL_WELCOME,));
+        this->_context.client.sendMessage(Replies::create(RPL_WELCOME, client.getNick(), client.getPrefix()));
     }
 
     std::cout << "USER SET TO :" << client.getUser() << std::endl;
