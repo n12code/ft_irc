@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 10:34:36 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 10:52:01 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 09:08:56 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void    NickCommand::execute()
         std::cout << "432 erroneous nick name" << std::endl;
         return ;
     }
-    if (this->_context.clients.isNickInUse(nick))
+    if (this->_context.clients.hasClient(nick))
     {
         std::cout << "433 nickname in use " << std::endl;
         return ;

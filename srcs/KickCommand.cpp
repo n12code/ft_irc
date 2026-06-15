@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 08:26:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 10:32:15 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 10:00:56 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,29 @@ void    KickCommand::handleManyChannels(const std::vector<std::string>& channels
             {
                 if (chan->isChanop(this->_context.client.getFd()))
                 {
-                    client = &this->_context.clients.getClientWithNick(users[i]);
-                    if (chan->isUser(client->getFd()))
-                    {   
-                        std::string kickMsg = this->_name + " " + chan->getName() + " " + client->getNick() + " :" + comment + "\r\n";
-                        chan->sendToChannel(kickMsg, this->_context.clients);
-                        chan->removeUser(client->getFd());
+                    if (this->_context.clients.hasClient(users[i]))
+                    {
+                        client = &this->_context.clients.getClientWithNick(users[i]);
+                        if (chan->isUser(client->getFd()))
+                        {   
+                            std::string kickMsg = ":" + this->_context.client.getPrefix() + " " + this->_name + " " + chan->getName() + " " + client->getNick() + " :" + comment + "\r\n";
+                            chan->sendToChannel(kickMsg, this->_context.clients);
+                            chan->removeUser(client->getFd());
+                        }
+                        else
+                            this->_context.client.sendMessage(Replies::create(ERR_USERNOTINCHANNEL, this->_context.client.getNick(),client->getNick(), channels[i]));
                     }
                     else
-                        this->_context.client.sendMessage(Replies::create(ERR_USERNOTINCHANNEL, client->getNick(), channels[i]));
+                        this->_context.client.sendMessage(Replies::create(ERR_NOSUCHNICK, this->_context.client.getNick(), users[i]));
                 }
                 else
-                    this->_context.client.sendMessage(Replies::create(ERR_CHANOPRIVSNEEDED, channels[i]));
+                    this->_context.client.sendMessage(Replies::create(ERR_CHANOPRIVSNEEDED, this->_context.client.getNick(), channels[i]));
             }
             else
-                this->_context.client.sendMessage(Replies::create(ERR_NOTONCHANNEL, channels[i]));
+                this->_context.client.sendMessage(Replies::create(ERR_NOTONCHANNEL, this->_context.client.getNick(), channels[i]));
         }
         else
-            this->_context.client.sendMessage(Replies::create(ERR_NOSUCHCHANNEL, channels[i]));
+            this->_context.client.sendMessage(Replies::create(ERR_NOSUCHCHANNEL, this->_context.client.getNick(), channels[i]));
     }
 }
 
@@ -90,23 +95,28 @@ void    KickCommand::handleOneChannel(const std::vector<std::string>& channels, 
                 Client* client = NULL;
                 for (size_t i = 0; i < users.size(); ++i)
                 {
-                    client = &this->_context.clients.getClientWithNick(users[i]);
-                    if (chan.isUser(client->getFd()))
-                    {   
-                        std::string kickMsg = this->_name + " " + chan.getName() + " " + client->getNick() + " :" + comment + "\r\n";
-                        chan.sendToChannel(kickMsg, this->_context.clients);
-                        chan.removeUser(client->getFd());
+                    if (this->_context.clients.hasClient(users[i]))
+                    {
+                        client = &this->_context.clients.getClientWithNick(users[i]);
+                        if (chan.isUser(client->getFd()))
+                        {   
+                            std::string kickMsg = ":" + this->_context.client.getPrefix() + " " + this->_name + " " + chan.getName() + " " + client->getNick() + " :" + comment + "\r\n";
+                            chan.sendToChannel(kickMsg, this->_context.clients);
+                            chan.removeUser(client->getFd());
+                        }
+                        else
+                            this->_context.client.sendMessage(Replies::create(ERR_USERNOTINCHANNEL, this->_context.client.getNick(), client->getNick(), channels[0]));
                     }
                     else
-                        this->_context.client.sendMessage(Replies::create(ERR_USERNOTINCHANNEL, client->getNick(), channels[0]));
+                        this->_context.client.sendMessage(Replies::create(ERR_NOSUCHNICK, this->_context.client.getNick(), users[i]));
                 }
             }
             else
-                this->_context.client.sendMessage(Replies::create(ERR_CHANOPRIVSNEEDED, channels[0]));
+                this->_context.client.sendMessage(Replies::create(ERR_CHANOPRIVSNEEDED, this->_context.client.getNick(), channels[0]));
         }
         else
-            this->_context.client.sendMessage(Replies::create(ERR_NOTONCHANNEL, channels[0]));
+            this->_context.client.sendMessage(Replies::create(ERR_NOTONCHANNEL, this->_context.client.getNick(), channels[0]));
     }
     else
-        this->_context.client.sendMessage(Replies::create(ERR_NOSUCHCHANNEL, channels[0]));
+        this->_context.client.sendMessage(Replies::create(ERR_NOSUCHCHANNEL, this->_context.client.getNick(),channels[0]));
 }

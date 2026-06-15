@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 10:51:03 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 09:30:00 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ class Replies
         typedef std::string (*ReplyBuilder)(const std::vector<std::string>& args);
         static  std::map<Status, ReplyBuilder> _replies;
         
-        static std::string dispatch(Status status, const std::vector<std::string>& args);
+        static std::string  dispatch(Status status, const std::vector<std::string>& args);
+        static std::string  _server;
     public:
         static void init();
         static std::string create(Status status, 
@@ -34,10 +35,12 @@ class Replies
                                   const std::string& arg4 = "", 
                                   const std::string& arg5 = "", 
                                   const std::string& arg6 = "", 
-                                  const std::string& arg7 = "", 
-                                  const std::string& arg8 = "");
+                                  const std::string& arg7 = "",
+                                  const std::string& arg8 = "",
+                                  const std::string& arg9 = "");
                                   
         //errors
+        static  std::string errNoSuchNick(const std::vector<std::string>& args);
         static  std::string errNoSuchChannel(const std::vector<std::string>& args);
         static  std::string errUserNotInChannel(const std::vector<std::string> &args);
         static  std::string errNotOnChannel(const std::vector<std::string>& args);

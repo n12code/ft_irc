@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 10:36:19 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 09:06:31 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void    CommandDispatcher::dispatch(int clientFd, Message msg)
     }
     
     Client&         client = this->_clients.getClientWithFd(clientFd);
-    CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);//channel
+    CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);
     Command*        cmd = this->_commands[command](context);
     RegRule         rule = cmd->getRule();
     std::string     errorMessage = "";

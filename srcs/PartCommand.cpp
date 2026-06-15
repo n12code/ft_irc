@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 09:13:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 10:25:54 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 09:14:05 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void    PartCommand::execute()
             chan = &this->_context.channels.getChannelByName(channels[i]);
             if (chan->isUser(client.getFd()))
             {
-                std::string partMsg = this->getName() + " " + chan->getName() + " :";
+                std::string partMsg = ":" + client.getPrefix() + " " + this->getName() + " " + chan->getName() + " :";
                 if (params.size() >= 2)
                     partMsg += params[1] + "\r\n";
                 else
@@ -48,9 +48,9 @@ void    PartCommand::execute()
                     this->_context.channels.removeChannel(chan->getName());
             }
             else
-                client.sendMessage(Replies::create(ERR_NOTONCHANNEL, chan->getName()));
+                client.sendMessage(Replies::create(ERR_NOTONCHANNEL, client.getNick(), chan->getName()));
         }
         else 
-            client.sendMessage(Replies::create(ERR_NOSUCHCHANNEL, channels[i]));
+            client.sendMessage(Replies::create(ERR_NOSUCHCHANNEL, client.getNick(), channels[i]));
     }
 }

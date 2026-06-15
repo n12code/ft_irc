@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 08:03:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 10:50:32 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 09:31:21 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ enum    Status {
     ERR_PASSWDMISMATCH = 464,
 
     //channel
+    ERR_NOSUCHNICK = 401,
     ERR_NOSUCHCHANNEL = 403,
     ERR_USERNOTINCHANNEL = 441,
     ERR_NOTONCHANNEL = 442,

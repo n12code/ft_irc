@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:54:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 09:01:43 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 09:08:47 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class ClientManager
         void    removeClient(int fd);
 
         //utility
-        bool    isNickInUse(const std::string& nick) const;
+        bool    hasClient(const std::string& nick) const;
 };
 
 #endif

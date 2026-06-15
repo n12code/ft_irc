@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 10:27:54 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 09:06:47 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void JoinCommand::execute()
                     status = this->join(chan, pass, client.getFd());
                     if (status != SUCCESS)
                     {
-                        client.sendMessage(Replies::create(status, channels[i]));
+                        client.sendMessage(Replies::create(status, client.getNick(), channels[i]));
                         continue ;
                     }
                 }
@@ -69,14 +69,14 @@ void JoinCommand::execute()
                 status = isValidName(channels[i]);
                 if (status != SUCCESS)
                 {
-                    client.sendMessage(Replies::create(status, channels[i]));
+                    client.sendMessage(Replies::create(status, client.getNick(), channels[i]));
                     continue ;
                 }
                 chan = &this->_context.channels.createChannel(channels[i], client.getFd());
             }
             if (!isAlrMember)
             {
-                std::string joinMsg = this->_name + " message from " + client.getNick() + " on channel " + chan->getName() + "\r\n";
+                std::string joinMsg = ":" + client.getPrefix() + " " + this->_name + " " + chan->getName() + "\r\n";
                 chan->sendToChannel(joinMsg, this->_context.clients);
                 std::cout << "joinMSG : " << joinMsg << std::endl;
             }
@@ -118,7 +118,7 @@ Status JoinCommand::isValidName(std::string& name)
 
 void    JoinCommand::sendMessages(Channel* channel, Client& client)
 {
-    client.sendMessage(Replies::create(RPL_TOPIC, channel->getName(), channel->getTopic()));
+    client.sendMessage(Replies::create(RPL_TOPIC, client.getNick(), channel->getName(), channel->getTopic()));
     std::cout << "topic" << std::endl;
     
     std::string     namesMsg;
@@ -131,10 +131,10 @@ void    JoinCommand::sendMessages(Channel* channel, Client& client)
             namesMsg += "@";
         namesMsg += clients.getClientWithFd(*it).getNick() + " ";
     }
-    client.sendMessage(Replies::create(RPL_NAMREPLY, "=" + channel->getName(), namesMsg));
+    client.sendMessage(Replies::create(RPL_NAMREPLY, client.getNick(), "= " + channel->getName(), namesMsg));
     std::cout << "nqmreply" << std::endl;
 
-    client.sendMessage(Replies::create(RPL_ENDOFNAMES, channel->getName()));
+    client.sendMessage(Replies::create(RPL_ENDOFNAMES, client.getNick(), channel->getName()));
     std::cout << "endofnames" << std::endl;
 }
 

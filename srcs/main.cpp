@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 11:04:00 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 07:18:51 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int main(int argc, char *argv[])
         unsigned short port;
         if (!(ss >> port) || !ss.eof())
             throw std::invalid_argument("Error: Please precise a valid port number");
-            
         Server server(port, argv[2]);
         server.run();
     }

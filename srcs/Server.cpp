@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 09:25:33 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 07:24:16 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdexcept>
 #include <cstring>
 #include <cerrno>
+#include <iostream>
 
 Server::Server(const unsigned short port, const std::string pswd) :
     _port(port),

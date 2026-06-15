@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 10:53:45 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/15 08:07:10 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,21 @@ void    UserCommand::execute()
         std::cout << "461 need more params" << std::endl;
     this->FormatUser(user);
     
-    this->_context.client.setUser(user);
-    if (!this->_context.client.getNick().empty())
+    Client& client = this->_context.client;
+    client.setUser(user);
+    if (!client.getNick().empty())
     {
-        this->_context.client.setRegistered(true);
-        this->_context.client.sendMessage(Replies::create(RPL_WELCOME,));
+        client.setRegistered(true);
+        std::string prefix = client.getNick() + "!" + client.getUser() + "@" + client.getHost();
+        client.setPrefix(prefix);
+        //this->_context.client.sendMessage(Replies::create(RPL_WELCOME,));
     }
 
-    std::cout << "USER SET TO :" << this->_context.client.getUser() << std::endl;
-    if (this->_context.client.isAuth())
-        std::cout << this->_context.client.getUser() << " is authenticated" << std::endl;
-    if (this->_context.client.isRegistered())
-        std::cout << this->_context.client.getUser() << " is registered" << std::endl;
+    std::cout << "USER SET TO :" << client.getUser() << std::endl;
+    if (client.isAuth())
+        std::cout << client.getUser() << " is authenticated" << std::endl;
+    if (client.isRegistered())
+        std::cout << client.getUser() << " is registered" << std::endl;
     std::cout <<std::endl;
 }
 
