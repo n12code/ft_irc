@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 11:02:25 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 08:41:09 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ class Replies
 
         //replies
         static  std::string rplWelcome(const std::vector<std::string> &args);
+        static  std::string rplEndOfWho(const std::vector<std::string> &args);
         static  std::string rplTopic(const std::vector<std::string> &args);
         static  std::string rplWhoReply(const std::vector<std::string> &args);
         static  std::string rplNamReply(const std::vector<std::string> &args);

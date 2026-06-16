@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 11:02:20 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 08:49:00 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void Replies::init()
 
     //replies
     _replies[RPL_WELCOME] = rplWelcome;
+    _replies[RPL_ENDOFWHO] = rplEndOfWho;
     _replies[RPL_TOPIC] = rplTopic;
     _replies[RPL_WHOREPLY] = rplWhoReply;
     _replies[RPL_NAMREPLY] = rplNamReply;
@@ -114,6 +115,11 @@ std::string Replies::rplWelcome(const std::vector<std::string> &args)
     return (rep);
 }
 
+std::string Replies::rplEndOfWho(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 315 " + args[0] + " " + args[1] + " :End of WHO list\r\n";
+    return (rep);
+}
 
 std::string Replies::rplTopic(const std::vector<std::string> &args)
 {
@@ -123,8 +129,7 @@ std::string Replies::rplTopic(const std::vector<std::string> &args)
 
 std::string Replies::rplWhoReply(const std::vector<std::string> &args)
 {
-    //to contiue
-    std::string rep = ":" + _server + " 352 " + args[0] +  + "\r\n";
+    std::string rep = ":" + _server + " 352 " + args[0] + " " + args[1] + " " + args[2] + " " + args[3] + " " + _server + " " + args[4] + " H" + args[5] + " :0 " + args[6] + "\r\n";
     return (rep);
 }
 

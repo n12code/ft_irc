@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:56:08 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 09:21:29 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 08:55:17 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ Client& ClientManager::getClientWithNick(const std::string &nick)
             return (it->second);
     }
     throw std::runtime_error("Client with nickname " + nick + " not found");
+}
+
+const std::map<int, Client>& ClientManager::getClients() const
+{
+    return (this->_clients);
 }
 
 void    ClientManager::addClient(Client client)

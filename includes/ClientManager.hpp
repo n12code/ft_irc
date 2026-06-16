@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:54:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 09:08:47 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 08:56:18 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ class ClientManager
         //getter
         Client& getClientWithFd(int fd);
         Client& getClientWithNick(const std::string& nick);
+        const   std::map<int, Client>& getClients() const;
 
         //setter
         void    addClient(Client client);

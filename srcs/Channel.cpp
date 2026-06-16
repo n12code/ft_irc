@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 09:06:00 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 08:56:27 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ const std::string Channel::getTopic() const
     return (this->_topic);
 }
 
-const std::set<int> Channel::getUsers() const
+const std::set<int>& Channel::getUsers() const
 {
     return (this->_users);
 }

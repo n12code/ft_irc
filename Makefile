@@ -26,6 +26,7 @@ FILES 			:= Server \
 				   JoinCommand \
 				   PartCommand \
 				   KickCommand \
+				   WhoCommand \
 				   Command \
 				   Replies \
 				   main
@@ -48,6 +49,7 @@ HEADERS 		:= Server \
 				   JoinCommand \
 				   PartCommand \
 				   KickCommand \
+				   WhoCommand \
 				   Replies \
 				   Command
 				   

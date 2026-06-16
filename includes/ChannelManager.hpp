@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:47:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/12 10:40:17 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 08:56:57 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class ChannelManager
         void        addChannel(Channel channel);
         void        removeChannel(const std::string& name);
 
-        std::vector<std::string>    getChannelsOfUser(const int clientFd);
+        std::vector<std::string>   getChannelsOfUser(const int clientFd);
 };
 
 #endif
