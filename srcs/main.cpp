@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 10:23:48 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/16 09:29:49 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 //define server name for prefix
 //handle source in message
 //handle prefixes for replies and messages
-//refacto replies format
+//destroy channel when last user is leaving
 
 int main(int argc, char *argv[])
 {
