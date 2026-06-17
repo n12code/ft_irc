@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/16 08:49:00 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/17 09:51:03 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void Replies::init()
     _replies[ERR_NOSUCHCHANNEL] = errNoSuchChannel;
     _replies[ERR_USERNOTINCHANNEL] = errUserNotInChannel;
     _replies[ERR_NOTONCHANNEL] = errNotOnChannel;
+    _replies[ERR_KEYSET] = errKeySet;
     _replies[ERR_CHANNELISFULL] = errChannelIsFull;
     _replies[ERR_INVITEONLYCHAN] = errInviteOnlyChan;
     _replies[ERR_BADCHANNELKEY] = errBadChannelKey;
@@ -84,9 +85,21 @@ std::string Replies::errNotOnChannel(const std::vector<std::string> &args)
     return (rep);
 }
 
+std::string Replies::errKeySet(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 467 " + args[0] + " " + args[1] + " :Channel key already set\r\n";
+    return (rep);
+}
+
 std::string Replies::errChannelIsFull(const std::vector<std::string> &args)
 {
     std::string rep = ":" + _server + " 471 " + args[0] + " " + args[1] + " :Cannot join channel (+l)\r\n";
+    return (rep);
+}
+
+std::string Replies::errUnknownMode(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 472 " + args[0] + " " + args[1] + " :is unknown mode char to me for " + args[2] + "\r\n";
     return (rep);
 }
 
@@ -118,6 +131,12 @@ std::string Replies::rplWelcome(const std::vector<std::string> &args)
 std::string Replies::rplEndOfWho(const std::vector<std::string> &args)
 {
     std::string rep = ":" + _server + " 315 " + args[0] + " " + args[1] + " :End of WHO list\r\n";
+    return (rep);
+}
+
+std::string Replies::rplChannelModeIs(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 324 " + args[0] + " " + args[1] + " " + args[2] + args[3] + "\r\n";
     return (rep);
 }
 

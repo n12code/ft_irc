@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 09:06:47 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/17 08:47:01 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ Status JoinCommand::join(Channel* channel, const std::string& passwd, const int 
         return (ERR_INVITEONLYCHAN);
     if (channel->hasMode('k') && passwd != channel->getPassword())
         return (ERR_BADCHANNELKEY);
-    if (channel->hasMode('l') && channel->getMaxCap() == channel->getUsers().size())
+    if (channel->hasMode('l') && channel->getUsers().size() >= channel->getMaxCap())
         return (ERR_CHANNELISFULL);
     channel->addUser(clientFd);
     return (SUCCESS);

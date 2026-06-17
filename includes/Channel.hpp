@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:57:18 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/16 08:55:33 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/17 10:50:17 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class Channel
         std::string     _name;
         std::string     _topic;
         std::string     _password;
-        std::size_t     _maxCap;
+        size_t          _maxCap;
         std::set<char>  _modes;
         std::set<int>   _chanops;
         std::set<int>   _users;
@@ -37,17 +37,18 @@ class Channel
         const std::string       getPassword() const;
         const std::string       getName() const;
         const std::string       getTopic() const;
-        std::size_t             getMaxCap() const;
+        size_t            getMaxCap() const;
         const std::set<int>&    getUsers() const;
         
         //setter
         void    setPassword(const std::string& password);
+        void    setMaxCap(const size_t& maxCap);
         
         //utility
-        bool    hasMode(const char mode);
-        bool    isInvited(const int fd);
-        bool    isChanop(const int fd);
-        bool    isUser(const int fd);
+        bool    hasMode(const char mode) const;
+        bool    isInvited(const int fd) const;
+        bool    isChanop(const int fd) const;
+        bool    isUser(const int fd) const;
         void    addMode(const char mode);
         void    removeMode(const char mode);
         void    addInvited(const int fd);
@@ -56,7 +57,7 @@ class Channel
         void    removeChanop(const int fd);
         void    addUser(const int fd);
         void    removeUser(const int fd);
-        void    sendToChannel(const std::string& message, ClientManager& clients);
+        void    sendToChannel(const std::string& message, ClientManager& clients) const;
 };
 
 #endif

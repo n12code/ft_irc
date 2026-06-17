@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/16 08:56:27 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/17 10:50:13 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,28 @@ Channel::~Channel() {}
 
 //utility
 
-bool Channel::hasMode(const char mode)
+bool Channel::hasMode(const char mode) const
 {
     if (this->_modes.find(mode) != this->_modes.end())
         return (true);
     return (false);
 }
 
-bool Channel::isInvited(const int fd)
+bool Channel::isInvited(const int fd) const
 {
     if (this->_invited.find(fd) != this->_invited.end())
         return (true);
     return (false);
 }
 
-bool Channel::isChanop(const int fd)
+bool Channel::isChanop(const int fd) const
 {
     if (this->_chanops.find(fd) != this->_chanops.end())
         return (true);
     return (false);
 }
 
-bool Channel::isUser(const int fd)
+bool Channel::isUser(const int fd) const
 {
     if (this->_users.find(fd) != this->_users.end())
         return (true);
@@ -105,7 +105,7 @@ void Channel::removeUser(const int fd)
     this->_invited.erase(fd);
 }
 
-void Channel::sendToChannel(const std::string &message, ClientManager &clients)
+void Channel::sendToChannel(const std::string &message, ClientManager &clients) const
 {
     std::set<int>::const_iterator   it = this->_users.begin();
     Client*                         client = NULL;
@@ -147,4 +147,9 @@ std::size_t Channel::getMaxCap() const
 void    Channel::setPassword(const std::string& password)
 {
     this->_password = password;
+}
+
+void Channel::setMaxCap(const size_t& maxCap)
+{
+    this->_maxCap = maxCap;
 }

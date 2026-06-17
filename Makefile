@@ -27,6 +27,7 @@ FILES 			:= Server \
 				   PartCommand \
 				   KickCommand \
 				   WhoCommand \
+				   ModeCommand \
 				   Command \
 				   Replies \
 				   main
@@ -50,6 +51,7 @@ HEADERS 		:= Server \
 				   PartCommand \
 				   KickCommand \
 				   WhoCommand \
+				   ModeCommand \
 				   Replies \
 				   Command
 				   
