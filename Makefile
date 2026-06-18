@@ -20,6 +20,7 @@ FILES 			:= Server \
 				   Message \
 				   CommandDispatcher \
 				   CommandContext \
+				   ModeTracker \
 				   PassCommand \
 				   NickCommand \
 				   UserCommand \
@@ -44,6 +45,7 @@ HEADERS 		:= Server \
 				   Message \
 				   CommandDispatcher \
 				   CommandContext \
+				   ModeTracker \
 				   PassCommand \
 				   NickCommand \
 				   UserCommand \

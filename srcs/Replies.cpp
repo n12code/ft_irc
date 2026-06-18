@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/17 09:51:03 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/18 07:17:41 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void Replies::init()
     //replies
     _replies[RPL_WELCOME] = rplWelcome;
     _replies[RPL_ENDOFWHO] = rplEndOfWho;
+    _replies[RPL_CHANNELMODEIS] = rplChannelModeIs;
     _replies[RPL_TOPIC] = rplTopic;
     _replies[RPL_WHOREPLY] = rplWhoReply;
     _replies[RPL_NAMREPLY] = rplNamReply;

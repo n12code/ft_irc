@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 09:33:22 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/17 10:54:25 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/18 09:48:41 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "Client.hpp"
 #include "Replies.hpp"
 #include "Status.hpp"
+#include "ModeTracker.hpp"
 #include <sstream>
 #include <cstdlib>
 
@@ -43,9 +44,7 @@ void    ModeCommand::execute()
 {
     std::vector<std::string>    params = this->_context.msg.getParams();
     Client&                     client = this->_context.client;
-    bool                        adding = false;
-    size_t                      totalArgModes = 0;
-    size_t                      paramIdx = 1;
+    ModeTracker                 tracker;
 
     if (!this->_context.channels.hasChannel(params[0]))
     {
@@ -57,7 +56,7 @@ void    ModeCommand::execute()
     params.erase(params.begin());
     if (params.size() == 0)
     {   
-        sendChannelModes(client, chan);
+        this->sendChannelModes(client, chan);
         return ;
     }
     
@@ -80,26 +79,36 @@ void    ModeCommand::execute()
             continue ;
         }
         //mode block
-        if (paramIdx <= i)
-            paramIdx = i + 1;
+        if (tracker.argIndex <= i)
+            tracker.argIndex = i + 1;
         for (size_t j = 0; j < params[i].size(); ++j)
         {
             char    c = params[i][j];
             if (c == '+')
-                adding = true;
+                tracker.adding = true;
             else if (c == '-')
-                adding = false;
-            else if (c == 'k' || c == 'o' || (c == 'l' && adding))
+                tracker.adding = false;
+            else if (c == 'k' || c == 'o' || (c == 'l' && tracker.adding))
             {
-                if (handleParamModes(totalArgModes, paramIdx    , adding, c, params, client, chan) == -1)
+                if (this->handleParamModes(c, params, client, chan, tracker) == -1)
                     continue ;
             }
-            else if (c == 'i' || c == 't' || (c == 'l' && !adding))
+            else if (c == 'i' || c == 't' || (c == 'l' && !tracker.adding))
             {
-                if (adding)
+                if (tracker.adding)
+                {
+                    if (chan.hasMode(c))
+                        continue ;
                     chan.addMode(c);
+                    this->appendModeAndArg(tracker, '+', c);
+                }
                 else
+                {
+                    if (!chan.hasMode(c))
+                        continue ;
                     chan.removeMode(c);
+                    this->appendModeAndArg(tracker, '-', c);
+                }
             }
             else
             {
@@ -108,6 +117,8 @@ void    ModeCommand::execute()
             }
         }   
     }
+    if (!tracker.addedModes.empty() || !tracker.removedModes.empty())
+        this->sendModeMessage(tracker, client, chan);
 }
 
 void    ModeCommand::sendChannelModes(const Client& client, const Channel& chan)
@@ -151,23 +162,22 @@ int     ModeCommand::getClientFd(const std::string& arg, const Client& client, c
     return (clientFd);
 }
 
-int     ModeCommand::handleParamModes(size_t& totalArgModes, size_t& paramIdx, const bool adding, const char c, const std::vector<std::string>& params, const Client& client, Channel& chan)
+int     ModeCommand::handleParamModes(const char c, const std::vector<std::string>& params, const Client& client, Channel& chan, ModeTracker& tracker)
 {
-    if (totalArgModes >= 3)
+    if (tracker.totalArgModes >= 3)
         return (-1);
-    totalArgModes++;
     
-    while (paramIdx < params.size() && (params[paramIdx][0] == '+' || params[paramIdx][0] == '-'))
-        paramIdx++;
+    while (tracker.argIndex < params.size() && (params[tracker.argIndex][0] == '+' || params[tracker.argIndex][0] == '-'))
+        tracker.argIndex++;
         
-    if (paramIdx >= params.size())
+    if (tracker.argIndex >= params.size())
     {
         client.sendMessage(Replies::create(ERR_NEEDMOREPARAMS, client.getNick(), this->getName()));
         return (-1);
     }
-    std::string arg = params[paramIdx++];
+    std::string arg = params[tracker.argIndex++];
     
-    if (adding)
+    if (tracker.adding)
     {
         if (c == 'k')
         {
@@ -182,24 +192,25 @@ int     ModeCommand::handleParamModes(size_t& totalArgModes, size_t& paramIdx, c
         else if (c == 'o')
         {
             int clientFd = getClientFd(arg, client, chan);
-            if (clientFd == -1)
+            if (clientFd == -1 || chan.isChanop(clientFd))
                 return (-1);
             chan.addChanop(clientFd);
         }
         else
         {
             size_t  limit = atol(arg.c_str());
-            if (limit <= 0)
+            if (limit <= 0 || (chan.hasMode('l') && chan.getMaxCap() == limit))
                 return (-1);
             chan.setMaxCap(limit);
             chan.addMode('l');
         }
+        this->appendModeAndArg(tracker, '+', c, arg);
     }
     else
     {
         if (c == 'k')
         {
-            if (arg != chan.getPassword())
+            if (!chan.hasMode('k') || arg != chan.getPassword())
                 return (-1);
             chan.setPassword("");
             chan.removeMode('k');
@@ -207,12 +218,59 @@ int     ModeCommand::handleParamModes(size_t& totalArgModes, size_t& paramIdx, c
         else if (c == 'o')
         {
             int clientFd = getClientFd(arg, client, chan);
-            if (clientFd == -1)
+            if (clientFd == -1 || !chan.isChanop(clientFd))
                 return (-1);
             chan.removeChanop(clientFd);
         }
+        this->appendModeAndArg(tracker, '-', c, arg);
     }
+    tracker.totalArgModes++;
     return (0);
+}
+
+void    ModeCommand::appendModeAndArg(ModeTracker& tracker, char sign, char mode, const std::string& arg)
+{
+    std::string& modes = (sign == '+') ? tracker.addedModes : tracker.removedModes;
+    std::string& args = (sign == '+') ? tracker.addedArgs : tracker.removedArgs;
+    
+    modes += mode;
+    if (!arg.empty())
+    {
+        if (!args.empty())
+            args += " ";
+        args += arg;
+    }
+}
+
+// /mode +T
+// /mode -k
+// prevent overflow with limits
+
+// unknown errors
+
+void    ModeCommand::sendModeMessage(const ModeTracker& tracker, const Client& client, const Channel& chan)
+{
+    std::string finalModes;
+    if (!tracker.addedModes.empty())
+        finalModes += "+" + tracker.addedModes;
+    if (!tracker.removedModes.empty())
+        finalModes += "-" + tracker.removedModes;
+
+    std::string finalArgs;
+    if (!tracker.addedArgs.empty())
+        finalArgs += tracker.addedArgs;;
+    if (!tracker.removedArgs.empty())
+    {
+        if (!finalArgs.empty())
+            finalArgs += " ";
+        finalArgs += tracker.removedArgs;
+    }
+        
+    std::string modeMessage = ":" + client.getPrefix() + " " + this->_name + " " + chan.getName() + " " + finalModes;
+    if (!finalArgs.empty())
+        modeMessage += " " + finalArgs;
+    modeMessage += "\r\n";
+    chan.sendToChannel(modeMessage, this->_context.clients);
 }
 
 
