@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/18 07:17:41 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/18 10:55:53 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,26 @@ std::string Replies::dispatch(Status status, const std::vector<std::string> &arg
 {
     if (_replies.find(status) != _replies.end())
         return (_replies[status](args));
-    return ("400 * :Unknown error\r\n");
+    return (":" +  _server + " 400 :Unknown error\r\n");
 }
 
 void Replies::init()
 {
     _server = "localhost";
     //errors
+    _replies[ERR_NOTREGISTERED] = errNotRegistered;
+    _replies[ERR_NEEDMOREPARAMS] = errNeedMoreParams;
+    _replies[ERR_ALREADYREGISTERED] = errAlreadyRegistered;
+    _replies[ERR_ERRONEUSNICKNAME] = errErroneusNickName;
+    _replies[ERR_NICKNAMEINUSE] = errNickNameInUse;
+    _replies[ERR_PASSWDMISMATCH] = errPasswdMismatch;
     _replies[ERR_NOSUCHNICK] = errNoSuchNick;
     _replies[ERR_NOSUCHCHANNEL] = errNoSuchChannel;
     _replies[ERR_USERNOTINCHANNEL] = errUserNotInChannel;
     _replies[ERR_NOTONCHANNEL] = errNotOnChannel;
     _replies[ERR_KEYSET] = errKeySet;
     _replies[ERR_CHANNELISFULL] = errChannelIsFull;
+    _replies[ERR_UNKNOWNMODE] = errUnknownMode;
     _replies[ERR_INVITEONLYCHAN] = errInviteOnlyChan;
     _replies[ERR_BADCHANNELKEY] = errBadChannelKey;
     _replies[ERR_CHANOPRIVSNEEDED] = errChaNoPrivsNeeded;
@@ -73,7 +80,19 @@ std::string Replies::errNoSuchChannel(const std::vector<std::string> &args)
     std::string rep = ":" + _server + " 403 " + args[0] + " " + args[1] + " :No such channel\r\n";
     return (rep);
 }
-//done
+
+std::string Replies::errErroneusNickName(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 432 " + args[0] + " " + args[1] + " :Erroneous nickname\r\n";
+    return (rep);
+}
+
+std::string Replies::errNickNameInUse(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 433 " + args[0] + " " + args[1] + " :Nickname is already in use\r\n";
+    return (rep);
+}
+
 std::string Replies::errUserNotInChannel(const std::vector<std::string> &args)
 {
     std::string rep = ":" + _server + " 441 " + args[0] + " " + args[1] + " " + args[2] + " :They aren't on that channel\r\n";
@@ -83,6 +102,30 @@ std::string Replies::errUserNotInChannel(const std::vector<std::string> &args)
 std::string Replies::errNotOnChannel(const std::vector<std::string> &args)
 {
     std::string rep = ":" + _server + " 442 " + args[0] + " " + args[1] + " :You're not on that channel\r\n";
+    return (rep);
+}
+
+std::string Replies::errNotRegistered(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 451 " + args[0] + ":You have not registered\r\n";//do i even need arg[0]?
+    return (rep);
+}
+
+std::string Replies::errNeedMoreParams(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 461 " + args[0] + " "  + args[1] + " :Not enough parameters\r\n";
+    return (rep);
+}
+
+std::string Replies::errAlreadyRegistered(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 462 " + args[0] + ":Unauthorized command (already registered)\r\n";//do i even need arg[0]?
+    return (rep);
+}
+
+std::string Replies::errPasswdMismatch(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 464 " + args[0] + ":Password incorrect\r\n";//do i even need arg[0]?
     return (rep);
 }
 

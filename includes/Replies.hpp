@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/17 09:49:43 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/18 10:50:00 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ class Replies
         //errors
         static  std::string errNoSuchNick(const std::vector<std::string>& args);
         static  std::string errNoSuchChannel(const std::vector<std::string>& args);
+        static  std::string errErroneusNickName(const std::vector<std::string>& args);
+        static  std::string errNickNameInUse(const std::vector<std::string>& args);
         static  std::string errUserNotInChannel(const std::vector<std::string> &args);
         static  std::string errNotOnChannel(const std::vector<std::string>& args);
+        static  std::string errNotRegistered(const std::vector<std::string>& args);
+        static  std::string errNeedMoreParams(const std::vector<std::string>& args);
+        static  std::string errAlreadyRegistered(const std::vector<std::string>& args);
+        static  std::string errPasswdMismatch(const std::vector<std::string>& args);
         static  std::string errKeySet(const std::vector<std::string> &args);
         static  std::string errChannelIsFull(const std::vector<std::string> &args);
         static  std::string errUnknownMode(const std::vector<std::string> &args);

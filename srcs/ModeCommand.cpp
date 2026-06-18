@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 09:33:22 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/18 09:48:41 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/18 10:59:32 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,11 +242,7 @@ void    ModeCommand::appendModeAndArg(ModeTracker& tracker, char sign, char mode
     }
 }
 
-// /mode +T
-// /mode -k
 // prevent overflow with limits
-
-// unknown errors
 
 void    ModeCommand::sendModeMessage(const ModeTracker& tracker, const Client& client, const Channel& chan)
 {
