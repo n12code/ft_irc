@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/19 08:32:34 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 10:11:27 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,11 @@ std::size_t Channel::getMaxCap() const
 void    Channel::setPassword(const std::string& password)
 {
     this->_password = password;
+}
+
+void Channel::setTopic(const std::string &topic)
+{
+    this->_topic = topic;
 }
 
 void Channel::setMaxCap(const size_t& maxCap)

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/19 08:26:26 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 11:08:13 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@
 //destroy channel when last user is leaving
 //return (-1) when send fails ?
 //destroy channel when part and last member
+//rpl 002,3,4,422?
+//PING
+//test with nc (ctrl+z fg, partial command ctrl d)
+//ctrl c leaks
+//message buffering EPOLLOUT
 
 int main(int argc, char *argv[])
 {

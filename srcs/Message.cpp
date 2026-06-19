@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 09:51:13 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 09:25:47 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,12 @@ bool    Message::parseMessage(std::string& buffer)
     this->extractCommand(message);
     this->extractParams(message);
 
-    // std::cout << "\n--- DEBUG START ---" << std::endl;
-    // std::cout << "Command: [" << this->_command << "]" << std::endl;
-    // std::cout << "Params: " << std::endl;
-    // for (size_t i = 0; i < this->_params.size(); ++i)
-    //     std::cout << "[" << this->_params[i] << "]" << std::endl;
-    // std::cout << "--- DEBUG END ---\n" << std::endl;
+    std::cout << "\n--- DEBUG START ---" << std::endl;
+    std::cout << "Command: [" << this->_command << "]" << std::endl;
+    std::cout << "Params: " << std::endl;
+    for (size_t i = 0; i < this->_params.size(); ++i)
+        std::cout << "[" << this->_params[i] << "]" << std::endl;
+    std::cout << "--- DEBUG END ---\n" << std::endl;
 
     return (true);
 }
