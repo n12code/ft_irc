@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 09:33:22 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/18 10:59:32 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 07:42:51 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,13 @@ int     ModeCommand::handleParamModes(const char c, const std::vector<std::strin
         }
         else
         {
+            if (arg.size() >= 6)
+                return (-1);
+            for (size_t i = 0; i < arg.size(); ++i)
+            {
+                if (!isdigit(arg[i]))
+                    return (-1);
+            }
             size_t  limit = atol(arg.c_str());
             if (limit <= 0 || (chan.hasMode('l') && chan.getMaxCap() == limit))
                 return (-1);
@@ -241,8 +248,6 @@ void    ModeCommand::appendModeAndArg(ModeTracker& tracker, char sign, char mode
         args += arg;
     }
 }
-
-// prevent overflow with limits
 
 void    ModeCommand::sendModeMessage(const ModeTracker& tracker, const Client& client, const Channel& chan)
 {
