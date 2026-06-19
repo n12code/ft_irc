@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/18 10:55:53 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 08:19:38 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void Replies::init()
     _replies[ERR_NOSUCHCHANNEL] = errNoSuchChannel;
     _replies[ERR_USERNOTINCHANNEL] = errUserNotInChannel;
     _replies[ERR_NOTONCHANNEL] = errNotOnChannel;
+    _replies[ERR_NOTONCHANNEL] = errUserOnChannel;
     _replies[ERR_KEYSET] = errKeySet;
     _replies[ERR_CHANNELISFULL] = errChannelIsFull;
     _replies[ERR_UNKNOWNMODE] = errUnknownMode;
@@ -51,6 +52,7 @@ void Replies::init()
     _replies[RPL_ENDOFWHO] = rplEndOfWho;
     _replies[RPL_CHANNELMODEIS] = rplChannelModeIs;
     _replies[RPL_TOPIC] = rplTopic;
+    _replies[RPL_INVITING] = rplInviting;
     _replies[RPL_WHOREPLY] = rplWhoReply;
     _replies[RPL_NAMREPLY] = rplNamReply;
     _replies[RPL_ENDOFNAMES] = rplEndOfNames;
@@ -102,6 +104,12 @@ std::string Replies::errUserNotInChannel(const std::vector<std::string> &args)
 std::string Replies::errNotOnChannel(const std::vector<std::string> &args)
 {
     std::string rep = ":" + _server + " 442 " + args[0] + " " + args[1] + " :You're not on that channel\r\n";
+    return (rep);
+}
+
+std::string Replies::errUserOnChannel(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 443 " + args[0] + " " + args[1] + " " + args[2] + " :is already on channel\r\n";
     return (rep);
 }
 
@@ -187,6 +195,12 @@ std::string Replies::rplChannelModeIs(const std::vector<std::string> &args)
 std::string Replies::rplTopic(const std::vector<std::string> &args)
 {
     std::string rep = ":" + _server + " 332 " + args[0] +  " " + args[1] +  " :" + args[2] + "\r\n";
+    return (rep);
+}
+
+std::string Replies::rplInviting(const std::vector<std::string> &args)
+{
+    std::string rep = ":" + _server + " 341 " + args[0] +  " " + args[1] +  " " + args[2] + "\r\n";
     return (rep);
 }
 

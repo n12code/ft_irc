@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/18 10:50:00 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 08:18:39 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ class Replies
         static  std::string errNickNameInUse(const std::vector<std::string>& args);
         static  std::string errUserNotInChannel(const std::vector<std::string> &args);
         static  std::string errNotOnChannel(const std::vector<std::string>& args);
+        static  std::string errUserOnChannel(const std::vector<std::string>& args);
         static  std::string errNotRegistered(const std::vector<std::string>& args);
         static  std::string errNeedMoreParams(const std::vector<std::string>& args);
         static  std::string errAlreadyRegistered(const std::vector<std::string>& args);
@@ -62,6 +63,7 @@ class Replies
         static  std::string rplEndOfWho(const std::vector<std::string> &args);
         static  std::string rplChannelModeIs(const std::vector<std::string> &args);
         static  std::string rplTopic(const std::vector<std::string> &args);
+        static  std::string rplInviting(const std::vector<std::string> &args);
         static  std::string rplWhoReply(const std::vector<std::string> &args);
         static  std::string rplNamReply(const std::vector<std::string> &args);
         static  std::string rplEndOfNames(const std::vector<std::string> &args);

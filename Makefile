@@ -29,6 +29,7 @@ FILES 			:= Server \
 				   KickCommand \
 				   WhoCommand \
 				   ModeCommand \
+				   InviteCommand \
 				   Command \
 				   Replies \
 				   main
@@ -54,6 +55,7 @@ HEADERS 		:= Server \
 				   KickCommand \
 				   WhoCommand \
 				   ModeCommand \
+				   InviteCommand \
 				   Replies \
 				   Command
 				   

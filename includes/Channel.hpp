@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:57:18 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/18 07:13:21 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 08:32:19 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ class Channel
         const std::string       getTopic() const;
         size_t                  getMaxCap() const;
         const std::set<int>&    getUsers() const;
+        const std::set<int>&    getInvited() const;
         
         //setter
         void    setPassword(const std::string& password);

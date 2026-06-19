@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/17 10:50:13 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 08:32:34 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,11 @@ const std::string Channel::getTopic() const
 const std::set<int>& Channel::getUsers() const
 {
     return (this->_users);
+}
+
+const std::set<int> &Channel::getInvited() const
+{
+    return (this->_invited);
 }
 
 std::size_t Channel::getMaxCap() const

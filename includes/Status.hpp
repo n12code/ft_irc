@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 08:03:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/18 10:46:13 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 08:19:48 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ enum    Status {
     RPL_ENDOFWHO = 315,
     RPL_CHANNELMODEIS = 324,
     RPL_TOPIC = 332,
+    RPL_INVITING = 341,
     RPL_WHOREPLY = 352,
     RPL_NAMREPLY = 353,
     RPL_ENDOFNAMES = 366,
@@ -42,6 +43,7 @@ enum    Status {
     ERR_NOSUCHCHANNEL = 403,
     ERR_USERNOTINCHANNEL = 441,
     ERR_NOTONCHANNEL = 442,
+    ERR_USERONCHANNEL = 443,
     ERR_KEYSET = 467,
     ERR_CHANNELISFULL = 471,
     ERR_UNKNOWNMODE = 472,

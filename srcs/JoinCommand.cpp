@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/17 08:47:01 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 08:37:05 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void JoinCommand::execute()
                         client.sendMessage(Replies::create(status, client.getNick(), channels[i]));
                         continue ;
                     }
+                    chan->removeInvited(client.getFd());
                 }
             }
             else
@@ -73,7 +74,7 @@ void JoinCommand::execute()
                     continue ;
                 }
                 chan = &this->_context.channels.createChannel(channels[i], client.getFd());
-            }
+            }   
             if (!isAlrMember)
             {
                 std::string joinMsg = ":" + client.getPrefix() + " " + this->_name + " " + chan->getName() + "\r\n";

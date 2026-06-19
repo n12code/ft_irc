@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/16 09:29:49 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/19 08:26:26 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 //handle source in message
 //handle prefixes for replies and messages
 //destroy channel when last user is leaving
+//return (-1) when send fails ?
+//destroy channel when part and last member
 
 int main(int argc, char *argv[])
 {
