@@ -30,6 +30,7 @@ FILES 			:= Server \
 				   WhoCommand \
 				   ModeCommand \
 				   InviteCommand \
+				   TopicCommand \
 				   Command \
 				   Replies \
 				   main
@@ -56,6 +57,7 @@ HEADERS 		:= Server \
 				   WhoCommand \
 				   ModeCommand \
 				   InviteCommand \
+				   TopicCommand \
 				   Replies \
 				   Command
 				   
