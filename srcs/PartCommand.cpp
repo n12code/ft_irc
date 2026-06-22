@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 09:13:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 09:14:05 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:12:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    PartCommand::execute()
                     partMsg += params[1] + "\r\n";
                 else
                     partMsg += this->_context.client.getNick() + "\r\n";
-                chan->sendToChannel(partMsg, this->_context.clients);
+                chan->sendToChannel(partMsg, this->_context.clients, -1);
                 chan->removeUser(client.getFd());
                 if (chan->getUsers().size() == 0)
                     this->_context.channels.removeChannel(chan->getName());

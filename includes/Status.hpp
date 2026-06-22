@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 08:03:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 08:31:33 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 09:50:57 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ enum    Status {
     //channel
     ERR_NOSUCHNICK = 401,
     ERR_NOSUCHCHANNEL = 403,
+    ERR_TOOMANYTARGETS = 407,
     ERR_USERNOTINCHANNEL = 441,
     ERR_NOTONCHANNEL = 442,
     ERR_USERONCHANNEL = 443,

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/19 11:08:13 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 09:24:30 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 //destroy channel when last user is leaving
 //return (-1) when send fails ?
 //destroy channel when part and last member
-//rpl 002,3,4,422?
+//rpl 002,3,4,5,422?
 //PING
 //test with nc (ctrl+z fg, partial command ctrl d)
 //ctrl c leaks

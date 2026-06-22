@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:57:18 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/19 10:11:16 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:10:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ class Channel
         void    removeChanop(const int fd);
         void    addUser(const int fd);
         void    removeUser(const int fd);
-        void    sendToChannel(const std::string& message, ClientManager& clients) const;
+        void    sendToChannel(const std::string& message, ClientManager& clients, const int senderFd) const;
 };
 
 #endif

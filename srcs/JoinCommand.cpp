@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/19 08:37:05 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:11:57 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void JoinCommand::execute()
             if (!isAlrMember)
             {
                 std::string joinMsg = ":" + client.getPrefix() + " " + this->_name + " " + chan->getName() + "\r\n";
-                chan->sendToChannel(joinMsg, this->_context.clients);
+                client.sendMessage(joinMsg);
+                chan->sendToChannel(joinMsg, this->_context.clients, client.getFd());
                 std::cout << "joinMSG : " << joinMsg << std::endl;
             }
             sendMessages(chan, client);

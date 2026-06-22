@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/19 10:11:27 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:10:45 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,14 @@ void Channel::removeUser(const int fd)
     this->_invited.erase(fd);
 }
 
-void Channel::sendToChannel(const std::string &message, ClientManager &clients) const
+void Channel::sendToChannel(const std::string &message, ClientManager &clients, const int senderFd) const
 {
     std::set<int>::const_iterator   it = this->_users.begin();
     Client*                         client = NULL;
     for (; it != this->_users.end(); ++it)
     {
+        if (*it == senderFd)
+            continue ;
         client = &clients.getClientWithFd(*it);
         client->sendMessage(message);
     }

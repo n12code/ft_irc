@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 09:54:16 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 08:53:35 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:13:51 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void TopicCommand::execute()
         else
             chan.setTopic(params[1]);
         std::string TopicMsg = ":" + this->_context.client.getPrefix() + " " + this->_name + " " + chan.getName() + " :" + chan.getTopic() + "\r\n";
-        chan.sendToChannel(TopicMsg, this->_context.clients);
+        chan.sendToChannel(TopicMsg, this->_context.clients, -1);
     }
     else
     {

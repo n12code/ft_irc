@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 08:26:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 10:00:56 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:13:08 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void    KickCommand::handleManyChannels(const std::vector<std::string>& channels
                         if (chan->isUser(client->getFd()))
                         {   
                             std::string kickMsg = ":" + this->_context.client.getPrefix() + " " + this->_name + " " + chan->getName() + " " + client->getNick() + " :" + comment + "\r\n";
-                            chan->sendToChannel(kickMsg, this->_context.clients);
+                            chan->sendToChannel(kickMsg, this->_context.clients, -1);
                             chan->removeUser(client->getFd());
                         }
                         else
@@ -101,7 +101,7 @@ void    KickCommand::handleOneChannel(const std::vector<std::string>& channels, 
                         if (chan.isUser(client->getFd()))
                         {   
                             std::string kickMsg = ":" + this->_context.client.getPrefix() + " " + this->_name + " " + chan.getName() + " " + client->getNick() + " :" + comment + "\r\n";
-                            chan.sendToChannel(kickMsg, this->_context.clients);
+                            chan.sendToChannel(kickMsg, this->_context.clients, -1);
                             chan.removeUser(client->getFd());
                         }
                         else

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 08:29:40 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 09:49:46 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ class Replies
         //errors
         static  std::string errNoSuchNick(const std::vector<std::string>& args);
         static  std::string errNoSuchChannel(const std::vector<std::string>& args);
-        static  std::string errErroneusNickName(const std::vector<std::string>& args);
+        static  std::string errTooManyTargets(const std::vector<std::string> &args);
+        static  std::string errErroneusNickName(const std::vector<std::string> &args);
         static  std::string errNickNameInUse(const std::vector<std::string>& args);
         static  std::string errUserNotInChannel(const std::vector<std::string> &args);
         static  std::string errNotOnChannel(const std::vector<std::string>& args);

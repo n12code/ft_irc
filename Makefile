@@ -31,6 +31,7 @@ FILES 			:= Server \
 				   ModeCommand \
 				   InviteCommand \
 				   TopicCommand \
+				   PrivMsgCommand \
 				   Command \
 				   Replies \
 				   main
@@ -58,6 +59,7 @@ HEADERS 		:= Server \
 				   ModeCommand \
 				   InviteCommand \
 				   TopicCommand \
+				   PrivMsgCommand \
 				   Replies \
 				   Command
 				   

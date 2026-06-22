@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 09:33:22 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/19 07:42:51 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:13:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,7 +271,7 @@ void    ModeCommand::sendModeMessage(const ModeTracker& tracker, const Client& c
     if (!finalArgs.empty())
         modeMessage += " " + finalArgs;
     modeMessage += "\r\n";
-    chan.sendToChannel(modeMessage, this->_context.clients);
+    chan.sendToChannel(modeMessage, this->_context.clients, -1);
 }
 
 

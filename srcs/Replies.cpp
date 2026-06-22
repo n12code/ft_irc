@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 08:58:17 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 09:51:34 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void Replies::init()
     _replies[ERR_PASSWDMISMATCH] = errPasswdMismatch;
     _replies[ERR_NOSUCHNICK] = errNoSuchNick;
     _replies[ERR_NOSUCHCHANNEL] = errNoSuchChannel;
+    _replies[ERR_TOOMANYTARGETS] = errTooManyTargets;
     _replies[ERR_USERNOTINCHANNEL] = errUserNotInChannel;
     _replies[ERR_NOTONCHANNEL] = errNotOnChannel;
     _replies[ERR_USERONCHANNEL] = errUserOnChannel;
@@ -81,6 +82,12 @@ std::string Replies::errNoSuchNick(const std::vector<std::string> &args)
 std::string Replies::errNoSuchChannel(const std::vector<std::string> &args)
 {
     std::string rep = _server + " 403 " + args[0] + " " + args[1] + " :No such channel\r\n";
+    return (rep);
+}
+
+std::string Replies::errTooManyTargets(const std::vector<std::string> &args)
+{
+    std::string rep = _server + " 407 " + args[0] + " " + args[1] + " :Too many recipients. Message aborted\r\n";
     return (rep);
 }
 
