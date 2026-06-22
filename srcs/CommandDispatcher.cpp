@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:03:56 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 11:04:36 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include "TopicCommand.hpp"
 #include "PrivMsgCommand.hpp"
 #include "Client.hpp"
+#include "Replies.hpp"
 #include <cctype>
 #include <algorithm>
 #include <iostream>
@@ -65,45 +66,43 @@ void    CommandDispatcher::dispatch(int clientFd, Message msg)
 {
     std::string command = msg.getCommand();
     std::transform(command.begin(), command.end(), command.begin(), ::toupper);
+    Client&         client = this->_clients.getClientWithFd(clientFd);
     
     if (command == "QUIT")
         return ;//quit
     
     if (this->_commands.find(command) == this->_commands.end())
     {
-        std::cout << "command unknown : "<< command << std::endl;
-        return ;//command unknown
+        client.sendMessage(Replies::create(ERR_UNKNOWNCOMMAND, "*", command));
+        return ;
     }
     
-    Client&         client = this->_clients.getClientWithFd(clientFd);
     CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);
     Command*        cmd = this->_commands[command](context);
     RegRule         rule = cmd->getRule();
-    std::string     errorMessage = "";
+    Status          status = SUCCESS;
     
     if (rule == PRE_REG)
     {
         if (client.isRegistered())
-            errorMessage = "already registered";
+            status = ERR_ALREADYREGISTERED;
         else if (cmd->isAuthRequired() && !client.isAuth())
-            errorMessage = "not registered";
+            status = ERR_NOTREGISTERED;
     }
     else if (rule == POST_REG && !client.isRegistered())
-        errorMessage = "not registered";
+        status = ERR_NOTREGISTERED;
     else if (rule == ANYTIME && !client.isAuth())
-        errorMessage = "not registered";
+        status = ERR_NOTREGISTERED;
 
-    if (errorMessage.empty() && msg.getParams().size() < cmd->getMinParams())
-        errorMessage = "need more params";
+    if (status == SUCCESS && msg.getParams().size() < cmd->getMinParams())
+        status = ERR_NOTREGISTERED;
         
-    if (!errorMessage.empty())
+    if (status != SUCCESS)
     {
-        //send error message
-        std::cout << errorMessage << std::endl;
+        client.sendMessage(Replies::create(status, client.getNick(), command));
         delete (cmd);
         return ;
     }
-
     cmd->execute();
     delete (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 07:58:40 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 08:37:22 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:45:10 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 #include <iostream>
 #include <sys/epoll.h>
 
-EventHandler::EventHandler(EventLoop& loop, ClientManager& clients, CommandDispatcher& dispatcher) :
+EventHandler::EventHandler(EventLoop& loop, ClientManager& clients, ChannelManager& channels, CommandDispatcher& dispatcher) :
     _loop(loop),
     _clients(clients),
+    _channels(channels),
     _dispatcher(dispatcher) {}
 
 EventHandler::~EventHandler() {}

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 09:24:30 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 11:05:02 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,20 @@
 //check for const identifiers
 //check for references
 //check for const for return types and arguments
-// \r and \0 remover
 //channel and nick case sensitive
 //leaks
-//check status == replies functions
-//check modes for join command once implemented
-//15 settings max
 //check every comment
-//has nick, has fd for client manager, same logic as has name for channel manager -> no exception   
-//define server name for prefix
-//handle source in message
-//handle prefixes for replies and messages
-//destroy channel when last user is leaving
-//return (-1) when send fails ?
-//destroy channel when part and last member
+//has fd for client manager     
 //rpl 002,3,4,5,422?
 //PING
 //test with nc (ctrl+z fg, partial command ctrl d)
-//ctrl c leaks
+//ctrl c/ ctrl d
+//return (-1) when send fails ? 
 //message buffering EPOLLOUT
+//init all vars in constructors
+//check every std::cout/logging
+
+//finish checking comments
 
 int main(int argc, char *argv[])
 {

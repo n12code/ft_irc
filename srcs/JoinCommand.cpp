@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:11:57 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:48:34 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void JoinCommand::execute()
         keys = ParseParam(params[1]);
     if (channels[0] == "0")
     {
-        Command*    cmd = formatForPart(this->_context);
+        Command*    cmd = formatForPart();
         cmd->execute();
         delete cmd;
         return ;
@@ -140,10 +140,10 @@ void    JoinCommand::sendMessages(Channel* channel, Client& client)
     std::cout << "endofnames" << std::endl;
 }
 
-Command*    JoinCommand::formatForPart(CommandContext& context)
+Command*    JoinCommand::formatForPart()
 {
     std::vector<std::string>    partParams;
-    std::vector<std::string>    chanOfUser = context.channels.getChannelsOfUser(context.client.getFd());
+    std::vector<std::string>    chanOfUser = this->_context.channels.getChannelsOfUser(this->_context.client.getFd());
     std::string                 newParam = "";
     
     for (size_t i = 0; i < chanOfUser.size(); ++i)
@@ -155,6 +155,6 @@ Command*    JoinCommand::formatForPart(CommandContext& context)
     
     std::cout << "params :" << newParam << std::endl;
     partParams.push_back(newParam);
-    context.msg.setParams(partParams);
-    return (context.server.getDispatcher().getCommands().at("PART")(context));
+    this->_context.msg.setParams(partParams);
+    return (this->_context.server.getDispatcher().getCommands().at("PART")(this->_context));
 }

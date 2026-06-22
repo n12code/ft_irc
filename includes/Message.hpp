@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:38:55 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/11 09:50:59 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:35:53 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ class Message
 {
     private:
         ClientManager&              _clients;
-        std::string                 _source;//needed ?
         std::string                 _command;
         std::vector<std::string>    _params;
 
         std::string     extractMessage(std::string& buffer);
         void            extractCommand(std::string message);
         void            extractParams(std::string message);
+        void            removeSpecialChars(std::string& message);
     public:
         Message(ClientManager& clients);
         ~Message();

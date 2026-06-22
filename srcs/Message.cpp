@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/19 09:25:47 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:34:40 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void Message::extractCommand(std::string message)
     this->_command = message.substr(0, pos);
 }
 
-void Message::extractParams(std::string message)//check for 15 params
+void Message::extractParams(std::string message)
 {
     size_t  pos = message.find(' ');
     if (pos == std::string::npos)
@@ -92,6 +92,14 @@ void Message::extractParams(std::string message)//check for 15 params
         pos = message.find_first_not_of(' ', pos);
         if (pos == std::string::npos)
             return ;//no more params
+        if (this->_params.size() == 14)
+        {
+            if (message[pos] == ':')
+                this->_params.push_back(message.substr(pos + 1));
+            else
+                this->_params.push_back(message.substr(pos));
+            return;
+        }
         if (message[pos] == ':')
         {
             this->_params.push_back(message.substr(pos + 1));//trailing
@@ -108,11 +116,21 @@ void Message::extractParams(std::string message)//check for 15 params
     }
 }
 
+void    Message::removeSpecialChars(std::string& message)
+{
+    for (size_t i = 0; i < message.size(); ++i)
+    {
+        if (message[i] == '\0' || message[i] == '\r')
+            message.erase(i, 1);
+    }
+}
+
 bool    Message::parseMessage(std::string& buffer)
 {
     std::string message = this->extractMessage(buffer);
     if (message.empty())
         return (false);
+    this->removeSpecialChars(message);
     this->extractCommand(message);
     this->extractParams(message);
 

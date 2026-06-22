@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:24:10 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 08:39:42 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/22 10:46:17 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ class EventLoop;
 class ClientHandler : public EventHandler
 {
     public:
-        ClientHandler(EventLoop& loop, ClientManager& clients, CommandDispatcher& dispatcher);//channel manager
+        ClientHandler(EventLoop& loop, ClientManager& clients, ChannelManager& channels, CommandDispatcher& dispatcher);
         ~ClientHandler();
 
         void    onReadable(const int fd);
