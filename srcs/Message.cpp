@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:30:06 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 10:50:47 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ bool    Message::readMessage(int fd)
             {
                 if (errno == EAGAIN || errno == EWOULDBLOCK)
                     return (true);
+                else if (errno == EINTR)
+                    continue;
                 else
                 {
                     std::cerr << "Warning: error while reading client (fd:" << client.getFd() << "): " << strerror(errno) << std::endl;

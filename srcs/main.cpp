@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:37:17 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 10:45:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@
 //return (-1) when send fails ? 
 //message buffering EPOLLOUT
 //init all vars in constructors
-//check every std::cout/logging
+//check every std::cout/logging//std::cerr
 
 //exception for a single client stops the server, watch for your try/catch and excpetions
+//epollout/on writable
+//EINTR epollwait, just continue
 
 int main(int argc, char *argv[])
 {

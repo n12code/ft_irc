@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 09:52:08 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 10:37:27 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ void    EventLoop::serverRoutine()
     for (;;) {
         int nfds = epoll_wait(this->_epfd, this->_events, 1024, -1);
         if (nfds == -1)
+        {
+            if (errno == EINTR)
+                continue ;
             throw std::runtime_error(std::string("Error: epoll wait failed: ") + strerror(errno));
+        }
         for (int i = 0; i < nfds; i++)
         {
             int fd = this->_events[i].data.fd;
