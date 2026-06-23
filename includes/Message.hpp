@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:38:55 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:35:53 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:32:04 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ class Message
         bool    parseMessage(std::string& buffer);
         void    clearParsedData();
 
-        //getter
         std::string&                getCommand();
         std::vector<std::string>&   getParams();
 
-        //setter
         void                        setParams(const std::vector<std::string> params);
 };
 

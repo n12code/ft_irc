@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 07:24:16 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:29:25 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ const CommandDispatcher &Server::getDispatcher() const
 
 void    Server::run()
 {
-    ServerHandler*   serverHandler = new ServerHandler(this->_loop, this->_clients, this->_dispatcher);
+    ServerHandler*   serverHandler = new ServerHandler(this->_loop, this->_clients, this->_channels, this->_dispatcher);
     
     this->_loop.initLoop();
     this->_loop.registerHandler(this->_socketFd, serverHandler);

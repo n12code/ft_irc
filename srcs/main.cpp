@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 11:05:02 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:37:17 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 //init all vars in constructors
 //check every std::cout/logging
 
-//finish checking comments
+//exception for a single client stops the server, watch for your try/catch and excpetions
 
 int main(int argc, char *argv[])
 {

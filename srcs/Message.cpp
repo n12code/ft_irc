@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:34:40 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:30:06 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool    Message::readMessage(int fd)
         {
             int bytes = read(fd, buf, sizeof(buf));
             if (bytes > 0)
-                client.getBuffer() += std::string(buf, bytes);//const getter, create an append to buffer function
+                client.appendToBuffer(std::string(buf, bytes));
             else if (bytes == 0)
             {
                 std::cerr << "Warning: client (fd:" << client.getFd() << ") connection closed" << std::endl;
@@ -76,7 +76,7 @@ void Message::extractCommand(std::string message)
     size_t  pos = message.find(' ');
     if (pos == std::string::npos)
     {
-        this->_command = message;// no params
+        this->_command = message;
         return ;
     }
     this->_command = message.substr(0, pos);
@@ -86,12 +86,12 @@ void Message::extractParams(std::string message)
 {
     size_t  pos = message.find(' ');
     if (pos == std::string::npos)
-        return ;//no params
+        return ;
     for (;;)
     { 
         pos = message.find_first_not_of(' ', pos);
         if (pos == std::string::npos)
-            return ;//no more params
+            return ;
         if (this->_params.size() == 14)
         {
             if (message[pos] == ':')
@@ -102,13 +102,13 @@ void Message::extractParams(std::string message)
         }
         if (message[pos] == ':')
         {
-            this->_params.push_back(message.substr(pos + 1));//trailing
+            this->_params.push_back(message.substr(pos + 1));
             return ;
         }
         size_t nextSpace = message.find(' ', pos);
         if (nextSpace == std::string::npos)
         {
-            this->_params.push_back(message.substr(pos));//last param
+            this->_params.push_back(message.substr(pos));
             return ;
         }
         this->_params.push_back(message.substr(pos, nextSpace - pos));

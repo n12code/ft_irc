@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:57:18 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:10:42 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:31:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ class Channel
         Channel(const std::string& name, const int creatorFd);
         ~Channel();
 
-        //getter
         const std::string       getPassword() const;
         const std::string       getName() const;
         const std::string       getTopic() const;
@@ -41,12 +40,10 @@ class Channel
         const std::set<int>&    getUsers() const;
         const std::set<int>&    getInvited() const;
         
-        //setter
         void    setPassword(const std::string& password);
         void    setTopic(const std::string& topic);
         void    setMaxCap(const size_t& maxCap);
         
-        //utility
         bool    hasMode(const char mode) const;
         bool    isInvited(const int fd) const;
         bool    isChanop(const int fd) const;

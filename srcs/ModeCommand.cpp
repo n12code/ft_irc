@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 09:33:22 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:13:35 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:30:33 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,6 @@ ModeCommand::ModeCommand(const CommandContext &context):
     Command(context, "MODE", POST_REG, 1, true) {}
 
 ModeCommand::~ModeCommand() {}
-
-//ERR_CHANOPRIVSNEEDED
-
-// ERR_NEEDMOREPARAMS              ERR_KEYSET                 
-// ERR_USERNOTINCHANNEL            ERR_UNKNOWNMODE
-
-// RPL_CHANNELMODEIS
-
-// RPL_BANLIST                     RPL_ENDOFBANLIST
-// RPL_EXCEPTLIST                  RPL_ENDOFEXCEPTLIST
-// RPL_INVITELIST                  RPL_ENDOFINVITELIST
-
-// RPL_UNIQOPIS
 
 void    ModeCommand::execute()
 {
@@ -68,7 +55,6 @@ void    ModeCommand::execute()
     
     for (size_t i = 0; i < params.size(); ++i)
     {
-        //skip
         if (params[i][0] != '+' && params[i][0] != '-')
         {
             if (i == 0)
@@ -78,7 +64,6 @@ void    ModeCommand::execute()
             }
             continue ;
         }
-        //mode block
         if (tracker.argIndex <= i)
             tracker.argIndex = i + 1;
         for (size_t j = 0; j < params[i].size(); ++j)

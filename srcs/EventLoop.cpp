@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/04 11:02:12 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 09:52:08 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,16 @@ void    EventLoop::serverRoutine()
         for (int i = 0; i < nfds; i++)
         {
             int fd = this->_events[i].data.fd;
-            if (this->_events[i].events & (EPOLLERR | EPOLLHUP | EPOLLRDHUP)) {
+            if (this->_events[i].events & (EPOLLERR | EPOLLHUP | EPOLLRDHUP))
                 this->_handlers[fd]->onError(fd);
-            }
-            else if (this->_events[i].events & EPOLLIN) {
+            else if (this->_events[i].events & EPOLLIN)
+            {
                 this->_handlers[fd]->onReadable(fd);
+                if (fd == -1) 
+                {
+                    delete this->_handlers[this->_events[i].data.fd];
+                    this->_handlers.erase(this->_events[i].data.fd);
+                }
             }
         }
     }    

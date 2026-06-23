@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:56:31 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:33:21 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ std::string Replies::errUserOnChannel(const std::vector<std::string> &args)
 
 std::string Replies::errNotRegistered(const std::vector<std::string> &args)
 {
-    std::string rep = _server + " 451 " + args[0] + ":You have not registered\r\n";//do i even need arg[0]?
+    std::string rep = _server + " 451 " + args[0] + ":You have not registered\r\n";
     return (rep);
 }
 
@@ -142,13 +142,13 @@ std::string Replies::errNeedMoreParams(const std::vector<std::string> &args)
 
 std::string Replies::errAlreadyRegistered(const std::vector<std::string> &args)
 {
-    std::string rep = _server + " 462 " + args[0] + ":Unauthorized command (already registered)\r\n";//do i even need arg[0]?
+    std::string rep = _server + " 462 " + args[0] + ":Unauthorized command (already registered)\r\n";
     return (rep);
 }
 
 std::string Replies::errPasswdMismatch(const std::vector<std::string> &args)
 {
-    std::string rep = _server + " 464 " + args[0] + ":Password incorrect\r\n";//do i even need arg[0]?
+    std::string rep = _server + " 464 " + args[0] + ":Password incorrect\r\n";
     return (rep);
 }
 

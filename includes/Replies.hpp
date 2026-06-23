@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:55:31 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:32:11 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ class Replies
         static  std::string rplEndOfWho(const std::vector<std::string> &args);
         static  std::string rplChannelModeIs(const std::vector<std::string> &args);
         static  std::string rplNoTopic(const std::vector<std::string> &args);
-        static std::string rplTopic(const std::vector<std::string> &args);
+        static  std::string rplTopic(const std::vector<std::string> &args);
         static  std::string rplInviting(const std::vector<std::string> &args);
         static  std::string rplWhoReply(const std::vector<std::string> &args);
         static  std::string rplNamReply(const std::vector<std::string> &args);

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 10:59:42 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:27:34 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ bool    Client::isRegistered()
 bool    Client::isAuth()
 {
     return (this->_auth);
+}
+
+const std::string&    Client::getBuffer() const
+{
+    return (this->_buffer);
 }
 
 std::string&    Client::getBuffer()
@@ -120,4 +125,9 @@ void    Client::sendMessage(const std::string& message) const
         if (sent <= 0)
             break; //error or socket closed, escape cleanly
     }
+}
+
+void Client::appendToBuffer(const std::string &str)
+{
+    this->_buffer += str;
 }

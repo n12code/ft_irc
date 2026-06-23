@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 11:04:36 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 08:16:07 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include "PrivMsgCommand.hpp"
 #include "Client.hpp"
 #include "Replies.hpp"
+#include "Server.hpp"
 #include <cctype>
 #include <algorithm>
 #include <iostream>
@@ -62,19 +63,22 @@ CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients, Cha
 
 CommandDispatcher::~CommandDispatcher() {}
 
-void    CommandDispatcher::dispatch(int clientFd, Message msg)
+bool    CommandDispatcher::dispatch(int clientFd, Message msg)
 {
     std::string command = msg.getCommand();
     std::transform(command.begin(), command.end(), command.begin(), ::toupper);
     Client&         client = this->_clients.getClientWithFd(clientFd);
     
+    if (command == "CAP")
+        return (true);
+        
     if (command == "QUIT")
-        return ;//quit
-    
+        return (false);
+
     if (this->_commands.find(command) == this->_commands.end())
     {
         client.sendMessage(Replies::create(ERR_UNKNOWNCOMMAND, "*", command));
-        return ;
+        return (true);
     }
     
     CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);
@@ -95,16 +99,17 @@ void    CommandDispatcher::dispatch(int clientFd, Message msg)
         status = ERR_NOTREGISTERED;
 
     if (status == SUCCESS && msg.getParams().size() < cmd->getMinParams())
-        status = ERR_NOTREGISTERED;
+        status = ERR_NEEDMOREPARAMS;
         
     if (status != SUCCESS)
     {
         client.sendMessage(Replies::create(status, client.getNick(), command));
         delete (cmd);
-        return ;
+        return (true);
     }
     cmd->execute();
     delete (cmd);
+    return (true);
 }
 
 const std::map<std::string, CommandDispatcher::CommandCreator>& CommandDispatcher::getCommands() const

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:10:45 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:32:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ Channel::Channel(const std::string &name, const int creatorFd) :
 
 Channel::~Channel() {}
 
-//utility
 
 bool Channel::hasMode(const char mode) const
 {
@@ -118,7 +117,6 @@ void Channel::sendToChannel(const std::string &message, ClientManager &clients, 
     }
 }
 
-//getter
 
 const std::string   Channel::getPassword() const
 {
@@ -150,7 +148,7 @@ std::size_t Channel::getMaxCap() const
     return (this->_maxCap);
 }
 
-//setter
+
 void    Channel::setPassword(const std::string& password)
 {
     this->_password = password;

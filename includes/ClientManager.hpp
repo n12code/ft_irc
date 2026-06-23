@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:54:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/16 08:56:18 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 07:31:56 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,13 @@ class ClientManager
         ClientManager();
         ~ClientManager();
 
-        //getter
-        Client& getClientWithFd(int fd);
-        Client& getClientWithNick(const std::string& nick);
-        const   std::map<int, Client>& getClients() const;
+        Client&                         getClientWithFd(int fd);
+        Client&                         getClientWithNick(const std::string& nick);
+        const   std::map<int, Client>&  getClients() const;
 
-        //setter
         void    addClient(Client client);
         void    removeClient(int fd);
 
-        //utility
         bool    hasClient(const std::string& nick) const;
 };
 
