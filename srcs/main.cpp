@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 10:45:42 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 10:56:59 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include <exception>
 #include <sstream>
 
-//check for private/protected/public scopes
+//check for private/protected/public scopes for classes,methods/functions,member variables
+//check for only necessary constructors and operators
+//check for good organisation of methods
 //check for const identifiers
 //check for references
 //check for const for return types and arguments

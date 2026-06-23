@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:27:34 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 11:02:01 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ Client::Client() :
 
 Client::Client(int fd) :
     _fd(fd),
-    _buffer("") {}
-
-Client::Client(const Client &copy) :
-    _fd(copy._fd),
-    _buffer(copy._buffer) {}
+    _buffer(""),
+    _msgBuffer("") {}
 
 Client::~Client() {}
 
@@ -113,21 +110,23 @@ void Client::setRealName(const std::string &realname)
     this->_realname = realname;
 }
 
-void    Client::sendMessage(const std::string& message) const
+void    Client::sendMessage(const std::string& message)
 {
-    if (message.length() < 2 || this->_fd == -1)
-        return;
+    this->appendToBuffer(this->_msgBuffer, message);
+    
+    // if (message.length() < 2 || this->_fd == -1)
+    //     return;
         
-    ssize_t sent = 0;
-    for (size_t total = 0; total < message.length(); total += sent)
-    {
-        sent = send(this->_fd, message.c_str() + total, message.length() - total, 0);
-        if (sent <= 0)
-            break; //error or socket closed, escape cleanly
-    }
+    // ssize_t sent = 0;
+    // for (size_t total = 0; total < message.length(); total += sent)
+    // {
+    //     sent = send(this->_fd, message.c_str() + total, message.length() - total, 0);
+    //     if (sent <= 0)
+    //         break; //error or socket closed, escape cleanly
+    // }
 }
 
-void Client::appendToBuffer(const std::string &str)
+void Client::appendToBuffer(std::string& buffer, const std::string &str)
 {
-    this->_buffer += str;
+    buffer += str;
 }

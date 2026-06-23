@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:47:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:31:49 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 11:02:07 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class Client
         bool            _auth;
         bool            _registered;
         std::string     _buffer;
+        std::string     _msgBuffer;
         std::string     _nick;
         std::string     _user;
         std::string     _realname;
@@ -30,7 +31,6 @@ class Client
     public:
         Client();
         Client(int fd); 
-        Client(const Client& copy); 
         ~Client();
         
         int&                getFd();
@@ -52,8 +52,8 @@ class Client
         void                setRealName(const std::string& realname);
         void                setRegistered(bool registered);
         
-        void                sendMessage(const std::string& message) const;
-        void                appendToBuffer(const std::string& str);
+        void                sendMessage(const std::string& message);
+        void                appendToBuffer(std::string& buffer, const std::string& str);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 10:50:47 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/23 10:59:44 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool    Message::readMessage(int fd)
         {
             int bytes = read(fd, buf, sizeof(buf));
             if (bytes > 0)
-                client.appendToBuffer(std::string(buf, bytes));
+                client.appendToBuffer(client.getBuffer(), std::string(buf, bytes));
             else if (bytes == 0)
             {
                 std::cerr << "Warning: client (fd:" << client.getFd() << ") connection closed" << std::endl;
