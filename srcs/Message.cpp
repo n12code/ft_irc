@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 10:59:44 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:53:07 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 
 
 Message::Message(ClientManager& clients):
-    _clients(clients) {}
+    _clients(clients),
+    _command(""),
+    _params() {}
 
 Message::~Message() {}
 

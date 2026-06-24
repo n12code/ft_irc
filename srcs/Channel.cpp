@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:32:42 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:47:50 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,21 @@ Channel::Channel():
     _name(""),
     _topic(""),
     _password(""),
-    _maxCap(0) {}
+    _maxCap(0),
+    _modes(),
+    _chanops(),
+    _users(),
+    _invited() {}
 
 Channel::Channel(const std::string &name, const int creatorFd) :
     _name(name),
     _topic(""),
     _password(""),
-    _maxCap(0)
+    _maxCap(0),
+    _modes(),
+    _chanops(),
+    _users(),
+    _invited()
 {
     this->addChanop(creatorFd);
 }

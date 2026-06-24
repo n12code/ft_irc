@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 09:44:21 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:51:56 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@
 #include <iostream>
 
 
-EventLoop::EventLoop() {}
+EventLoop::EventLoop():
+    _epfd(-1),
+    _ev(),
+    _events(),
+    _handlers() {}
+
 EventLoop::~EventLoop() {}
 
 void    EventLoop::initLoop()

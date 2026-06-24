@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 09:13:29 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:23:39 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,27 @@
 
 Client::Client() :
     _fd(-1),
-    _buffer("") {}
+    _auth(false),
+    _registered(false),
+    _buffer(""),
+    _msgBuffer(""),
+    _nick(""),
+    _user(""),
+    _realname(""),
+    _host(""),
+    _prefix ("") {}
 
 Client::Client(int fd) :
     _fd(fd),
+    _auth(false),
+    _registered(false),
     _buffer(""),
-    _msgBuffer("") {}
+    _msgBuffer(""),
+    _nick(""),
+    _user(""),
+    _realname(""),
+    _host(""),
+    _prefix ("") {}
 
 Client::~Client() {}
 

@@ -61,6 +61,8 @@ HEADERS 		:= Server \
 				   TopicCommand \
 				   PrivMsgCommand \
 				   Replies \
+				   Status \
+				   RegRule \
 				   Command
 				   
 

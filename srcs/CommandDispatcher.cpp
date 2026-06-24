@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 08:16:07 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:57:50 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "CommandContext.hpp"
 #include "Message.hpp"
 #include "PassCommand.hpp"
+#include "RegRule.hpp"
 #include "NickCommand.hpp"
 #include "UserCommand.hpp"
 #include "JoinCommand.hpp"
@@ -44,6 +45,7 @@ static Command* createTopic(const CommandContext& context) { return new TopicCom
 static Command* createPrivMsg(const CommandContext& context) { return new PrivMsgCommand(context); }
 
 CommandDispatcher::CommandDispatcher(Server& server, ClientManager &clients, ChannelManager &channels) :
+    _commands(),
     _server(server),
     _clients(clients),
     _channels(channels)
@@ -68,7 +70,6 @@ bool    CommandDispatcher::dispatch(int clientFd, Message msg)
     std::string command = msg.getCommand();
     std::transform(command.begin(), command.end(), command.begin(), ::toupper);
     Client&         client = this->_clients.getClientWithFd(clientFd);
-    
     if (command == "CAP")
         return (true);
         
@@ -84,8 +85,7 @@ bool    CommandDispatcher::dispatch(int clientFd, Message msg)
     CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);
     Command*        cmd = this->_commands[command](context);
     RegRule         rule = cmd->getRule();
-    Status          status = SUCCESS;
-    
+    Status          status = SUCCESS; 
     if (rule == PRE_REG)
     {
         if (client.isRegistered())
@@ -107,6 +107,7 @@ bool    CommandDispatcher::dispatch(int clientFd, Message msg)
         delete (cmd);
         return (true);
     }
+
     cmd->execute();
     delete (cmd);
     return (true);

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 09:04:20 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/09 10:00:11 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:59:06 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,11 @@
 # include <string>
 # include <vector>
 # include "CommandContext.hpp"
+# include "RegRule.hpp"
 
 class Message;
 class ClientManager;
 class ChannelManager;
-
-enum RegRule {
-    PRE_REG,
-    POST_REG,
-    ANYTIME
-};
 
 class Command
 {

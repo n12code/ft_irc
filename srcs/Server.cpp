@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:29:25 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:56:12 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@
 #include <iostream>
 
 Server::Server(const unsigned short port, const std::string pswd) :
+    _socketFd(-1),
     _port(port),
     _pswd(pswd),
+    _loop(),
+    _clients(),
+    _channels(),
     _dispatcher(CommandDispatcher(*this, this->_clients, this->_channels))
 {
     setSocket();
