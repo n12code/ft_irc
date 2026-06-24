@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 10:37:27 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 09:44:21 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,34 @@ void    EventLoop::serverRoutine()
         for (int i = 0; i < nfds; i++)
         {
             int fd = this->_events[i].data.fd;
+            if (this->_handlers.find(fd) == this->_handlers.end())
+                continue;
+            
             if (this->_events[i].events & (EPOLLERR | EPOLLHUP | EPOLLRDHUP))
-                this->_handlers[fd]->onError(fd);
-            else if (this->_events[i].events & EPOLLIN)
             {
-                this->_handlers[fd]->onReadable(fd);
-                if (fd == -1) 
+                this->_handlers[fd]->onError(fd);
+                delete this->_handlers[this->_events[i].data.fd];
+                this->_handlers.erase(this->_events[i].data.fd);
+            }
+            else
+            {
+                if (this->_events[i].events & EPOLLIN)
                 {
-                    delete this->_handlers[this->_events[i].data.fd];
-                    this->_handlers.erase(this->_events[i].data.fd);
+                    this->_handlers[fd]->onReadable(fd);
+                    if (fd == -1) 
+                    {
+                        delete this->_handlers[this->_events[i].data.fd];
+                        this->_handlers.erase(this->_events[i].data.fd);
+                    }
+                }
+                if (fd != -1 && this->_events[i].events & EPOLLOUT)
+                {
+                    this->_handlers[fd]->onWritable(fd);
+                    if (fd == -1) 
+                    {
+                        delete this->_handlers[this->_events[i].data.fd];
+                        this->_handlers.erase(this->_events[i].data.fd);
+                    }
                 }
             }
         }
@@ -68,4 +87,14 @@ void    EventLoop::serverRoutine()
 int&    EventLoop::getEpfd() 
 {
     return (this->_epfd);
+}
+
+void    EventLoop::toggleWriteEvent(const int fd, bool write)
+{
+    this->_ev.events = EPOLLIN;
+    if (write)
+        this->_ev.events = EPOLLIN | EPOLLOUT;
+    this->_ev.data.fd = fd;
+    if (epoll_ctl(this->_epfd, EPOLL_CTL_MOD, fd, &this->_ev) == -1)
+        throw std::runtime_error(std::string("Error: epoll mod failed: ") + strerror(errno));
 }

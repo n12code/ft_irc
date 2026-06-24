@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 09:46:22 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 09:18:27 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <cerrno>
 #include <cstring>
 #include <sys/epoll.h>
+#include <sys/socket.h>
 
 ClientHandler::ClientHandler(EventLoop &loop, ClientManager &clients, ChannelManager& channels, CommandDispatcher& dispatcher) :
     EventHandler(loop, clients, channels, dispatcher) {}
@@ -84,6 +85,45 @@ void ClientHandler::onReadable(int& fd)
             msg.clearParsedData();
             return ;
         }
+
+        const std::map<int, Client>&            allClients = this->_clients.getClients();
+        std::map<int, Client>::const_iterator   it = allClients.begin();
+        for (; it != allClients.end(); ++it)
+        {
+            if (!it->second.getMsgBuffer().empty())
+                this->_loop.toggleWriteEvent(it->first, true);
+        }
+
         msg.clearParsedData();
     }
+}
+
+void ClientHandler::onWritable(int& fd)
+{
+    Client&         client = this->_clients.getClientWithFd(fd);
+    std::string&    buffer = client.getMsgBuffer();
+
+    if (buffer.empty())
+    {
+        this->_loop.toggleWriteEvent(fd, false);
+        return ;
+    }
+
+    ssize_t  bytesSent = send(fd, buffer.c_str(), buffer.length(), 0);
+    if (bytesSent == -1)
+    {
+        if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR || errno == ENOBUFS)
+            return ;
+        else if (errno == EBADF || errno == ENOTSOCK || errno == EACCES || errno == EIO || 
+                 errno == ENETDOWN || errno == ENETUNREACH || errno == EOPNOTSUPP)
+            throw std::runtime_error(std::string("send failure: ") + strerror(errno));
+        std::cerr << "Warning: Client send error: " << strerror(errno) << std::endl;
+        this->onError(fd); 
+        return;
+    }
+
+    buffer.erase(0, bytesSent);
+
+    if (buffer.empty())
+        this->_loop.toggleWriteEvent(fd, false);
 }

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:51:03 by ubuntu            #+#    #+#             */
-/*   Updated: 2026/06/10 08:25:58 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 09:57:49 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "Message.hpp"
 #include "Server.hpp"
 #include "Client.hpp"
+#include "Status.hpp"
+#include "Replies.hpp"
 #include <iostream>
 
 PassCommand::PassCommand(const CommandContext &context):
@@ -26,7 +28,7 @@ void    PassCommand::execute()
 {
     if (this->_context.msg.getParams()[0] != this->_context.server.getPassword())
     {
-        std::cout << "464 password mismatch" << std::endl;
+        this->_context.client.sendMessage(Replies::create(ERR_PASSWDMISMATCH, "*"));
         return ;
     }
     this->_context.client.setAuth(true);

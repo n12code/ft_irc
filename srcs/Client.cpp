@@ -6,13 +6,12 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 11:02:01 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 09:13:29 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
 #include <string>
-#include <sys/socket.h>
 
 Client::Client() :
     _fd(-1),
@@ -48,6 +47,16 @@ const std::string&    Client::getBuffer() const
 std::string&    Client::getBuffer()
 {
     return (this->_buffer);
+}
+
+const std::string &Client::getMsgBuffer() const
+{
+    return (this->_msgBuffer);
+}
+
+std::string &Client::getMsgBuffer()
+{
+    return (this->_msgBuffer);
 }
 
 const std::string&    Client::getNick() const
@@ -113,17 +122,6 @@ void Client::setRealName(const std::string &realname)
 void    Client::sendMessage(const std::string& message)
 {
     this->appendToBuffer(this->_msgBuffer, message);
-    
-    // if (message.length() < 2 || this->_fd == -1)
-    //     return;
-        
-    // ssize_t sent = 0;
-    // for (size_t total = 0; total < message.length(); total += sent)
-    // {
-    //     sent = send(this->_fd, message.c_str() + total, message.length() - total, 0);
-    //     if (sent <= 0)
-    //         break; //error or socket closed, escape cleanly
-    // }
 }
 
 void Client::appendToBuffer(std::string& buffer, const std::string &str)

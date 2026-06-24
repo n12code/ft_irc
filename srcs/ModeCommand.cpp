@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 09:33:22 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:30:33 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 09:49:13 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void    ModeCommand::execute()
         this->sendModeMessage(tracker, client, chan);
 }
 
-void    ModeCommand::sendChannelModes(const Client& client, const Channel& chan)
+void    ModeCommand::sendChannelModes(Client& client, const Channel& chan)
 {
     std::string modes = "+";
     std::string modeParams = "";
@@ -131,7 +131,7 @@ void    ModeCommand::sendChannelModes(const Client& client, const Channel& chan)
 }
 
 
-int     ModeCommand::getClientFd(const std::string& arg, const Client& client, const Channel& chan)
+int     ModeCommand::getClientFd(const std::string& arg, Client& client, const Channel& chan)
 {
     if (!this->_context.clients.hasClient(arg))
     {
@@ -147,7 +147,7 @@ int     ModeCommand::getClientFd(const std::string& arg, const Client& client, c
     return (clientFd);
 }
 
-int     ModeCommand::handleParamModes(const char c, const std::vector<std::string>& params, const Client& client, Channel& chan, ModeTracker& tracker)
+int     ModeCommand::handleParamModes(const char c, const std::vector<std::string>& params, Client& client, Channel& chan, ModeTracker& tracker)
 {
     if (tracker.totalArgModes >= 3)
         return (-1);

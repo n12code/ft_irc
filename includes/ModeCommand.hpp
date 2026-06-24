@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 09:30:31 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/18 09:19:06 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 09:49:24 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ class ModeCommand : public Command
         ~ModeCommand();
 
         void    execute();
-        void    sendChannelModes(const Client& client, const Channel& chan);
-        int     getClientFd(const std::string& arg, const Client& client, const Channel& chan);
-        int     handleParamModes(const char c, const std::vector<std::string>& params, const Client& client, Channel& chan, ModeTracker& tracker);
+        void    sendChannelModes(Client& client, const Channel& chan);
+        int     getClientFd(const std::string& arg, Client& client, const Channel& chan);
+        int     handleParamModes(const char c, const std::vector<std::string>& params, Client& client, Channel& chan, ModeTracker& tracker);
         void    appendModeAndArg(ModeTracker& tracker, char sign, char mode, const std::string& arg = "");
         void    sendModeMessage(const ModeTracker& tracker, const Client& client, const Channel& chan);
 };

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 07:58:40 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 09:32:40 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 08:59:51 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ EventHandler::EventHandler(EventLoop& loop, ClientManager& clients, ChannelManag
     _dispatcher(dispatcher) {}
 
 EventHandler::~EventHandler() {}
+
+void EventHandler::onWritable(int &fd)
+{
+    (void)fd;
+}
 
 void EventHandler::onError(int &fd)
 {

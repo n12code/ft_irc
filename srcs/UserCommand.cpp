@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 10:59:50 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:06:09 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void    UserCommand::execute()
     std::string user = this->_context.msg.getParams()[0];
     std::string realname = this->_context.msg.getParams()[3];
 
-    if (user.empty() || realname.empty())
-        std::cout << "461 need more params" << std::endl;
     this->FormatUser(user);
     
     Client& client = this->_context.client;
@@ -58,3 +56,19 @@ void UserCommand::FormatUser(std::string &user)
             user[i] = '_';
     }
 }
+
+
+// << PASS irc
+
+// << NICK Alice
+
+// << USER Alice 0 * :realname
+
+// >> :localhost 462 :Unauthorized command (already registered)
+
+// >> :localhost 451 :You have not registered
+
+// >> :localhost 462 :Unauthorized command (already registered)
+
+
+// this happens when i try to connect, even tho its the first time i ever connect with this user. it didnt do that before we changed the sending system

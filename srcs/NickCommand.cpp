@@ -6,13 +6,15 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 10:34:36 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/15 09:08:56 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 10:02:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "NickCommand.hpp"
 #include "Message.hpp"
 #include "Client.hpp"
+#include "Status.hpp"
+#include "Replies.hpp"
 #include <iostream>
 
 NickCommand::NickCommand(const CommandContext& context):
@@ -52,14 +54,17 @@ static bool    isSpecial(char c)
 void    NickCommand::execute()
 {
     std::string nick = this->_context.msg.getParams()[0];
+    std::string currentNick = this->_context.client.getNick();
+    if (currentNick.empty())
+            currentNick = "*";
     if (!this->isValidNick(nick))
     {
-        std::cout << "432 erroneous nick name" << std::endl;
+        this->_context.client.sendMessage(Replies::create(ERR_ERRONEUSNICKNAME, currentNick, nick));
         return ;
     }
     if (this->_context.clients.hasClient(nick))
     {
-        std::cout << "433 nickname in use " << std::endl;
+        this->_context.client.sendMessage(Replies::create(ERR_NICKNAMEINUSE, currentNick, nick));
         return ;
     }
     this->_context.client.setNick(nick);

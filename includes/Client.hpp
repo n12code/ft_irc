@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:47:43 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 11:02:07 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/24 09:04:13 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ class Client
         bool                isAuth();
         const std::string&  getBuffer() const;
         std::string&        getBuffer();
+        const std::string&  getMsgBuffer() const;
+        std::string&        getMsgBuffer();
         const std::string&  getNick() const;
         const std::string&  getUser() const;
         const std::string&  getHost() const;
