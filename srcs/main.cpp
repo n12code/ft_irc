@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 11:01:44 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 08:30:16 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <iostream>
 #include <exception>
 #include <sstream>
+#include <signal.h>
+#include <csignal>
 
 //check for private/protected/public scopes for classes,methods/functions,member variables
 //check for only necessary constructors and operators
@@ -25,16 +27,33 @@
 //leaks
 //check every comment
 //has fd for client manager     
-//rpl 002,3,4,5,422?
-//PING
+//PING?
 //test with nc (ctrl+z fg, partial command ctrl d)
 //ctrl c/ ctrl d
 //check every std::cout/logging//std::cerr
 
 //exception for a single client stops the server, watch for your try/catch and excpetions
 
+volatile std::sig_atomic_t g_quit = 0;
+
+void    handleSigInt(int sig)
+{
+    if (sig == SIGINT)
+        g_quit = 1;
+}   
+
+void    handleSignal()
+{
+    struct sigaction    sa = {};
+    sa.sa_handler = handleSigInt;
+    sa.sa_flags = 0;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGINT, &sa, NULL);
+}
+
 int main(int argc, char *argv[])
 {
+    handleSignal();
     try {
         if (argc != 3)
             throw std::invalid_argument("Error: Please precise the port number and then the password");

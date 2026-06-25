@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 08:03:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:54:31 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 07:31:45 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ enum    Status {
     
     //rpl
     RPL_WELCOME = 001,
+    RPL_YOURHOST = 002,
+    RPL_CREATED = 003,
+    RPL_MYINFO = 004,
     RPL_ENDOFWHO = 315,
     RPL_CHANNELMODEIS = 324,
     RPL_NOTOPIC = 331,

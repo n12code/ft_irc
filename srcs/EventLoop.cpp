@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 10:51:56 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 08:28:06 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <cerrno>
 #include <cstring>
 #include <iostream>
+#include <csignal>
 
+extern volatile sig_atomic_t g_quit;
 
 EventLoop::EventLoop():
     _epfd(-1),
@@ -44,7 +46,13 @@ void    EventLoop::registerHandler(const int fd, EventHandler* handler)
 
 void    EventLoop::serverRoutine()
 {
-    for (;;) {
+    for (;;)
+    {
+        if (g_quit)
+        {
+            //clear everything
+            return ;
+        }
         int nfds = epoll_wait(this->_epfd, this->_events, 1024, -1);
         if (nfds == -1)
         {

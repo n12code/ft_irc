@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:21:46 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:32:11 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 07:33:39 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ class Replies
 
         //replies
         static  std::string rplWelcome(const std::vector<std::string> &args);
+        static  std::string rplYourHost(const std::vector<std::string> &args);
+        static  std::string rplCreated(const std::vector<std::string> &args);
+        static  std::string rplMyInfo(const std::vector<std::string> &args);
         static  std::string rplEndOfWho(const std::vector<std::string> &args);
         static  std::string rplChannelModeIs(const std::vector<std::string> &args);
         static  std::string rplNoTopic(const std::vector<std::string> &args);

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 09:47:57 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/23 07:33:21 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 07:57:32 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void Replies::init()
 
     //replies
     _replies[RPL_WELCOME] = rplWelcome;
+    _replies[RPL_YOURHOST] = rplYourHost;
+    _replies[RPL_CREATED] = rplCreated;
+    _replies[RPL_MYINFO] = rplMyInfo;
     _replies[RPL_ENDOFWHO] = rplEndOfWho;
     _replies[RPL_CHANNELMODEIS] = rplChannelModeIs;
     _replies[RPL_NOTOPIC] = rplNoTopic;
@@ -192,6 +195,26 @@ std::string Replies::errChaNoPrivsNeeded(const std::vector<std::string> &args)
 std::string Replies::rplWelcome(const std::vector<std::string> &args)
 {
     std::string rep = _server + " 001 " + args[0] + " :Welcome to the Internet Relay Network " + args[1] + "\r\n";
+    return (rep);
+}
+
+std::string Replies::rplYourHost(const std::vector<std::string> &args)
+{
+    std::string server = _server;
+    server.erase(0, 1);
+    std::string rep = _server + " 002 " + args[0] + " :Your host is " + server + ", running version " + args[1] + "\r\n";
+    return (rep);
+}
+
+std::string Replies::rplCreated(const std::vector<std::string> &args)
+{
+    std::string rep = _server + " 003 " + args[0] + " :This server was created " + args[1] + "\r\n";
+    return (rep);
+}
+
+std::string Replies::rplMyInfo(const std::vector<std::string> &args)
+{
+    std::string rep = _server + " 004 " + args[0] + " " + _server + " " + args[1] + " " + args[2] + " " + args[3] + "\r\n";
     return (rep);
 }
 

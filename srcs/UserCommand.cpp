@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 10:06:09 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 07:58:54 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "Replies.hpp"
 #include "Status.hpp"
 #include <iostream>
+#include <ctime>
 
 UserCommand::UserCommand(const CommandContext& context):
     Command(context, "USER", PRE_REG, 4, true){}
@@ -34,10 +35,17 @@ void    UserCommand::execute()
     client.setRealName(realname);
     if (!client.getNick().empty())
     {
-        client.setRegistered(true);
         std::string prefix = client.getNick() + "!" + client.getUser() + "@" + client.getHost();
         client.setPrefix(prefix);
-        this->_context.client.sendMessage(Replies::create(RPL_WELCOME, client.getNick(), client.getPrefix()));
+        client.setRegistered(true);
+        
+        std::time_t   time = std::time(NULL);
+        char*         timeStr = std::ctime(&time);
+        
+        client.sendMessage(Replies::create(RPL_WELCOME, client.getNick(), client.getPrefix()));
+        client.sendMessage(Replies::create(RPL_YOURHOST, client.getNick(), "1.0"));
+        client.sendMessage(Replies::create(RPL_CREATED, client.getNick(), std::string(timeStr)));
+        client.sendMessage(Replies::create(RPL_MYINFO, client.getNick(), "1.0", "0", "itokl"));
     }
 
     std::cout << "USER SET TO :" << client.getUser() << std::endl;

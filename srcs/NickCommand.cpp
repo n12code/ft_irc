@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 10:34:36 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 10:02:35 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 07:53:00 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "Status.hpp"
 #include "Replies.hpp"
 #include <iostream>
+#include <ctime>
 
 NickCommand::NickCommand(const CommandContext& context):
     Command(context, "NICK", ANYTIME, 1, true) {}
@@ -54,22 +55,39 @@ static bool    isSpecial(char c)
 void    NickCommand::execute()
 {
     std::string nick = this->_context.msg.getParams()[0];
-    std::string currentNick = this->_context.client.getNick();
+    Client& client = this->_context.client;
+    std::string currentNick = client.getNick();
+    
     if (currentNick.empty())
             currentNick = "*";
     if (!this->isValidNick(nick))
     {
-        this->_context.client.sendMessage(Replies::create(ERR_ERRONEUSNICKNAME, currentNick, nick));
+        client.sendMessage(Replies::create(ERR_ERRONEUSNICKNAME, currentNick, nick));
         return ;
     }
     if (this->_context.clients.hasClient(nick))
     {
-        this->_context.client.sendMessage(Replies::create(ERR_NICKNAMEINUSE, currentNick, nick));
+        client.sendMessage(Replies::create(ERR_NICKNAMEINUSE, currentNick, nick));
         return ;
     }
-    this->_context.client.setNick(nick);
+    client.setNick(nick);
 
-    std::cout << "NICK SET TO:" << this->_context.client.getNick() << std::endl;
+    if (!client.getUser().empty())
+    {
+        std::string prefix = client.getNick() + "!" + client.getUser() + "@" + client.getHost();
+        client.setPrefix(prefix);
+        if (!client.isRegistered())
+        {
+            std::time_t   time = std::time(NULL);
+            char*         timeStr = std::ctime(&time);
+            client.setRegistered(true);
+            client.sendMessage(Replies::create(RPL_WELCOME, client.getNick(), client.getPrefix()));
+            client.sendMessage(Replies::create(RPL_YOURHOST, client.getNick(), "1.0"));
+            client.sendMessage(Replies::create(RPL_CREATED, client.getNick(), std::string(timeStr)));
+            client.sendMessage(Replies::create(RPL_MYINFO, client.getNick(), "1.0", "", "itokl"));
+        }
+    }
+    std::cout << "NICK SET TO:" << client.getNick() << std::endl;
 }
 
 bool    NickCommand::isValidNick(const std::string& nick)
