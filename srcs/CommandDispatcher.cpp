@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 10:57:50 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 11:29:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,33 +83,42 @@ bool    CommandDispatcher::dispatch(int clientFd, Message msg)
     }
     
     CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);
-    Command*        cmd = this->_commands[command](context);
-    RegRule         rule = cmd->getRule();
-    Status          status = SUCCESS; 
-    if (rule == PRE_REG)
-    {
-        if (client.isRegistered())
-            status = ERR_ALREADYREGISTERED;
-        else if (cmd->isAuthRequired() && !client.isAuth())
+    Command*        cmd = NULL;
+    try {
+        cmd                  = this->_commands[command](context);
+        RegRule         rule = cmd->getRule();
+        Status          status = SUCCESS; 
+        if (rule == PRE_REG)
+        {
+            if (client.isRegistered())
+                status = ERR_ALREADYREGISTERED;
+            else if (cmd->isAuthRequired() && !client.isAuth())
+                status = ERR_NOTREGISTERED;
+        }
+        else if (rule == POST_REG && !client.isRegistered())
             status = ERR_NOTREGISTERED;
-    }
-    else if (rule == POST_REG && !client.isRegistered())
-        status = ERR_NOTREGISTERED;
-    else if (rule == ANYTIME && !client.isAuth())
-        status = ERR_NOTREGISTERED;
+        else if (rule == ANYTIME && !client.isAuth())
+            status = ERR_NOTREGISTERED;
 
-    if (status == SUCCESS && msg.getParams().size() < cmd->getMinParams())
-        status = ERR_NEEDMOREPARAMS;
-        
-    if (status != SUCCESS)
-    {
-        client.sendMessage(Replies::create(status, client.getNick(), command));
+        if (status == SUCCESS && msg.getParams().size() < cmd->getMinParams())
+            status = ERR_NEEDMOREPARAMS;
+            
+        if (status != SUCCESS)
+        {
+            client.sendMessage(Replies::create(status, client.getNick(), command));
+            delete (cmd);
+            return (true);
+        }
+
+        cmd->execute();
         delete (cmd);
-        return (true);
     }
-
-    cmd->execute();
-    delete (cmd);
+    catch (const std::exception& e)
+    {
+        std::cerr << "Error: error while executing [" << command << "]: " << e.what() << std::endl;
+        if (cmd != NULL)
+            delete cmd;
+    }
     return (true);
 }
 

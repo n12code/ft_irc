@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 09:18:27 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 11:37:38 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void ClientHandler::onReadable(int& fd)
             if (!it->second.getMsgBuffer().empty())
                 this->_loop.toggleWriteEvent(it->first, true);
         }
-
         msg.clearParsedData();
     }
 }

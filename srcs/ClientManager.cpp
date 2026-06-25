@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:56:08 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/16 08:55:17 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 10:59:25 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ ClientManager::~ClientManager() {}
 
 Client& ClientManager::getClientWithFd(int fd)
 {
-    if (this->_clients.find(fd) != this->_clients.end())
-        return (this->_clients.at(fd));
-    throw std::runtime_error("Client not found");
+    return this->_clients.at(fd);
 }
 
 Client& ClientManager::getClientWithNick(const std::string &nick)
@@ -37,7 +35,7 @@ Client& ClientManager::getClientWithNick(const std::string &nick)
         if (it->second.getNick() == nick)
             return (it->second);
     }
-    throw std::runtime_error("Client with nickname " + nick + " not found");
+    return (this->_clients.begin()->second);
 }
 
 const std::map<int, Client>& ClientManager::getClients() const

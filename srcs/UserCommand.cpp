@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/25 07:58:54 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 10:11:36 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,3 @@ void UserCommand::FormatUser(std::string &user)
             user[i] = '_';
     }
 }
-
-
-// << PASS irc
-
-// << NICK Alice
-
-// << USER Alice 0 * :realname
-
-// >> :localhost 462 :Unauthorized command (already registered)
-
-// >> :localhost 451 :You have not registered
-
-// >> :localhost 462 :Unauthorized command (already registered)
-
-
-// this happens when i try to connect, even tho its the first time i ever connect with this user. it didnt do that before we changed the sending system

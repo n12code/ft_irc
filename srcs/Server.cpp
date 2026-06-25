@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 07:18:13 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 10:56:12 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 11:08:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ std::string Server::getPassword()
 const CommandDispatcher &Server::getDispatcher() const
 {
     return (this->_dispatcher);
+}
+
+EventLoop &Server::getLoop()
+{
+    return (this->_loop);
 }
 
 void    Server::run()

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/22 10:48:34 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 11:34:47 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,19 @@ void JoinCommand::execute()
         keys = ParseParam(params[1]);
     if (channels[0] == "0")
     {
-        Command*    cmd = formatForPart();
-        cmd->execute();
-        delete cmd;
+        Command*    cmd = NULL;
+        try
+        {
+            cmd = formatForPart();
+            cmd->execute();
+            delete cmd;
+        }
+        catch (const std::exception& e)
+        {
+            std::cerr << "Error: error while executing [" << this->_name << "]: " << e.what() << std::endl;
+            if (cmd != NULL)
+                delete cmd;
+        }
         return ;
     }
     else

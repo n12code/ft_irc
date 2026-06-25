@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/25 10:08:39 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 11:38:18 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 //test with nc (ctrl+z fg, partial command ctrl d)
 //check every std::cout/logging//std::cerr
 
-//exception for a single client stops the server, watch for your try/catch and excpetions
 
 volatile std::sig_atomic_t g_quit = 0;
 
@@ -51,20 +50,38 @@ void    handleSignal()
 
 int main(int argc, char *argv[])
 {
-    handleSignal();
+    Server *server = NULL;
     try {
         if (argc != 3)
-            throw std::invalid_argument("Error: Please precise the port number and then the password");
+        {
+            std::cerr << "Error: Please precise the port number and then the password" << std::endl;
+            return (1);
+        }
         
         std::istringstream   ss(argv[1]);
         unsigned short port;
         if (!(ss >> port) || !ss.eof())
-            throw std::invalid_argument("Error: Please precise a valid port number");
-        Server server(port, argv[2]);
-        server.run();
+        {
+            std::cerr << "Error: Please precise a valid port number" << std::endl;
+            return (1);
+        }
+
+        handleSignal();
+        server = new Server(port, argv[2]);
+        server->run();
+        delete server;
     }
-    catch (const std::exception &e) {
-        std::cout << e.what() << std::endl;
+    catch (const std::exception &e) 
+    {
+        if (server)
+        {
+            if (server->getLoop().getEpfd() != -1)
+                close(server->getLoop().getEpfd());
+            server->getLoop().clearHandlers();
+            delete server;
+        }
+        std::cerr << e.what() << std::endl;
+        return (1);
     }
     return (0);
 }
