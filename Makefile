@@ -128,6 +128,6 @@ re:					fclean all
 
 re_debug:			fclean debug
 
-.PHONY:				all clean fclean re debug re_debug
+.PHONY:				all clean fclean re debug re_debug val run
 
 -include 			$(DEPS)
