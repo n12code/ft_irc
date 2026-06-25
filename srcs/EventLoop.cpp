@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 07:27:25 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/25 08:28:06 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/25 10:06:22 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,12 @@ void    EventLoop::serverRoutine()
     {
         if (g_quit)
         {
-            //clear everything
+            this->clearHandlers();
+            if (this->_epfd != -1)
+            {
+                close(this->_epfd);
+                this->_epfd = -1;
+            }
             return ;
         }
         int nfds = epoll_wait(this->_epfd, this->_events, 1024, -1);
@@ -100,6 +105,17 @@ void    EventLoop::serverRoutine()
 int&    EventLoop::getEpfd() 
 {
     return (this->_epfd);
+}
+
+void EventLoop::clearHandlers()
+{
+    std::map<int, EventHandler*>::iterator  it = this->_handlers.begin();
+    for (; it != this->_handlers.end(); ++it)
+    {
+        if (it->first != -1)
+            close(it->first);
+        delete it->second;
+    }
 }
 
 void    EventLoop::toggleWriteEvent(const int fd, bool write)
