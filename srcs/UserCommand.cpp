@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/25 10:11:36 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 08:11:45 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,15 @@ void    UserCommand::execute()
     std::string user = this->_context.msg.getParams()[0];
     std::string realname = this->_context.msg.getParams()[3];
 
+
     this->FormatUser(user);
     
     Client& client = this->_context.client;
+    if (!client.getUser().empty())
+    {
+        client.sendMessage(Replies::create(ERR_ALREADYREGISTERED, client.getNick(), this->_name));
+        return ;
+    }
     client.setUser(user);
     client.setRealName(realname);
     if (!client.getNick().empty())

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:51:03 by ubuntu            #+#    #+#             */
-/*   Updated: 2026/06/24 09:57:49 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 08:13:23 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ PassCommand::~PassCommand() {}
 
 void    PassCommand::execute()
 {
+    if (this->_context.client.isAuth())
+    {
+        this->_context.client.sendMessage(Replies::create(ERR_ALREADYREGISTERED, this->_context.client.getNick(), this->_name));
+        return ;
+    }
     if (this->_context.msg.getParams()[0] != this->_context.server.getPassword())
     {
         this->_context.client.sendMessage(Replies::create(ERR_PASSWDMISMATCH, "*"));
