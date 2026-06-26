@@ -6,11 +6,12 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:58:32 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 10:23:39 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 09:06:35 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
+#include "Utils.hpp"
 #include <string>
 
 Client::Client() :
@@ -111,7 +112,9 @@ void    Client::setRegistered(bool registered)
 
 void    Client::setNick(const std::string& nick)
 {
-    this->_nick = nick;
+    std::string cpy = nick;
+    Utils::toLowerIrc(cpy);
+    this->_nick = cpy;
 }
 
 void    Client::setUser(const std::string& user)

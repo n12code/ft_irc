@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 10:34:36 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/26 07:54:39 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 08:18:42 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void    NickCommand::execute()
             client.sendMessage(Replies::create(RPL_MYINFO, client.getNick(), "1.0", "", "itokl"));
         }
     }
-    std::cout << "NICK SET TO:" << client.getNick() << std::endl;
 }
 
 bool    NickCommand::isValidNick(const std::string& nick)

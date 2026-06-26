@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 09:04:20 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 10:59:06 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 09:00:32 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ class Command
 
         virtual void                execute() = 0;
         std::vector<std::string>    ParseParam(const std::string& params);
-        void                        toLowerIRC(std::string& string);
                 
         CommandContext& getContext();
         std::string&    getName();

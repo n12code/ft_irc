@@ -6,12 +6,13 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 09:56:08 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/25 10:59:25 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 09:04:03 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClientManager.hpp"
 #include "Client.hpp"
+#include "Utils.hpp"
 #include <iterator>
 #include <map>
 #include <utility>
@@ -29,10 +30,12 @@ Client& ClientManager::getClientWithFd(int fd)
 
 Client& ClientManager::getClientWithNick(const std::string &nick)
 {
+    std::string cpy = nick;
+    Utils::toLowerIrc(cpy);
     std::map<int, Client>::iterator it = this->_clients.begin();
     for (; it != this->_clients.end(); ++it)
     {
-        if (it->second.getNick() == nick)
+        if (it->second.getNick() == cpy)
             return (it->second);
     }
     return (this->_clients.begin()->second);
@@ -55,10 +58,12 @@ void    ClientManager::removeClient(int fd)
 
 bool ClientManager::hasClient(const std::string& nick) const
 {
+    std::string cpy = nick;
+    Utils::toLowerIrc(cpy);
     std::map<int, Client>::const_iterator it = _clients.begin();
     for (; it != this->_clients.end(); ++it)
     {
-        if (it->second.getNick() == nick)
+        if (it->second.getNick() == cpy)
             return (true);
     }
     return (false);

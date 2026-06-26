@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:12:49 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/25 11:34:47 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 09:00:37 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "Client.hpp"
 #include "Server.hpp"
 #include "Replies.hpp"
+#include "Utils.hpp"
 #include <iostream>
 
 JoinCommand::JoinCommand(const CommandContext& context):
@@ -60,7 +61,6 @@ void JoinCommand::execute()
             bool        isAlrMember = false;
             if (this->_context.channels.hasChannel(channels[i]))
             {
-                std::cout << "joining" << std::endl;
                 chan = &this->_context.channels.getChannelByName(channels[i]);
                 isAlrMember = chan->isUser(client.getFd());
                 if (!isAlrMember)
@@ -76,7 +76,6 @@ void JoinCommand::execute()
             }
             else
             {
-                std::cout << "creation" << std::endl;
                 status = isValidName(channels[i]);
                 if (status != SUCCESS)
                 {
@@ -90,7 +89,6 @@ void JoinCommand::execute()
                 std::string joinMsg = ":" + client.getPrefix() + " " + this->_name + " " + chan->getName() + "\r\n";
                 client.sendMessage(joinMsg);
                 chan->sendToChannel(joinMsg, this->_context.clients, client.getFd());
-                std::cout << "joinMSG : " << joinMsg << std::endl;
             }
             sendMessages(chan, client);
         }
@@ -111,14 +109,13 @@ Status JoinCommand::join(Channel* channel, const std::string& passwd, const int 
 
 Status JoinCommand::isValidName(std::string& name)
 {
-    std::cout << "name : " << name << std::endl;
     if (name.empty() ||
         name.size() > 50 ||
         (name[0] != '#' &&
         name[0] != '&'))
         return (ERR_NOSUCHCHANNEL);
 
-    Command::toLowerIRC(name);
+    Utils::toLowerIrc(name);
     
     for (size_t i = 1; i < name.size(); ++i)
     {
@@ -131,7 +128,6 @@ Status JoinCommand::isValidName(std::string& name)
 void    JoinCommand::sendMessages(Channel* channel, Client& client)
 {
     client.sendMessage(Replies::create(RPL_TOPIC, client.getNick(), channel->getName(), channel->getTopic()));
-    std::cout << "topic" << std::endl;
     
     std::string     namesMsg;
     std::set<int>   users = channel->getUsers();
@@ -144,10 +140,8 @@ void    JoinCommand::sendMessages(Channel* channel, Client& client)
         namesMsg += clients.getClientWithFd(*it).getNick() + " ";
     }
     client.sendMessage(Replies::create(RPL_NAMREPLY, client.getNick(), "= " + channel->getName(), namesMsg));
-    std::cout << "nqmreply" << std::endl;
 
     client.sendMessage(Replies::create(RPL_ENDOFNAMES, client.getNick(), channel->getName()));
-    std::cout << "endofnames" << std::endl;
 }
 
 Command*    JoinCommand::formatForPart()
@@ -163,7 +157,6 @@ Command*    JoinCommand::formatForPart()
             newParam += ",";
     }
     
-    std::cout << "params :" << newParam << std::endl;
     partParams.push_back(newParam);
     this->_context.msg.setParams(partParams);
     return (this->_context.server.getDispatcher().getCommands().at("PART")(this->_context));

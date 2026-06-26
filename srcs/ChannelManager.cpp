@@ -6,12 +6,13 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:48:12 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/16 08:56:52 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 09:01:14 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ChannelManager.hpp"
 #include "Channel.hpp"
+#include "Utils.hpp"
 #include <string>
 #include <vector>
 #include <map>
@@ -25,12 +26,16 @@ ChannelManager::~ChannelManager() {}
 
 Channel& ChannelManager::getChannelByName(const std::string &name)
 {
-    return (this->_channels[name]);
+    std::string cpy = name;
+    Utils::toLowerIrc(cpy);
+    return (this->_channels[cpy]);
 }
 
 bool ChannelManager::hasChannel(const std::string &name)
 {
-    if (this->_channels.find(name) != this->_channels.end())
+    std::string cpy = name;
+    Utils::toLowerIrc(cpy);
+    if (this->_channels.find(cpy) != this->_channels.end())
         return (true);
     return (false);
 }

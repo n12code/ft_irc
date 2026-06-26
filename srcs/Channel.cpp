@@ -6,12 +6,13 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 10:58:07 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/24 10:47:50 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 09:00:48 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Channel.hpp"
 #include "Client.hpp"
+#include "Utils.hpp"
 #include "ClientManager.hpp"
 #include <iostream>
 
@@ -36,10 +37,10 @@ Channel::Channel(const std::string &name, const int creatorFd) :
     _invited()
 {
     this->addChanop(creatorFd);
+    Utils::toLowerIrc(_name);
 }
 
 Channel::~Channel() {}
-
 
 bool Channel::hasMode(const char mode) const
 {
@@ -124,7 +125,6 @@ void Channel::sendToChannel(const std::string &message, ClientManager &clients, 
         client->sendMessage(message);
     }
 }
-
 
 const std::string   Channel::getPassword() const
 {

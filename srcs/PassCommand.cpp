@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:51:03 by ubuntu            #+#    #+#             */
-/*   Updated: 2026/06/26 08:13:23 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 08:18:44 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void    PassCommand::execute()
         return ;
     }
     this->_context.client.setAuth(true);
-    std::cout << "PASS COMMAND authenticated" << std::endl;
 }

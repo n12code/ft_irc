@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 07:37:06 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/26 08:11:45 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 08:18:47 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,6 @@ void    UserCommand::execute()
         client.sendMessage(Replies::create(RPL_CREATED, client.getNick(), std::string(timeStr)));
         client.sendMessage(Replies::create(RPL_MYINFO, client.getNick(), "1.0", "0", "itokl"));
     }
-
-    std::cout << "USER SET TO :" << client.getUser() << std::endl;
-    if (client.isAuth())
-        std::cout << client.getUser() << " is authenticated" << std::endl;
-    if (client.isRegistered())
-        std::cout << client.getUser() << " is registered" << std::endl;
-    std::cout <<std::endl;
 }
 
 void UserCommand::FormatUser(std::string &user)

@@ -35,6 +35,7 @@ FILES 			:= Server \
 				   PrivMsgCommand \
 				   Command \
 				   Replies \
+				   Utils \
 				   main
 
 HEADERS 		:= Server \
@@ -64,6 +65,7 @@ HEADERS 		:= Server \
 				   Replies \
 				   Status \
 				   RegRule \
+				   Utils \
 				   Command
 				   
 
