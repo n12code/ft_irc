@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/25 11:38:18 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 08:06:18 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@
 //check for references
 //check for const for return types and arguments
 //channel and nick case sensitive
-//check every comment
-//has fd for client manager     
-//PING?
-//test with nc (ctrl+z fg, partial command ctrl d)
+//check every comment   
 //check every std::cout/logging//std::cerr
 
 

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/25 11:29:35 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 07:42:54 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ bool    CommandDispatcher::dispatch(int clientFd, Message msg)
 
     if (this->_commands.find(command) == this->_commands.end())
     {
-        client.sendMessage(Replies::create(ERR_UNKNOWNCOMMAND, "*", command));
+        std::string nick = client.getNick();
+        if (nick.empty())
+            nick = "*";
+        client.sendMessage(Replies::create(ERR_UNKNOWNCOMMAND, nick, command));
         return (true);
     }
     
