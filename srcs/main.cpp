@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/26 08:19:47 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/06/26 09:11:20 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 //check for const identifiers
 //check for references
 //check for const for return types and arguments
-//channel and nick case sensitive
-
 
 volatile std::sig_atomic_t g_quit = 0;
 
