@@ -1,4 +1,4 @@
-#include "CommandContext.hpp"
+#include "command/CommandContext.hpp"
 
 CommandContext::CommandContext(Server &s, Client &c, ClientManager &cm, ChannelManager &chm, Message &m):
     server(s),

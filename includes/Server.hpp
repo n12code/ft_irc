@@ -16,7 +16,7 @@
 # include "EventLoop.hpp"
 # include "ClientManager.hpp"
 # include "ChannelManager.hpp"
-# include "CommandDispatcher.hpp"
+# include "command/CommandDispatcher.hpp"
 # include <sys/epoll.h>
 # include <string>
 
@@ -32,7 +32,7 @@ class Server
         ChannelManager      _channels;
         CommandDispatcher   _dispatcher;   
     public:
-        Server(const unsigned short, const std::string pswd);
+        Server(const unsigned short port, const std::string pswd);
         ~Server();
         
         void    run();

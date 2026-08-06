@@ -16,7 +16,7 @@
 # include "EventLoop.hpp"
 # include "ClientManager.hpp"
 # include "ChannelManager.hpp"
-# include "CommandDispatcher.hpp"
+# include "command/CommandDispatcher.hpp"
 
 class EventHandler
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "InviteCommand.hpp"
+#include "command/InviteCommand.hpp"
 #include "ChannelManager.hpp"
 #include "Message.hpp"
 #include "Channel.hpp"

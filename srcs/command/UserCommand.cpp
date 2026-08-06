@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "UserCommand.hpp"
+#include "command/UserCommand.hpp"
 #include "Message.hpp"
 #include "Client.hpp"
 #include "Replies.hpp"

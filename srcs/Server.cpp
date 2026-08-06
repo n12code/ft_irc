@@ -51,7 +51,7 @@ void Server::setSocket()
     sin.sin_family = AF_INET;
     sin.sin_port = htons(this->_port);
     sin.sin_addr.s_addr = INADDR_ANY;
-    if (::bind(this->_socketFd, reinterpret_cast<sockaddr*>(&sin), sizeof(sin)) == -1)
+    if (::bind(this->_socketFd, reinterpret_cast<sockaddr*>(&sin), sizeof(sockaddr_in)) == -1)
         throw std::runtime_error(std::string("Error: socket binding failed: ") + strerror(errno));
 
     if (::listen(this->_socketFd, 128) == -1)

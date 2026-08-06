@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PartCommand.hpp"
-#include "Command.hpp"
+#include "command/PartCommand.hpp"
+#include "command/Command.hpp"
 #include "Message.hpp"
 #include "Client.hpp"
 #include "Replies.hpp"

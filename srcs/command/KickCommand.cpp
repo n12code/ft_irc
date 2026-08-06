@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "KickCommand.hpp"
-#include "Command.hpp"
+#include "command/KickCommand.hpp"
+#include "command/Command.hpp"
 #include "Message.hpp"
 #include "Client.hpp"
 #include "Status.hpp"

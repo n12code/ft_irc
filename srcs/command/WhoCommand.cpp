@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "WhoCommand.hpp"
+#include "command/WhoCommand.hpp"
 #include "Message.hpp"
 #include "ChannelManager.hpp"
 #include "Channel.hpp"

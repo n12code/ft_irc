@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Command.hpp"
-#include "CommandContext.hpp"
+#include "command/Command.hpp"
+#include "command/CommandContext.hpp"
 #include <string>
 #include <vector>
 #include <iostream>

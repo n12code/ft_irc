@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ModeTracker.hpp"
+#include "command/ModeTracker.hpp"
 
 ModeTracker::ModeTracker():
     addedModes(""),

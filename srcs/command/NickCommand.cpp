@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "NickCommand.hpp"
+#include "command/NickCommand.hpp"
 #include "Message.hpp"
 #include "Client.hpp"
 #include "Status.hpp"
@@ -54,7 +54,7 @@ static bool    isSpecial(char c)
 
 void    NickCommand::execute()
 {
-    std::string nick = this->_context.msg.getParams()[0];
+    std::string nick = this->_context.msg.getParams().at(0);
     Client& client = this->_context.client;
     std::string currentNick = client.getNick();
     

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "TopicCommand.hpp"
+#include "command/TopicCommand.hpp"
 #include "ChannelManager.hpp"
 #include "Message.hpp"
 #include "Channel.hpp"

@@ -14,7 +14,7 @@
 #include "ClientHandler.hpp"
 #include "ClientManager.hpp"
 #include "ChannelManager.hpp"
-#include "CommandDispatcher.hpp"
+#include "command/CommandDispatcher.hpp"
 #include "Client.hpp"
 #include <iostream>
 #include <unistd.h>

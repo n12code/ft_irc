@@ -13,7 +13,7 @@
 #include "EventHandler.hpp"
 #include "EventLoop.hpp"
 #include "ClientManager.hpp"
-#include "CommandDispatcher.hpp"
+#include "command/CommandDispatcher.hpp"
 #include <unistd.h>
 #include <cstring>
 #include <cerrno>

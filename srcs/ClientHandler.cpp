@@ -14,7 +14,7 @@
 #include "Client.hpp"
 #include "Channel.hpp"
 #include "Message.hpp"
-#include "CommandDispatcher.hpp"
+#include "command/CommandDispatcher.hpp"
 #include <iostream>
 #include <unistd.h>
 #include <stdexcept>
@@ -78,7 +78,7 @@ void ClientHandler::onReadable(int& fd)
             return ;    
         if (!this->_dispatcher.dispatch(fd, msg))
         {
-            std::string reason = msg.getParams()[0];
+            std::string reason = msg.getParams().at(0);
             this->broadcastQuit(fd, reason);
             this->onError(fd);
             msg.clearParsedData();
@@ -112,15 +112,12 @@ void ClientHandler::onWritable(int& fd)
     {
         if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR || errno == ENOBUFS)
             return ;
-        else if (errno == EBADF || errno == ENOTSOCK || errno == EACCES || errno == EIO || 
-                 errno == ENETDOWN || errno == ENETUNREACH || errno == EOPNOTSUPP)
-            throw std::runtime_error(std::string("send failure: ") + strerror(errno));
         std::cerr << "Warning: Client send error: " << strerror(errno) << std::endl;
         this->onError(fd); 
         return;
     }
 
-    buffer.erase(0, bytesSent);
+    buffer.erase(0, static_cast<unsigned long> (bytesSent));
 
     if (buffer.empty())
         this->_loop.toggleWriteEvent(fd, false);

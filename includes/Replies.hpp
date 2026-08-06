@@ -23,7 +23,7 @@ class Replies
     private:
         typedef std::string (*ReplyBuilder)(const std::vector<std::string>& args);
         static  std::map<Status, ReplyBuilder> _replies;
-        
+
         static std::string  dispatch(Status status, const std::vector<std::string>& args);
         static std::string  _server;
     public:

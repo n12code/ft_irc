@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CommandDispatcher.hpp"
-#include "CommandContext.hpp"
+#include "command/CommandDispatcher.hpp"
+#include "command/CommandContext.hpp"
 #include "Message.hpp"
-#include "PassCommand.hpp"
+#include "command/PassCommand.hpp"
 #include "RegRule.hpp"
-#include "NickCommand.hpp"
-#include "UserCommand.hpp"
-#include "JoinCommand.hpp"
-#include "PartCommand.hpp"
-#include "KickCommand.hpp"
-#include "WhoCommand.hpp"
-#include "ModeCommand.hpp"
-#include "InviteCommand.hpp"
-#include "TopicCommand.hpp"
-#include "PrivMsgCommand.hpp"
+#include "command/NickCommand.hpp"
+#include "command/UserCommand.hpp"
+#include "command/JoinCommand.hpp"
+#include "command/PartCommand.hpp"
+#include "command/KickCommand.hpp"
+#include "command/WhoCommand.hpp"
+#include "command/ModeCommand.hpp"
+#include "command/InviteCommand.hpp"
+#include "command/TopicCommand.hpp"
+#include "command/PrivMsgCommand.hpp"
 #include "Client.hpp"
 #include "Replies.hpp"
 #include "Server.hpp"
@@ -85,12 +85,12 @@ bool    CommandDispatcher::dispatch(int clientFd, Message msg)
         return (true);
     }
     
-    CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);
+    CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);//Recuperation of context for pushing this on the creation of new commands executing
     Command*        cmd = NULL;
     try {
-        cmd                  = this->_commands[command](context);
+        cmd                  = this->_commands[command](context);//In the map of Dispatch Find the right creation of command
         RegRule         rule = cmd->getRule();
-        Status          status = SUCCESS; 
+        Status          status = SUCCESS;
         if (rule == PRE_REG)
         {
             if (client.isRegistered())

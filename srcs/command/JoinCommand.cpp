@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "JoinCommand.hpp"
+#include "command/JoinCommand.hpp"
 #include "ChannelManager.hpp"
 #include "Message.hpp"
 #include "Channel.hpp"

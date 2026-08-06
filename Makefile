@@ -5,9 +5,28 @@
 NAME 			:= ircserv
 
 SRCS_DIR 		:= srcs/
+COMMAND_DIR		:= command/
 INCS_DIR 		:= includes/
 OBJS_DIR		:= .objs/
 DOBJS_DIR		:= .dobjs/
+
+COMMAND_FILE	:= CommandDispatcher \
+				   CommandContext \
+				   ModeTracker \
+				   PassCommand \
+				   NickCommand \
+				   UserCommand \
+				   JoinCommand \
+				   PartCommand \
+				   KickCommand \
+				   WhoCommand \
+				   ModeCommand \
+				   InviteCommand \
+				   TopicCommand \
+				   PrivMsgCommand \
+				   Command
+
+COMMAND_FILE_DIR	:= $(addprefix $(COMMAND_DIR), $(COMMAND_FILE))
 
 FILES 			:= Server \
 				   EventLoop \
@@ -19,61 +38,21 @@ FILES 			:= Server \
 				   ClientManager \
 				   ChannelManager \
 				   Message \
-				   CommandDispatcher \
-				   CommandContext \
-				   ModeTracker \
-				   PassCommand \
-				   NickCommand \
-				   UserCommand \
-				   JoinCommand \
-				   PartCommand \
-				   KickCommand \
-				   WhoCommand \
-				   ModeCommand \
-				   InviteCommand \
-				   TopicCommand \
-				   PrivMsgCommand \
-				   Command \
 				   Replies \
 				   Utils \
 				   main
-
-HEADERS 		:= Server \
-				   EventLoop \
-				   EventHandler \
-				   ClientHandler \
-				   ServerHandler \
-				   Client \
-				   Channel \
-				   ClientManager \
-				   ChannelManager \
-				   Message \
-				   CommandDispatcher \
-				   CommandContext \
-				   ModeTracker \
-				   PassCommand \
-				   NickCommand \
-				   UserCommand \
-				   JoinCommand \
-				   PartCommand \
-				   KickCommand \
-				   WhoCommand \
-				   ModeCommand \
-				   InviteCommand \
-				   TopicCommand \
-				   PrivMsgCommand \
-				   Replies \
-				   Status \
-				   RegRule \
-				   Utils \
-				   Command
 				   
+SRCS 			:= $(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(FILES)))\
+				   $(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(COMMAND_FILE_DIR)))\
 
-SRCS 			:= $(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(FILES)))
-INCS 			:= $(addprefix $(INCS_DIR), $(addsuffix .hpp, $(HEADERS)))
-OBJS 			:= $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
-DOBJS 			:= $(addprefix $(DOBJS_DIR), $(addsuffix .o, $(FILES)))
-DEPS 			:= $(addprefix $(OBJS_DIR), $(addsuffix .d, $(FILES)))
+OBJS 			:= $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))\
+				   $(addprefix $(OBJS_DIR), $(addsuffix .o, $(COMMAND_FILE_DIR)))\
+
+DOBJS 			:= $(addprefix $(DOBJS_DIR), $(addsuffix .o, $(FILES)))\
+				   $(addprefix $(DOBJS_DIR), $(addsuffix .o, $(COMMAND_FILE_DIR)))\
+
+DEPS 			:= $(addprefix $(OBJS_DIR), $(addsuffix .d, $(FILES)))\
+				   $(addprefix $(OBJS_DIR), $(addsuffix .d, $(COMMAND_FILE_DIR)))\
 
 F_ERR			:= -Wall -Wextra -Werror
 F_DEP			:= -MMD -MP
@@ -98,7 +77,7 @@ $(NAME):			$(OBJS)
 
 $(OBJS_DIR)%.o:		$(SRCS_DIR)%.cpp Makefile
 		@echo "\ncompiling..."
-		@mkdir -p $(OBJS_DIR)
+		@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/$(COMMAND_DIR)
 		$(CXX) $(CXXFLAGS) -c $< -o $@
 
 debug:				$(DOBJS)
@@ -107,7 +86,7 @@ debug:				$(DOBJS)
 
 $(DOBJS_DIR)%.o:	$(SRCS_DIR)%.cpp Makefile
 		@echo "\ncompiling..."
-		@mkdir -p $(DOBJS_DIR)
+		@mkdir -p $(DOBJS_DIR) $(DOBJS_DIR)/$(COMMAND_DIR)
 		$(CXX) $(CXXFLAGS) $(DFLAGS) -c $< -o $@
 
 run:				all

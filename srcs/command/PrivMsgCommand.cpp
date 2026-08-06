@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PrivMsgCommand.hpp"
+#include "command/PrivMsgCommand.hpp"
 #include "Message.hpp"
 #include "ChannelManager.hpp"
 #include "Channel.hpp"

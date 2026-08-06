@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ModeCommand.hpp"
+#include "command/ModeCommand.hpp"
 #include "Message.hpp"
 #include "ChannelManager.hpp"
 #include "Channel.hpp"
@@ -18,7 +18,7 @@
 #include "Client.hpp"
 #include "Replies.hpp"
 #include "Status.hpp"
-#include "ModeTracker.hpp"
+#include "command/ModeTracker.hpp"
 #include <sstream>
 #include <cstdlib>
 

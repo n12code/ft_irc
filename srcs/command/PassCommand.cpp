@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PassCommand.hpp"
-#include "CommandContext.hpp"
+#include "command/PassCommand.hpp"
+#include "command/CommandContext.hpp"
 #include "Message.hpp"
 #include "Server.hpp"
 #include "Client.hpp"
@@ -31,7 +31,7 @@ void    PassCommand::execute()
         this->_context.client.sendMessage(Replies::create(ERR_ALREADYREGISTERED, this->_context.client.getNick(), this->_name));
         return ;
     }
-    if (this->_context.msg.getParams()[0] != this->_context.server.getPassword())
+    if (this->_context.msg.getParams().at(0) != this->_context.server.getPassword())
     {
         this->_context.client.sendMessage(Replies::create(ERR_PASSWDMISMATCH, "*"));
         return ;
