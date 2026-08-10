@@ -1,5 +1,11 @@
-#include <sys/types.h>
-#include <sys/socket.h>
+#include "Bot.hpp"
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <cerrno>
+#include <iostream>
+#include <cstring>
+#include <unistd.h>
+#include <sstream>
 
 int parse_ip(const std::string& ip_port, std::string& ip, unsigned short& port)
 {
@@ -56,17 +62,16 @@ int main(int argc, char *argv[])
         }
     }
 
-    //creation du bot et connexion de notre Bot 
-    connexion();
+    Bot bot(user_name, nick_name, socketFd);
+    bot.connexion(password);
 
     while (true)
     {
-        char buff[4096]
+        char buff[4096];
         ssize_t bytes = recv(socketFd, buff, sizeof(buff), 0);
-        if (bytes <= 0)//carefull to 
-        {
-            if (errno != EAGAIN && errno != EWOULDBLOCK)
-                return (-1);
-        }
+        if (bytes <= 0)
+            break;
+        bot.handleIncoming(buff, bytes);
     }
+    close(socketFd);
 }
