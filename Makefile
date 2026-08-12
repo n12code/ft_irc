@@ -10,7 +10,7 @@ INCS_DIR 		:= includes/
 OBJS_DIR		:= .objs/
 DOBJS_DIR		:= .dobjs/
 
-COMMAND_FILE	:= CommandDispatcher \
+COMMAND_FILES	:= CommandDispatcher \
 				   CommandContext \
 				   ModeTracker \
 				   PassCommand \
@@ -26,7 +26,7 @@ COMMAND_FILE	:= CommandDispatcher \
 				   PrivMsgCommand \
 				   Command
 
-COMMAND_FILE_DIR	:= $(addprefix $(COMMAND_DIR), $(COMMAND_FILE))
+COMMAND_FILE_DIR	:= $(addprefix $(COMMAND_DIR), $(COMMAND_FILES))
 
 FILES 			:= Server \
 				   EventLoop \

@@ -11,13 +11,14 @@ DOBJS_DIR		:= .dobjs/
 
 FILES 			:= Bot\
 				   BotCommand\
-				   BotContext\
-				   BotContextDispatcher\
 				   LineParser\
+				   Crc32\
+				   Base64\
 				   main
 
-COMMAND_FILES	:= PingComman\
-				   SendfileCommand
+COMMAND_FILES	:= PingCommand\
+				   SendFileCommand\
+				   SaidHello
 
 COMMAND_FILE_DIR	:= $(addprefix $(COMMAND_DIR), $(COMMAND_FILES))
 

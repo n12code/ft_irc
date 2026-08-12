@@ -43,7 +43,7 @@ void Server::setSocket()
     this->_socketFd = ::socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);
     if (this->_socketFd == -1)
         throw std::runtime_error(std::string("Error: socket creation failed: ") + strerror(errno));
-    
+ 
     if (setsockopt(this->_socketFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1)
         throw std::runtime_error(std::string("Error: socket configuration failed: ") + strerror(errno));
     

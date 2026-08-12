@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     
     if (parse_ip(argv[1], ip, port) == -1)
     {
-        std::cerr << "Adresse invalide, format attendu : IP:PORT" << std::endl;
+        std::cerr << "Invalid adress: IP:PORT" << std::endl;
         return (-1);
     }
 

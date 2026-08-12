@@ -1,6 +1,8 @@
-ParseLine Bot::parseLine(const std::string& line)
+#include "LineParser.hpp"
+
+ParsedLine parseLine(const std::string& line)
 {
-    ParseLine  result;
+    ParsedLine  result;
     size_t      pos = 0;
 
     if (!line.empty() && line[0] == ':')
@@ -41,28 +43,35 @@ ParseLine Bot::parseLine(const std::string& line)
         result.params.push_back(line.substr(pos, nextSpace - pos));
         pos = nextSpace;
     }
-
     return (result);
 }
 
-void Bot::handleIncoming(const char* data, ssize_t len)
+std::string extractNick(const std::string& prefix)
 {
-    this->_readBuffer.append(data, len);
-    
-    size_t pos;
-    while ((pos = this->_readBuffer.find('\n')) != std::string::npos)
+    size_t excl = prefix.find('!');
+    if (excl == std::string::npos)
+        return (prefix);
+    return (prefix.substr(0, excl));
+}
+
+std::vector<std::string> extractArgs(const std::string& text, size_t afterCmdPos)
+{
+    std::vector<std::string> args;
+    size_t pos = afterCmdPos;
+
+    for (;;)
     {
-        std::string line = this->_readBuffer.substr(0, pos);
-        this->_readBuffer.erase(0, pos + 1);
-        if (!line.empty() && line[line.size() - 1] == '\r')
-            line.erase(line.size() - 1);
-        ParseLine parsed = this->parseLine(line);
-        std::cout << parsed.prefix << std::endl;
-        std::cout << parsed.command << std::endl;
-        for (size_t i = 0; parsed.params.size() > i; i++)
-            std::cout << parsed.params[i] << std::endl;
-        if (parsed.hasTrailing)
-            std::cout << parsed.trailing << std::endl;
-        std::cout << line << std::endl;
+        pos = text.find_first_not_of(' ', pos);
+        if (pos == std::string::npos)
+            break;
+        size_t nextSpace = text.find(' ', pos);
+        if (nextSpace == std::string::npos)
+        {
+            args.push_back(text.substr(pos));
+            break;
+        }
+        args.push_back(text.substr(pos, nextSpace - pos));
+        pos = nextSpace;
     }
+    return (args);
 }
