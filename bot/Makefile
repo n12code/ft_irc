@@ -7,7 +7,6 @@ SRCS_DIR 		:= srcs/
 INCS_DIR 		:= includes/
 COMMAND_DIR		:= commands/
 OBJS_DIR		:= .objs/
-DOBJS_DIR		:= .dobjs/
 
 FILES 			:= Bot\
 				   BotCommand\
@@ -28,9 +27,6 @@ SRCS 			:= $(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(FILES)))\
 OBJS 			:= $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))\
 				   $(addprefix $(OBJS_DIR), $(addsuffix .o, $(COMMAND_FILE_DIR)))\
 
-DOBJS 			:= $(addprefix $(DOBJS_DIR), $(addsuffix .o, $(FILES)))\
-				   $(addprefix $(DOBJS_DIR), $(addsuffix .o, $(COMMAND_FILE_DIR)))\
-
 DEPS 			:= $(addprefix $(OBJS_DIR), $(addsuffix .d, $(FILES)))\
 				   $(addprefix $(OBJS_DIR), $(addsuffix .d, $(COMMAND_FILE_DIR)))\
 
@@ -39,7 +35,7 @@ F_DEP			:= -MMD -MP
 F_INC			:= -I$(INCS_DIR)
 F_CPP			:= -std=c++98
 CXXFLAGS 		:= $(F_ERR) $(F_DEP) $(F_INC) $(F_CPP)
-DFLAGS 			:= -g -O0
+DFLAGS 			:= -g 
 CXX				:= c++
 
 VALGRIND		?= valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --track-fds=yes
@@ -57,13 +53,8 @@ $(OBJS_DIR)%.o:		$(SRCS_DIR)%.cpp Makefile
 		@mkdir -p $(OBJS_DIR) $(OBJS_DIR)/$(COMMAND_DIR)
 		$(CXX) $(CXXFLAGS) -c $< -o $@
 
-debug:				$(DOBJS)
-		@mkdir -p $(DOBJS_DIR)
-		$(CXX) $(CXXFLAGS) $(DFLAGS) $(SRCS) -o $(NAME)
-
-$(DOBJS_DIR)%.o:	$(SRCS_DIR)%.cpp
-		@mkdir -p $(DOBJS_DIR) $(DOBJS_DIR)/$(COMMAND_DIR)
-		$(CXX) $(CXXFLAGS) $< -o $@
+debug: 				fclean
+		$(MAKE) --no-print-directory CXXFLAGS="$(CXXFLAGS) $(DFLAGS)" all
 
 run:				all
 		./$(NAME) 127.0.0.1:6667 irc marc bob
@@ -76,7 +67,7 @@ clean:
 		rm -rf $(DOBJS_DIR)
 
 fclean:				clean
-		rm $(NAME)
+		rm -f $(NAME)
 
 re:					fclean all
 

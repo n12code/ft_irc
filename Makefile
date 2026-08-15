@@ -9,6 +9,7 @@ COMMAND_DIR		:= command/
 INCS_DIR 		:= includes/
 OBJS_DIR		:= .objs/
 DOBJS_DIR		:= .dobjs/
+BOT_DIR			:= bot/
 
 COMMAND_FILES	:= CommandDispatcher \
 				   CommandContext \
@@ -92,6 +93,15 @@ $(DOBJS_DIR)%.o:	$(SRCS_DIR)%.cpp Makefile
 run:				all
 		./$(NAME) 6667 irc
 
+bonus:
+		$(MAKE) --no-print-directory --directory=$(BOT_DIR) all
+
+bonus_re:
+		$(MAKE) --no-print-directory --directory=$(BOT_DIR) re
+
+bonus_fclean:
+		$(MAKE) --no-print-directory --directory=$(BOT_DIR) fclean
+
 val:				debug
 		$(VALGRIND) ./$(NAME) 6667 irc
 
@@ -109,6 +119,6 @@ re:					fclean all
 
 re_debug:			fclean debug
 
-.PHONY:				all clean fclean re debug re_debug val run
+.PHONY:				all clean fclean re debug re_debug val run bonus bonus_re bonus_fclean
 
 -include 			$(DEPS)
