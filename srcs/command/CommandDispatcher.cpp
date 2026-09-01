@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CommandDispatcher.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lpalabos <lpalabos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 08:28:29 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/26 07:42:54 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/09/01 14:09:25 by lpalabos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ bool    CommandDispatcher::dispatch(int clientFd, Message msg)
         return (true);
     }
     
-    CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);//Recuperation of context for pushing this on the creation of new commands executing
+    CommandContext  context(this->_server, client, this->_clients, this->_channels, msg);
     Command*        cmd = NULL;
     try {
-        cmd                  = this->_commands[command](context);//In the map of Dispatch Find the right creation of command
+        cmd                  = this->_commands[command](context);
         RegRule         rule = cmd->getRule();
         Status          status = SUCCESS;
         if (rule == PRE_REG)

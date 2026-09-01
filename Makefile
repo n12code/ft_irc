@@ -11,6 +11,8 @@ OBJS_DIR		:= .objs/
 DOBJS_DIR		:= .dobjs/
 BOT_DIR			:= bot/
 
+BONUS_NAME 		:= $(BOT_DIR)bot_irc
+
 COMMAND_FILES	:= CommandDispatcher \
 				   CommandContext \
 				   ModeTracker \
@@ -93,13 +95,14 @@ $(DOBJS_DIR)%.o:	$(SRCS_DIR)%.cpp Makefile
 run:				all
 		./$(NAME) 6667 irc
 
-bonus:
+bonus:	all
 		$(MAKE) --no-print-directory --directory=$(BOT_DIR) all
+		./$(NAME) 6667 irc & sleep 5; ./$(BONUS_NAME) 127.0.0.1:6667 irc marc bob
 
 bonus_re:
 		$(MAKE) --no-print-directory --directory=$(BOT_DIR) re
 
-bonus_fclean:
+bonus_fclean: fclean
 		$(MAKE) --no-print-directory --directory=$(BOT_DIR) fclean
 
 val:				debug

@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     }
 
     Bot bot(user_name, nick_name, socketFd);
-    bot.connexion(password);
+    bot.connection(password);
 
     while (true)
     {

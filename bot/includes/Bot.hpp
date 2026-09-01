@@ -32,7 +32,7 @@ public:
     Bot(std::string &user, std::string &nick, int fd);
     ~Bot();
 
-    void    connexion(std::string &password);
+    void    connection(std::string &password);
     void    handleIncoming(const char* data, ssize_t len);
     void    dispatchCommand(const ParsedLine& parsed);
     void    sendRaw(const std::string& line);

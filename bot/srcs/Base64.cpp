@@ -32,10 +32,10 @@ std::string base64Encode(const std::string& input)
             ++pos;
         }
 
-        buf4[0] = (buf3[0] & 0xFC) >> 2;
-        buf4[1] = ((buf3[0] & 0x03) << 4) | ((buf3[1] & 0xF0) >> 4);
-        buf4[2] = ((buf3[1] & 0x0F) << 2) | ((buf3[2] & 0xC0) >> 6);
-        buf4[3] = buf3[2] & 0x3F;
+        buf4[0] = (buf3[0] & 0xFC) >> 2;// 0xFC => 1111 1100
+        buf4[1] = ((buf3[0] & 0x03) << 4) | ((buf3[1] & 0xF0) >> 4);// 0x03 => 0000 0101; 0xF0 => 1111 0000
+        buf4[2] = ((buf3[1] & 0x0F) << 2) | ((buf3[2] & 0xC0) >> 6);// 0x0F => 0000 1111; 0xC0 => 1100 0000
+        buf4[3] = buf3[2] & 0x3F;// 0x3F => 0011 1111;
 
         for (size_t j = 0; j < i + 1; ++j)
             result += BASE64_CHARS[buf4[j]];
@@ -69,9 +69,9 @@ std::string base64Decode(const std::string& input)
         if (i == 0)
             break;
 
-        buf3[0] = (buf4[0] << 2) | ((buf4[1] & 0x30) >> 4);
-        buf3[1] = ((buf4[1] & 0x0F) << 4) | ((buf4[2] & 0x3C) >> 2);
-        buf3[2] = ((buf4[2] & 0x03) << 6) | buf4[3];
+        buf3[0] = (buf4[0] << 2) | ((buf4[1] & 0x30) >> 4); //0x30 => 0011 0000
+        buf3[1] = ((buf4[1] & 0x0F) << 4) | ((buf4[2] & 0x3C) >> 2);//0x0F => 0000 1111; 0x3C => 0011 1100
+        buf3[2] = ((buf4[2] & 0x03) << 6) | buf4[3];//0x03 0000 0011
 
         for (size_t j = 0; j < i - 1; ++j)
             result += static_cast<char>(buf3[j]);

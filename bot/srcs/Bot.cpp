@@ -19,9 +19,6 @@ void Bot::handleIncoming(const char* data, ssize_t len)
             line.erase(line.size() - 1);
         if (line.empty())
             continue;
-
-        std::cout << "[SERVER] " << line << std::endl;   // debug
-
         ParsedLine parsed = parseLine(line);
         this->dispatchCommand(parsed);
     }
@@ -99,8 +96,6 @@ void Bot::handleFileSend(const std::string& sender, const std::string& text)
     t.expectedSize = size;
     t.expectedcrc32 = crc32;
     this->_pendingTransfers[transferId] = t;
-
-    std::cout << sender << " wants to send " << filename << " (" << size << " bytes)" << std::endl;
 }
 
 void Bot::startFileTransfer(const std::string& targetNick, const std::string& filepath)
@@ -138,27 +133,26 @@ void Bot::startFileTransfer(const std::string& targetNick, const std::string& fi
     this->sendRaw("PRIVMSG " + targetNick + " :" + endMsg.str() + "\r\n");
 }
 
-void Bot::connexion(std::string &password)
+void Bot::connection(std::string &password)
 {
     std::string realname = this->_nick + "_bot";
-    std::string connexion_pass = "PASS " + password + "\r\n";
-    std::string connexion_user = "USER " + this->_user + " 0 * :" + realname + "\r\n";
-    std::string connexion_nick = "NICK " + this->_nick + "\r\n";
+    std::string connection_pass = "PASS " + password + "\r\n";
+    std::string connection_user = "USER " + this->_user + " 0 * :" + realname + "\r\n";
+    std::string connection_nick = "NICK " + this->_nick + "\r\n";
     std::string test = "JOIN #test\r\n";
-    send(this->_fd, connexion_pass.c_str(), connexion_pass.size(), 0);
-    send(this->_fd, connexion_user.c_str(), connexion_user.size(), 0);
-    send(this->_fd, connexion_nick.c_str(), connexion_nick.size(), 0);
+    send(this->_fd, connection_pass.c_str(), connection_pass.size(), 0);
+    send(this->_fd, connection_user.c_str(), connection_user.size(), 0);
+    send(this->_fd, connection_nick.c_str(), connection_nick.size(), 0);
     send(this->_fd, test.c_str(), test.size(), 0);
 }
-#include <iostream>
+
 void Bot::dispatchCommand(const ParsedLine& parsed)
 {
-    if (!this->saidHello.empty() && parsed.command == "JOIN")//setup to welcome a new user
-    {   
-        std::cout << "A new user" << std::endl;
+    if (!this->saidHello.empty() && parsed.command == "JOIN")
+    {
         this->sendRaw("PRIVMSG #test :" + this->saidHello + "\r\n");
     }
-    else if (parsed.command != "PRIVMSG" || parsed.params.empty() || !parsed.hasTrailing)//others commands
+    else if (parsed.command != "PRIVMSG" || parsed.params.empty() || !parsed.hasTrailing)
         return;
     else
     {

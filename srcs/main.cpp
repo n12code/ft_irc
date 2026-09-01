@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lpalabos <lpalabos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 08:48:37 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/26 09:11:20 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/09/01 14:08:35 by lpalabos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@
 #include <sstream>
 #include <signal.h>
 #include <csignal>
-
-//check for private/protected/public scopes for classes,methods/functions,member variables
-//check for only necessary constructors and operators
-//check for good organisation of methods
-//check for const identifiers
-//check for references
-//check for const for return types and arguments
 
 volatile std::sig_atomic_t g_quit = 0;
 
