@@ -99,7 +99,7 @@ bonus:	all
 		$(MAKE) --no-print-directory --directory=$(BOT_DIR) all
 		./$(NAME) 6667 irc & sleep 5; ./$(BONUS_NAME) 127.0.0.1:6667 irc marc bob
 
-bonus_re: bonus_fclean bonus
+bonus_re: re
 		$(MAKE) --no-print-directory --directory=$(BOT_DIR) re
 
 bonus_fclean: fclean
