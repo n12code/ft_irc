@@ -6,6 +6,25 @@
 #include <cstring>
 #include <unistd.h>
 #include <sstream>
+#include <signal.h>
+#include <csignal>
+
+volatile std::sig_atomic_t g_quit = 0;
+
+void    handleSigInt(int sig)
+{
+    if (sig == SIGINT)
+        g_quit = 1;
+}   
+
+void    handleSignal()
+{
+    struct sigaction    sa = {};
+    sa.sa_handler = handleSigInt;
+    sa.sa_flags = 0;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGINT, &sa, NULL);
+}
 
 int parse_ip(const std::string& ip_port, std::string& ip, unsigned short& port)
 {
@@ -24,6 +43,8 @@ int parse_ip(const std::string& ip_port, std::string& ip, unsigned short& port)
 
 int main(int argc, char *argv[])
 {
+    handleSignal();
+
     if (argc != 5)
         return (-1);
 
@@ -50,7 +71,7 @@ int main(int argc, char *argv[])
     if (inet_pton(AF_INET, ip.c_str(), &addr.sin_addr) != 1)
     {
         std::cerr << "Invalid Ip Adress" << std::endl;
-        return (-1);
+        return (close(socketFd), -1);
     }
 
     if (::connect(socketFd, reinterpret_cast <sockaddr*> (&addr), sizeof(addr)) == -1)
@@ -58,7 +79,7 @@ int main(int argc, char *argv[])
         if (errno != EINPROGRESS)
         {
             std::cerr << "connect failed: " << strerror(errno) << std::endl;
-            return (-1);
+            return (close(socketFd), -1);
         }
     }
 
@@ -67,6 +88,8 @@ int main(int argc, char *argv[])
 
     while (true)
     {
+        if (g_quit)
+            return (close(socketFd), -1);
         char buff[4096];
         ssize_t bytes = recv(socketFd, buff, sizeof(buff), 0);
         if (bytes <= 0)
@@ -74,4 +97,5 @@ int main(int argc, char *argv[])
         bot.handleIncoming(buff, bytes);
     }
     close(socketFd);
+    return (0);
 }
