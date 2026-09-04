@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/09/04 08:15:25 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/09/04 08:17:46 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void ClientHandler::onReadable(int& fd)
             return ;    
         if (!this->_dispatcher.dispatch(fd, msg))
         {
-            std::string reason = "Leaving";
+            std::string reason = "leaving";
             if (!msg.getParams().empty())
                 reason = msg.getParams().at(0);
             this->broadcastQuit(fd, reason);
