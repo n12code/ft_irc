@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 11:28:53 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/26 08:17:58 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/09/04 08:15:25 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ void ClientHandler::onReadable(int& fd)
             return ;    
         if (!this->_dispatcher.dispatch(fd, msg))
         {
-            std::string reason = msg.getParams().at(0);
+            std::string reason = "Leaving";
+            if (!msg.getParams().empty())
+                reason = msg.getParams().at(0);
             this->broadcastQuit(fd, reason);
             this->onError(fd);
             msg.clearParsedData();
@@ -110,9 +112,7 @@ void ClientHandler::onWritable(int& fd)
     ssize_t  bytesSent = send(fd, buffer.c_str(), buffer.length(), 0);
     if (bytesSent == -1)
     {
-        if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR || errno == ENOBUFS)
-            return ;
-        std::cerr << "Warning: Client send error: " << strerror(errno) << std::endl;
+        std::cerr << "Warning: Client send error"<< std::endl;
         this->onError(fd); 
         return;
     }

@@ -6,7 +6,7 @@
 /*   By: nbodin <nbodin@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 11:41:17 by nbodin            #+#    #+#             */
-/*   Updated: 2026/06/26 08:18:39 by nbodin           ###   ########lyon.fr   */
+/*   Updated: 2026/09/04 07:31:06 by nbodin           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,21 @@ bool    Message::readMessage(int fd)
     char    buf[4096];
     try {
         Client& client = this->_clients.getClientWithFd(fd);
-        for (;;)
+        int bytes = read(fd, buf, sizeof(buf));
+        if (bytes > 0)
         {
-            int bytes = read(fd, buf, sizeof(buf));
-            if (bytes > 0)
-                client.appendToBuffer(client.getBuffer(), std::string(buf, bytes));
-            else if (bytes == 0)
-            {
-                std::cerr << "Warning: client (fd:" << client.getFd() << ") connection closed" << std::endl;
-                return (false);
-            }
-            else
-            {
-                if (errno == EAGAIN || errno == EWOULDBLOCK)
-                    return (true);
-                else if (errno == EINTR)
-                    continue;
-                else
-                {
-                    std::cerr << "Warning: error while reading client (fd:" << client.getFd() << "): " << strerror(errno) << std::endl;
-                    return (false);
-                }
-            }
+            client.appendToBuffer(client.getBuffer(), std::string(buf, bytes));
+            return (true);
+        }
+        else if (bytes == 0)
+        {
+            std::cerr << "Warning: client (fd:" << client.getFd() << ") connection closed" << std::endl;
+            return (false);
+        }
+        else
+        {
+            std::cerr << "Warning: error while reading client (fd:" << client.getFd() << ")" << std::endl;
+            return (false);
         }
     }
     catch (const std::exception& e) {
